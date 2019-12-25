@@ -121,7 +121,7 @@ if __name__ == '__main__':
 
     model.add(tfe.keras.layers.Activation('sigmoid'))
     model.compile(optimizer=optimizers.SGD(lr=0.01) ,loss=tfe.keras.losses.MeanSquaredError())
-    model.fit(x_train,y_train, steps_per_epoch=200,epochs=2)
+    model.fit(x_train,y_train, epochs=20)
 
 
 
