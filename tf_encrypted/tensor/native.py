@@ -160,6 +160,9 @@ def native_factory(NATIVE_TYPE, EXPLICIT_MODULUS=None):  # pylint: disable=inval
       if isinstance(x, int):
         return y.factory.tensor(np.array([x])), y
 
+    if isinstance(x, AbstractTensor) and isinstance(y, AbstractTensor):     #modified by qizhi.zqz
+      return x, y
+
     raise TypeError("Don't know how to lift {} {}".format(type(x), type(y)))
 
   class Tensor(AbstractTensor):
@@ -291,7 +294,7 @@ def native_factory(NATIVE_TYPE, EXPLICIT_MODULUS=None):  # pylint: disable=inval
     def gather(self, indices: list, axis: int = 0):
       return DenseTensor(tf.gather(self.value, indices, axis=axis))
 
-    def split(self, num_split: Union[int, list], axis: int = 0):
+    def split(self, num_split: Union[int,tf.Tensor, list], axis: int = 0):
       values = tf.split(self.value, num_split, axis=axis)
       return [DenseTensor(value) for value in values]
 
@@ -339,6 +342,9 @@ def native_factory(NATIVE_TYPE, EXPLICIT_MODULUS=None):  # pylint: disable=inval
 
     def right_shift(self, bitlength):
       return DenseTensor(tf.bitwise.right_shift(self.value, bitlength))
+
+    def left_shift(self, bitlength):                                    # add by qizhi.zqz
+      return DenseTensor(tf.bitwise.left_shift(self.value, bitlength))
 
     def expand_dims(self, axis: Optional[int] = None):
       return DenseTensor(tf.expand_dims(self.value, axis))
