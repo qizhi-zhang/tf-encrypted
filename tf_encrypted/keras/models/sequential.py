@@ -143,6 +143,33 @@ class Sequential(Layer):
     sess = KE.get_session()
     self._current_loss = sess.run(loss.reveal())
 
+  # def fit(self, x, y, epochs=1, steps_per_epoch=1):
+  #   """Trains the model for a given number of epochs
+  #   (iterations on a dataset).
+  #
+  #   Arguments:
+  #     x: Private tensor of training data
+  #     y: Private tensor of target (label) data
+  #     epochs: Integer. Number of epochs to train the model.
+  #     steps_per_epoch: Integer. Total number of steps (batches of samples)
+  #       before declaring one epoch finished and starting the next epoch.
+  #   """
+  #   assert isinstance(x, PondPrivateTensor), type(value)
+  #   assert isinstance(y, PondPrivateTensor), type(value)
+  #
+  #   # Initialize variables before starting to train
+  #   sess = KE.get_session()
+  #   sess.run(tf.global_variables_initializer())
+  #
+  #   for e in range(epochs):
+  #     print('Epoch {}/{}'.format(e + 1, epochs))
+  #     batch_size = x.shape.as_list()[0]
+  #     progbar = utils.Progbar(batch_size * steps_per_epoch)
+  #     for _ in range(steps_per_epoch):
+  #       self.fit_batch(x, y)
+  #       progbar.add(batch_size, values=[("loss", self._current_loss)])
+
+
   def fit(self, x, y, epochs=1, steps_per_epoch=1):
     """Trains the model for a given number of epochs
     (iterations on a dataset).
@@ -153,6 +180,7 @@ class Sequential(Layer):
       epochs: Integer. Number of epochs to train the model.
       steps_per_epoch: Integer. Total number of steps (batches of samples)
         before declaring one epoch finished and starting the next epoch.
+
     """
     assert isinstance(x, PondPrivateTensor), type(value)
     assert isinstance(y, PondPrivateTensor), type(value)
@@ -161,12 +189,19 @@ class Sequential(Layer):
     sess = KE.get_session()
     sess.run(tf.global_variables_initializer())
 
+    batch_size=x.shape.as_list()[0]//steps_per_epoch
+    split_list=[batch_size]*steps_per_epoch +[x.shape.as_list()[0]-batch_size*steps_per_epoch]
+
+    x_batch_list=x.prot.split(x, split_list)
+    y_batch_list=y.prot.split(y, split_list)
+
     for e in range(epochs):
       print('Epoch {}/{}'.format(e + 1, epochs))
-      batch_size = x.shape.as_list()[0]
+      #batch_size = x.shape.as_list()[0]
       progbar = utils.Progbar(batch_size * steps_per_epoch)
-      for _ in range(steps_per_epoch):
-        self.fit_batch(x, y)
+      #for _ in range(steps_per_epoch):
+      for (x_batch, y_batch) in zip(x_batch_list, y_batch_list):
+        self.fit_batch(x_batch, y_batch)
         progbar.add(batch_size, values=[("loss", self._current_loss)])
 
 
