@@ -22,6 +22,14 @@ def tanh(x):
 def linear(x):
   return x
 
+#---------------qizhi.zqz----------------------------------------
+def relu_deriv(y, d_y):
+    """Computes derive relu of x element-wise"""
+    return d_y * get_protocol().is_negative(get_protocol().negative(y))
+
+#--------------------------------qizhi.zqz----------------------
+
+
 def get(identifier):
   """get the activation function"""
   if identifier is None:
@@ -45,7 +53,8 @@ def get_deriv(identifier):
                               'function instead of calling directly '
                               'the activation function.')
   if isinstance(identifier, str):
-    activations = {"sigmoid": sigmoid_deriv}
+    #activations = {"sigmoid": sigmoid_deriv}                      # - by qizhi.zqz
+    activations = {"sigmoid": sigmoid_deriv, "relu": relu_deriv}   # + by qizhi.zqz
     if identifier not in activations.keys():
       raise NotImplementedError('Activation function {} not yet implemented '
                                 'during training'.format(identifier))
