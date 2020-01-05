@@ -1,5 +1,5 @@
 # pylint: disable=missing-docstring
-import unittest
+#import unittest
 
 import numpy as np
 import tensorflow as tf
@@ -11,24 +11,42 @@ import tf_encrypted as tfe
 from tf_encrypted.protocol.pond import PondPublicTensor,PondPrivateTensor
 from tf_encrypted.tensor import int64factory, int100factory, native_factory
 from tf_encrypted.tensor import fixed100, fixed100_ni
-from .morse import Morse, cycle_rshift_tensor1 as cycle_rshift_tensor
-from .morse import cycle_rshift, cycle_lshift
+from morse import Morse, cycle_rshift_tensor1 as cycle_rshift_tensor
+from morse import cycle_rshift, cycle_lshift
 from tf_encrypted.tensor.native import AbstractTensor
+import sys
+
+
+
+if len(sys.argv) >= 2:
+  # config file was specified
+  config_file = sys.argv[1]
+  config = tfe.RemoteConfig.load(config_file)
+else:
+  # default to using local config
+  config = tfe.LocalConfig([
+      'server0',
+      'server1',
+      'server2',
+      'XOwner',
+      'YOwner'
+  ])
+tfe.set_config(config)
+players = ['server0', 'server1', 'server2']
+morse = Morse(*tfe.get_config().get_players(players))
+tfe.set_protocol(morse)
+session_target = sys.argv[2] if len(sys.argv) > 2 else None
 
 
 
 
 
-
-
-
-
-class TestMorse(unittest.TestCase):
+class TestMorse():
 
   def test_encode(self):
 
     with tf.Graph().as_default():
-      prot = tfe.protocol.Pond()
+
 
       # expected = np.array([1234567.9875])
       # x = prot.define_constant(expected)
@@ -36,7 +54,7 @@ class TestMorse(unittest.TestCase):
       # print("x.backing_dtype:", x.backing_dtype)
       # print("x.value_on_0.factory",x.value_on_0.factory)
 
-      morse=Morse()
+      #morse=Morse()
 
       ZZ128=native_factory(np.int32, 128)
 
@@ -118,7 +136,7 @@ class TestMorse(unittest.TestCase):
 
 
 
-class Testgeq0(unittest.TestCase):
+class Testgeq0():
     def test_geq0(self):
         ZZ128 = native_factory(np.int32, 128)
         x = np.array(range(-50, 50)).reshape(20,5)
@@ -126,7 +144,7 @@ class Testgeq0(unittest.TestCase):
 
 
 
-        morse = Morse()
+        #morse = Morse()
 
 
         zero=ZZ128.tensor(np.zeros_like(x))
@@ -182,6 +200,7 @@ class Testgeq0(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
-
+    #unittest.main()
+    test_geq0=Testgeq0()
+    test_geq0.test_geq0()
 
