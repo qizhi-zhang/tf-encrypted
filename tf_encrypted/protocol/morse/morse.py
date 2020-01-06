@@ -231,7 +231,7 @@ class Morse(SecureNN):
             ZZ2 = native_factory(np.int32, EXPLICIT_MODULUS=2)
             y = ZZ2.tensor(y.to_native())
 
-        #print("x_bits_plus_ones_onehot:", x_bits_plus_ones_onehot)
+        #print("x_bits_or_ones_onehot:", x_bits_or_ones_onehot)
         #print("y:", y)
         left_leq_right=self.random_assistant_OT(x_bits_or_ones_onehot, y)
         return left_leq_right
@@ -251,7 +251,10 @@ class Morse(SecureNN):
 
             ones_plusdim=tf.expand_dims(ones,-1)*tf.expand_dims(ones,-2)
             upper_onesL=tf.linalg.band_part(ones_plusdim,num_lower=0,num_upper=-1)
-            upper_onesL=x.factory.tensor(upper_onesL)
+
+            ZZ = native_factory(np.int32, output_modulus)
+
+            upper_onesL=ZZ.tensor(upper_onesL)
 
             """
             1, 1, 1
@@ -261,8 +264,10 @@ class Morse(SecureNN):
 
 
 
+
+
             diff_matrixL = 2 * tf.linalg.diag(ones) -tf.linalg.band_part(ones_plusdim, num_lower=0, num_upper=1)
-            diff_matrixL=x.factory.tensor(diff_matrixL)
+            diff_matrixL=ZZ.tensor(diff_matrixL)
 
             """
              1,-1, 0, 0
@@ -275,34 +280,40 @@ class Morse(SecureNN):
 
         with tf.device(self.server_1.device_name):
             y_bits=y.bits()    # 从低位到高位
+
             ny_bits=1-y_bits
 
             ones = tf.ones_like(y_bits.to_native())
             ones_plusdim = tf.expand_dims(ones, -1) * tf.expand_dims(ones, -2)
             upper_onesR = tf.linalg.band_part(ones_plusdim, num_lower=0, num_upper=-1)
-            upper_onesR =y.factory.tensor(upper_onesR)
+            upper_onesR =ZZ.tensor(upper_onesR)
 
             diff_matrixR = 2 * tf.linalg.diag(ones) - tf.linalg.band_part(ones_plusdim, num_lower=0, num_upper=1)
-            diff_matrixR= y.factory.tensor(diff_matrixR)
 
-        left_leq_right_bits=self.left_leq_right_bits(x_bits, y_bits, output_modulus)
+            ZZ = native_factory(np.int32, output_modulus)
+            diff_matrixR= ZZ.tensor(diff_matrixR)
 
+        #left_leq_right_bits=self.left_leq_right_bits(x_bits, y_bits, output_modulus)
+        #print("x_bits=", x_bits) #(20,5,10)
+        left_leq_right_bits = self.left_leq_right_bits(x_bits, y_bits, output_modulus=output_modulus)
 
-        left_neq_right_bits=self.left_equal_right_bits(x_bits, ny_bits,output_modulus)
-        left_neq_right_bits_expand=left_neq_right_bits.expand_dims(axis=-1)
-        #lower_ones=PondPublicTensor(self, value_on_0=lower_onesL, value_on_1=lower_onesR, is_scaled=False)
-        #diff_matrix=PondPublicTensor(self, value_on_0=diff_matrixL, value_on_1=diff_matrixR, is_scaled=False)
+        # left_neq_right_bits=self.left_equal_right_bits(x_bits, ny_bits,output_modulus)
+        left_neq_right_bits = self.left_equal_right_bits(x_bits, ny_bits, output_modulus=output_modulus)
 
+        left_neq_right_bits_expand = left_neq_right_bits.expand_dims(axis=-1)
+        # lower_ones=PondPublicTensor(self, value_on_0=lower_onesL, value_on_1=lower_onesR, is_scaled=False)
+        # diff_matrix=PondPublicTensor(self, value_on_0=diff_matrixL, value_on_1=diff_matrixR, is_scaled=False)
 
         with tf.device(self.server_0.device_name):
+
             accumulated_neqL = upper_onesL.matmul(left_neq_right_bits_expand.share0)
 
+
         with tf.device(self.server_1.device_name):
-            accumulated_neqR = upper_onesR.matmul(left_neq_right_bits_expand.share1)  #  2,2,2, 1, 1, 1, 0, 0, 0
+            accumulated_neqR = upper_onesR.matmul(left_neq_right_bits_expand.share1)  # 2,2,2, 1, 1, 1, 0, 0, 0
 
-        #--------------------------------------------------------------------
+        # --------------------------------------------------------------------
 
-        #accumulated_neq=lower_ones.matmul(left_neq_right_bits)  # 0,0,0,1, 1, 1,1, 2,2,2,...
         accumulated_neq=PondPrivateTensor(self, share0=accumulated_neqL, share1=accumulated_neqR, is_scaled=False)
 
         print("accumulated_neq:",accumulated_neq)

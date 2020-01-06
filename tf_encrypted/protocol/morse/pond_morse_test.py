@@ -187,7 +187,7 @@ class Testgeq0():
             xgeq0=sess.run(xgeq0_sercurNN.unwrapped)
             print( (np.array(xgeq0[0])+np.array(xgeq0[1]))%2)
             time1 = datetime.datetime.now()
-            print((time1 - time0).microseconds)
+            print((time1 - time0).total_seconds())
 
 
             print("x>=0 Morse")
@@ -195,7 +195,7 @@ class Testgeq0():
             xgeq0=sess.run(xgeq0_morse.unwrapped)
             print( (np.array(xgeq0[0])+np.array(xgeq0[1]))%2)
             time1 = datetime.datetime.now()
-            print((time1 - time0).microseconds)
+            print((time1 - time0).total_seconds())
 
 
 
