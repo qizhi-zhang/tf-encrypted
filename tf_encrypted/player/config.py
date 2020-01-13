@@ -9,7 +9,7 @@ from pathlib import Path
 import tensorflow as tf
 from tensorflow.core.protobuf import rewriter_config_pb2
 
-from .player import Player
+from player import Player
 
 logger = logging.getLogger('tf_encrypted')
 

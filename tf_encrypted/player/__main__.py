@@ -3,6 +3,7 @@ import logging
 
 from tf_encrypted.config import RemoteConfig
 
+
 if __name__ == '__main__':
 
   logging.basicConfig()
@@ -18,7 +19,7 @@ if __name__ == '__main__':
                       default='./config.json',
                       help='path to configuration file')
   args = parser.parse_args()
-
   config = RemoteConfig.load(args.config)
+  #config = RemoteConfig.load(args.config, job_name='tfe1')
   server = config.server(args.name, start=True)
   server.join()
