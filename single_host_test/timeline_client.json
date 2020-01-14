@@ -29,7 +29,7 @@
             "ph": "M",
             "pid": 3,
             "args": {
-                "name": "/job:ps/replica:0/task:0/device:CPU:0 Compute"
+                "name": "/job:worker/replica:0/task:1/device:CPU:0 Compute"
             }
         },
         {
@@ -37,7 +37,7 @@
             "ph": "M",
             "pid": 4,
             "args": {
-                "name": "/job:ps/replica:0/task:0/device:CPU:0 Tensors"
+                "name": "/job:worker/replica:0/task:1/device:CPU:0 Tensors"
             }
         },
         {
@@ -45,7 +45,7 @@
             "ph": "M",
             "pid": 5,
             "args": {
-                "name": "/job:worker/replica:0/task:1/device:CPU:0 Compute"
+                "name": "/job:ps/replica:0/task:0/device:CPU:0 Compute"
             }
         },
         {
@@ -53,7 +53,7 @@
             "ph": "M",
             "pid": 6,
             "args": {
-                "name": "/job:worker/replica:0/task:1/device:CPU:0 Tensors"
+                "name": "/job:ps/replica:0/task:0/device:CPU:0 Tensors"
             }
         },
         {
@@ -110,8 +110,8 @@
             "name": "RecvTensor",
             "pid": 7,
             "tid": 0,
-            "ts": 1578906108771153,
-            "dur": 129,
+            "ts": 1578925575550436,
+            "dur": 87,
             "args": {
                 "name": "RecvTensor",
                 "op": "RecvTensor"
@@ -123,8 +123,8 @@
             "name": "RecvTensor",
             "pid": 7,
             "tid": 1,
-            "ts": 1578906108771158,
-            "dur": 127,
+            "ts": 1578925575550442,
+            "dur": 100,
             "args": {
                 "name": "RecvTensor",
                 "op": "RecvTensor"
@@ -136,34 +136,8 @@
             "name": "RecvTensor",
             "pid": 7,
             "tid": 0,
-            "ts": 1578906108776430,
-            "dur": 148,
-            "args": {
-                "name": "RecvTensor",
-                "op": "RecvTensor"
-            }
-        },
-        {
-            "ph": "X",
-            "cat": "Op",
-            "name": "RecvTensor",
-            "pid": 11,
-            "tid": 0,
-            "ts": 1578906108775581,
-            "dur": 150,
-            "args": {
-                "name": "RecvTensor",
-                "op": "RecvTensor"
-            }
-        },
-        {
-            "ph": "X",
-            "cat": "Op",
-            "name": "RecvTensor",
-            "pid": 11,
-            "tid": 0,
-            "ts": 1578906108776276,
-            "dur": 108,
+            "ts": 1578925575551076,
+            "dur": 135,
             "args": {
                 "name": "RecvTensor",
                 "op": "RecvTensor"
@@ -175,8 +149,8 @@
             "name": "RecvTensor",
             "pid": 9,
             "tid": 0,
-            "ts": 1578906108771964,
-            "dur": 170,
+            "ts": 1578925575550624,
+            "dur": 153,
             "args": {
                 "name": "RecvTensor",
                 "op": "RecvTensor"
@@ -188,8 +162,34 @@
             "name": "RecvTensor",
             "pid": 9,
             "tid": 1,
-            "ts": 1578906108771970,
-            "dur": 221,
+            "ts": 1578925575550742,
+            "dur": 126,
+            "args": {
+                "name": "RecvTensor",
+                "op": "RecvTensor"
+            }
+        },
+        {
+            "ph": "X",
+            "cat": "Op",
+            "name": "RecvTensor",
+            "pid": 11,
+            "tid": 0,
+            "ts": 1578925575550598,
+            "dur": 109,
+            "args": {
+                "name": "RecvTensor",
+                "op": "RecvTensor"
+            }
+        },
+        {
+            "ph": "X",
+            "cat": "Op",
+            "name": "RecvTensor",
+            "pid": 11,
+            "tid": 0,
+            "ts": 1578925575550911,
+            "dur": 120,
             "args": {
                 "name": "RecvTensor",
                 "op": "RecvTensor"
@@ -201,7 +201,7 @@
             "name": "NoOp",
             "pid": 7,
             "tid": 0,
-            "ts": 1578906108770832,
+            "ts": 1578925575550161,
             "dur": 3,
             "args": {
                 "name": "_SOURCE",
@@ -214,7 +214,7 @@
             "name": "MatMul",
             "pid": 7,
             "tid": 0,
-            "ts": 1578906108771316,
+            "ts": 1578925575550586,
             "dur": 8,
             "args": {
                 "name": "MatMul",
@@ -229,7 +229,7 @@
             "name": "NoOp",
             "pid": 9,
             "tid": 0,
-            "ts": 1578906108771000,
+            "ts": 1578925575550316,
             "dur": 3,
             "args": {
                 "name": "_SOURCE",
@@ -242,8 +242,8 @@
             "name": "MatMul",
             "pid": 9,
             "tid": 0,
-            "ts": 1578906108772251,
-            "dur": 4,
+            "ts": 1578925575550891,
+            "dur": 13,
             "args": {
                 "name": "MatMul_1",
                 "op": "MatMul",
@@ -257,8 +257,8 @@
             "name": "NoOp",
             "pid": 11,
             "tid": 0,
-            "ts": 1578906108771089,
-            "dur": 2,
+            "ts": 1578925575550309,
+            "dur": 3,
             "args": {
                 "name": "_SOURCE",
                 "op": "NoOp"
@@ -270,7 +270,33 @@
             "name": "VariableV2",
             "pid": 11,
             "tid": 0,
-            "ts": 1578906108771101,
+            "ts": 1578925575550323,
+            "dur": 9,
+            "args": {
+                "name": "w",
+                "op": "VariableV2"
+            }
+        },
+        {
+            "ph": "X",
+            "cat": "Op",
+            "name": "Const",
+            "pid": 11,
+            "tid": 0,
+            "ts": 1578925575550343,
+            "dur": 8,
+            "args": {
+                "name": "concat/axis",
+                "op": "Const"
+            }
+        },
+        {
+            "ph": "X",
+            "cat": "Op",
+            "name": "VariableV2",
+            "pid": 11,
+            "tid": 1,
+            "ts": 1578925575550325,
             "dur": 7,
             "args": {
                 "name": "input_data",
@@ -283,25 +309,12 @@
             "name": "Identity",
             "pid": 11,
             "tid": 0,
-            "ts": 1578906108771110,
-            "dur": 2,
+            "ts": 1578925575550387,
+            "dur": 6,
             "args": {
-                "name": "input_data/read",
+                "name": "w/read",
                 "op": "Identity",
-                "input0": "input_data"
-            }
-        },
-        {
-            "ph": "X",
-            "cat": "Op",
-            "name": "VariableV2",
-            "pid": 11,
-            "tid": 1,
-            "ts": 1578906108771095,
-            "dur": 19,
-            "args": {
-                "name": "w",
-                "op": "VariableV2"
+                "input0": "w"
             }
         },
         {
@@ -310,44 +323,31 @@
             "name": "Identity",
             "pid": 11,
             "tid": 0,
-            "ts": 1578906108771117,
-            "dur": 2,
+            "ts": 1578925575550395,
+            "dur": 7,
             "args": {
-                "name": "w/read",
+                "name": "input_data/read",
                 "op": "Identity",
-                "input0": "w"
+                "input0": "input_data"
             }
         },
         {
             "ph": "s",
             "cat": "DataFlow",
-            "name": "w",
+            "name": "input_data",
             "pid": 11,
             "tid": 1,
-            "ts": 1578906108771114,
+            "ts": 1578925575550332,
             "id": 0
         },
         {
             "ph": "t",
             "cat": "DataFlow",
-            "name": "w",
+            "name": "input_data",
             "pid": 11,
             "tid": 0,
-            "ts": 1578906108771117,
+            "ts": 1578925575550395,
             "id": 0
-        },
-        {
-            "ph": "X",
-            "cat": "Op",
-            "name": "Const",
-            "pid": 11,
-            "tid": 1,
-            "ts": 1578906108771117,
-            "dur": 4,
-            "args": {
-                "name": "concat/axis",
-                "op": "Const"
-            }
         },
         {
             "ph": "X",
@@ -355,8 +355,8 @@
             "name": "Split",
             "pid": 11,
             "tid": 0,
-            "ts": 1578906108771122,
-            "dur": 9,
+            "ts": 1578925575550406,
+            "dur": 12,
             "args": {
                 "name": "split",
                 "op": "Split",
@@ -365,31 +365,13 @@
             }
         },
         {
-            "ph": "s",
-            "cat": "DataFlow",
-            "name": "concat/axis",
-            "pid": 11,
-            "tid": 1,
-            "ts": 1578906108771121,
-            "id": 1
-        },
-        {
-            "ph": "t",
-            "cat": "DataFlow",
-            "name": "concat/axis",
-            "pid": 11,
-            "tid": 0,
-            "ts": 1578906108771122,
-            "id": 1
-        },
-        {
             "ph": "X",
             "cat": "Op",
             "name": "ConcatV2",
             "pid": 11,
             "tid": 0,
-            "ts": 1578906108776411,
-            "dur": 14,
+            "ts": 1578925575551056,
+            "dur": 13,
             "args": {
                 "name": "concat",
                 "op": "ConcatV2",
@@ -397,24 +379,6 @@
                 "input1": "MatMul_1_S15",
                 "input2": "concat/axis"
             }
-        },
-        {
-            "ph": "s",
-            "cat": "DataFlow",
-            "name": "concat/axis",
-            "pid": 11,
-            "tid": 1,
-            "ts": 1578906108771121,
-            "id": 2
-        },
-        {
-            "ph": "t",
-            "cat": "DataFlow",
-            "name": "concat/axis",
-            "pid": 11,
-            "tid": 0,
-            "ts": 1578906108776411,
-            "id": 2
         }
     ]
 }
