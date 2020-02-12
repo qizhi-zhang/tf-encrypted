@@ -21,22 +21,22 @@ def main():
     ps_hosts = FLAGS.ps_hosts.split(",")
     worker_hosts = FLAGS.worker_hosts.split(",")
 
-    '''
-    下面两行代码，对于所有节点来说是一样的
-    '''
-    # create cluster, 创建集群信息
-    cluster = tf.train.ClusterSpec({"ps": ps_hosts, "worker": worker_hosts})
-    # create the server， 在当前节点上启动server，并传入集群信息，这样当前节点就可以和集群中的节点通信了
-    server = tf.train.Server(cluster, job_name=FLAGS.job_name, task_index=FLAGS.task_index)
-    print("server.target:", server.target)
-    # server.join()
 
 
 
 
     with tf.variable_scope("new2"):
 
+
         if FLAGS.job_name == 'ps':
+
+            # create cluster, 创建集群信息
+            cluster = tf.train.ClusterSpec({"ps": ps_hosts, "worker": worker_hosts})
+            # create the server， 在当前节点上启动server，并传入集群信息，这样当前节点就可以和集群中的节点通信了
+            server = tf.train.Server(cluster, job_name=FLAGS.job_name, task_index=FLAGS.task_index)
+            print("server.target:", server.target)
+            # server.join()
+
             server.join()
         else:
             with tf.device('/job:ps/task:0/cpu:0'):
@@ -62,8 +62,7 @@ def main():
 
                 init_op = tf.global_variables_initializer()
                 sess.run(init_op)
-                for i in range(10000):
-                    print(sess.run(output))
+                print(sess.run(output))
 
 
 if __name__ == "__main__":

@@ -9,8 +9,8 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 from tensorflow.python.client import timeline
 
-tf.app.flags.DEFINE_string("ps_hosts", "localhost:2222", "ps hosts")
-tf.app.flags.DEFINE_string("worker_hosts", "localhost:2223", "worker hosts")
+tf.app.flags.DEFINE_string("ps_hosts", "morse_tfe_ps:2222", "ps hosts")
+tf.app.flags.DEFINE_string("worker_hosts", "morse_tfe_worker:2223", "worker hosts")
 tf.app.flags.DEFINE_string("job_name", "worker", "'ps' or'worker'")
 tf.app.flags.DEFINE_integer("task_index", 0, "Index of task within the job")
 
@@ -26,8 +26,10 @@ def main():
     '''
     # create cluster, 创建集群信息
     cluster = tf.train.ClusterSpec({"ps": ps_hosts, "worker": worker_hosts})
+    print("cluster:", cluster)
     # create the server， 在当前节点上启动server，并传入集群信息，这样当前节点就可以和集群中的节点通信了
     server = tf.train.Server(cluster, job_name=FLAGS.job_name, task_index=FLAGS.task_index)
+
     print("server.target:", server.target)
     # server.join()
 
@@ -38,6 +40,7 @@ def main():
 
         if FLAGS.job_name == 'ps':
             server.join()
+            #print("ps")
         else:
             with tf.device('/job:ps/task:0/cpu:0'):
                 print([n.name for n in tf.get_default_graph().as_graph_def().node])
@@ -62,8 +65,7 @@ def main():
 
                 init_op = tf.global_variables_initializer()
                 sess.run(init_op)
-                for i in range(10000):
-                    print(sess.run(output))
+                print(sess.run(output))
 
 
 if __name__ == "__main__":
