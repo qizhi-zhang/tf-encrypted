@@ -161,12 +161,12 @@ if __name__=='__main__':
 
 
     # test start_server
-    # data={"task_id":  "qqq", "XOwner" : "127.0.0.1:5677", "YOwner" : "127.0.0.1:5678", "RS" : "127.0.0.1:5679", "Player": "XOwner"}
+    # data={"taskId":  "qqq", "XOwner" : "127.0.0.1:5677", "YOwner" : "127.0.0.1:5678", "RS" : "127.0.0.1:5679", "Player": "XOwner"}
     #
     # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/start_server",json_data=json.dumps(data))
     # print(x)
 
     # test kill server
-    data={"task_id":  "qqq"}
+    data={"taskId":  "qqq"}
     x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/kill_server",json_data=json.dumps(data))
     print(x)

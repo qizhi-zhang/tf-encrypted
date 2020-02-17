@@ -79,7 +79,7 @@ def start_server():
         print("request:",request)
         request_params = request.json
         print("request_params:",request_params)
-        task_id = request_params.get('task_id')
+        task_id = request_params.get('taskId')
         print("task_id:", task_id)
         RS_iphost = request_params.get('RS')
         print("RS_iphost:",RS_iphost)
@@ -133,11 +133,63 @@ def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
 
 
 
+@tfe_keeper.route('/train', methods=['GET', 'POST'])
+def train():
+    """
+    input:
+        taskId,algorithm,conf,modelFileMachine,modelFilePath
+    :return:
+        state,
+        errorCode,
+        errorMsg
+    """
+
+
+    print("train")
+    try:
+        print("request:",request)
+        request_params = request.json
+        print("request_params:",request_params)
+        task_id = request_params.get('task_id')
+        print("task_id:", task_id)
+
+
+        state=True
+        errorCode=0
+        errorMsg=""
+        return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+    except Exception as e:
+        print(e)
+        return e
+
+
+def _train_lr(taskId,conf,modelFileMachine,modelFilePath):
+    """
+
+    :param taskId:
+    :param algorithm:
+    :param conf:
+    :param modelFileMachine:
+    :param modelFilePath:
+    :return:
+    """
+
+
+
+
+
+
+
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])
 def kill_server():
     """
+    iuput: taskId
+
 
     :return:
+    state,
+    errorCode,
+    errorMsg
     """
 
     print("kill_server")
@@ -145,7 +197,7 @@ def kill_server():
         print("request:",request)
         request_params = request.json
         print("request_params:",request_params)
-        task_id = request_params.get('task_id')
+        task_id = request_params.get('taskId')
         print("task_id:", task_id)
 
         with open('./{task_id}/pid'.format(task_id=task_id), 'r') as f:
