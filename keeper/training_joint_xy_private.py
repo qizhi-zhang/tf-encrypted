@@ -1,8 +1,10 @@
 """Private training on combined data from several data owners"""
 import tf_encrypted as tfe
 import tensorflow as tf
+import json
 #from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
-from common_private import  LogisticRegression, XOwner, YOwner
+from .common_private import  LogisticRegression
+from .read_data_tf import get_data, get_data
 from sklearn.utils import shuffle
 from sklearn.preprocessing import OneHotEncoder
 import argparse
@@ -11,18 +13,48 @@ import time
 
 
 
-def run(input):
-    batch_size = 100
-    epoch_num=2
+def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
+    trainParams=conf.get("trainParams")
+
+    batch_size = int(trainParams.get("batchSize"))
+    epoch_num= int(trainParams.get("maxIter"))
+    epsilon = float(trainParams.get("epsilon"))
+    regularizationL1=float(trainParams.get("regularizationL1"))
+    regularizationL2=float(trainParams.get("regularizationL2"))
 
 
-    #data_owner_0 = XOwner(   batch_size )
-    #data_owner_1 = YOwner( batch_size )
 
-    #train_batch_num = epoch_num*data_owner_0.sample_num// batch_size
-    train_batch_num=100
-    #test_batch_num = data_owner_0.test_sample_num // batch_size
-    test_batch_num=30
+
+    dataSet=conf.get("dataSet")
+    node_id1=dataSet.get("node_id1")
+    node_id2=dataSet.get("node_id2")
+
+    print("node1_containY:",node_id1.get("isContainY"))
+
+    if (node_id1.get("isContainY")==True):
+        featureNumX = int(node_id2.get("featureNum"))
+        matchColNumX = int(node_id2.get("matchColNum"))
+        path_x= node_id2.get("storagePath")
+        record_num=int(node_id2.get("fileRecord"))
+
+        featureNumY = int(node_id1.get("featureNum"))
+        matchColNumY = int(node_id1.get("matchColNum"))
+        path_y= node_id1.get("storagePath")
+    else:
+        assert node_id2.get("isContainY")==True
+        featureNumY = int(node_id2.get("featureNum"))
+        matchColNumY = int(node_id2.get("matchColNum"))
+        path_y= node_id2.get("storagePath")
+        record_num=int(node_id2.get("fileRecord"))
+
+        featureNumX = int(node_id1.get("featureNum"))
+        matchColNumX = int(node_id1.get("matchColNum"))
+        path_x= node_id1.get("storagePath")
+
+    train_batch_num=epoch_num*record_num//batch_size
+
+
+
 
     if len(sys.argv) >= 2:
       # config file was specified
@@ -50,26 +82,25 @@ def run(input):
     # ))
 
     @tfe.local_computation("XOwner")
-    def provide_training_data(path):
-        """Preprocess training dataset
-
-        Return single batch of training dataset
-        """
-        train_x = get_embed_op_5w_x(batch_size=self.batch_size, test_flag=False)
+    def provide_training_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
+        train_x = get_data(64, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1, with_label=False)
         return train_x
-    x_train = data_owner_0.provide_training_data()
-    y_train = data_owner_1.provide_training_data()
 
-    x_test = data_owner_0.provide_testing_data()
-    y_test = data_owner_1.provide_testing_data()
+    @tfe.local_computation("YOwner")
+    def provide_training_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+        train_y = get_data(64, path, featureNum=0, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1,with_label=True)
+        return train_y
+
+    x_train = provide_training_data_x(path_x)
+    y_train = provide_training_data_y(path_y)
+
 
 
 
     print("x_train:", x_train)
     print("y_train:", y_train)
 
-    print("x_test:", x_test)
-    print("y_test:", y_test)
+
 
 
 
@@ -90,11 +121,20 @@ def run(input):
       #sess.run(reveal_weights_op, tag='reveal')
 
 if __name__=='__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--lr', type=float, default=1E-2)
-    parser.add_argument('--batch_size', type=int, default=128)
-    parser.add_argument('--regularizationL2', type=float, default=1E-3)
-    parser.add_argument('--maxIter', type=int, default=5000)
-    #parser.add_argument('--used_data_percent', type=float, default=1.0)
-
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('--lr', type=float, default=1E-2)
+    # parser.add_argument('--epoch', type=int, default=10)
+    # parser.add_argument('--batch_size', type=int, default=128)
+    # parser.add_argument('--regularizationL2', type=float, default=1E-3)
+    # parser.add_argument('--maxIter', type=int, default=5000)
+    # #parser.add_argument('--used_data_percent', type=float, default=1.0)
+    #
+    # args = parser.parse_args()
+    with open('./qqq/conf', 'r') as f:
+        conf=f.read()
+        print(conf)
+    conf=conf.replace("True","true").replace("False","false")
+    #print(input)
+    conf=json.loads(conf)
+    print(conf)
+    print(conf.get("trainParams").get("learningRate"))

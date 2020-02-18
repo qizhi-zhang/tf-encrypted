@@ -152,6 +152,10 @@ def train():
         print("request_params:",request_params)
         task_id = request_params.get('task_id')
         print("task_id:", task_id)
+        algorithm = request_params.get('algorithm')
+        modelFileMachine = request_params.get('modelFileMachine')
+        modelFilePath = request_params.get('modelFilePath')
+
 
 
         state=True

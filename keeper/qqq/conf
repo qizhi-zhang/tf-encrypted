@@ -1,4 +1,4 @@
-conf_dict = {
+{
     "trainParams": {
         "learningRate": 0.01,
         "maxIter": 10,
@@ -7,15 +7,15 @@ conf_dict = {
         "regularizationL1": 0,
         "regularizationL2": 1.0,
         "solver": "tfe"
-    },
+                },
     "midMatchField": {
         "node_id1": ["id1", "date"],
         "node_id2": ["id2", "date_time"]
-    },
+                },
     "algorithm": "LR",
     "trainSetRate": 0.8,
     "positiveValue": 1,
-    },
+
     "nodes": {
         "node_id1": {
             "merchantAddressModular": "http://127.0.0.1",
@@ -30,15 +30,15 @@ conf_dict = {
         "node_id1": {
             "storagePath": "xxx.csv",
             "fileRecord": 300,
-            "isContainY": True  # 新增字段 是否是Y方，如有，label列在最后一列
-            "matchColNum": 2  # 匹配列，在最前面
-            "featureNum": 28  # 特征列（不含截距）
+            "isContainY": True,
+            "matchColNum": 2,
+            "featureNum": 28
         },
         "node_id2": {
             "storagePath": "xxx.csv",
             "fileRecord": 300,
-            "isContainY": False
-            "matchColNum": 2
+            "isContainY": False,
+            "matchColNum": 2,
             "featureNum": 4
         }
     }
