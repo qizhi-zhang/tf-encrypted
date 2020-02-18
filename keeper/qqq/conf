@@ -1,8 +1,8 @@
 {
     "trainParams": {
         "learningRate": 0.01,
-        "maxIter": 10,
-        "batchSize": 32,
+        "maxIter": 2,
+        "batchSize": 64,
         "epsilon": 0.0001,
         "regularizationL1": 0,
         "regularizationL2": 1.0,
@@ -28,18 +28,18 @@
     },
     "dataSet": {
         "node_id1": {
-            "storagePath": "xxx.csv",
-            "fileRecord": 300,
-            "isContainY": True,
-            "matchColNum": 2,
-            "featureNum": 28
-        },
-        "node_id2": {
-            "storagePath": "xxx.csv",
-            "fileRecord": 300,
+            "storagePath": "/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv",
+            "fileRecord": 50038,
             "isContainY": False,
             "matchColNum": 2,
-            "featureNum": 4
+            "featureNum": 291
+        },
+        "node_id2": {
+            "storagePath": "/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv",
+            "fileRecord": 50038,
+            "isContainY": True,
+            "matchColNum": 2,
+            "featureNum": 0
         }
     }
 }

@@ -3,8 +3,8 @@ import tf_encrypted as tfe
 import tensorflow as tf
 import json
 #from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
-from .common_private import  LogisticRegression
-from .read_data_tf import get_data, get_data
+from common_private import  LogisticRegression
+from read_data_tf import get_data_xy, get_data_x, get_data_y
 from sklearn.utils import shuffle
 from sklearn.preprocessing import OneHotEncoder
 import argparse
@@ -16,6 +16,7 @@ import time
 def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
     trainParams=conf.get("trainParams")
 
+    learningRate=float(trainParams.get("learningRate"))
     batch_size = int(trainParams.get("batchSize"))
     epoch_num= int(trainParams.get("maxIter"))
     epsilon = float(trainParams.get("epsilon"))
@@ -52,7 +53,7 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
         path_x= node_id1.get("storagePath")
 
     train_batch_num=epoch_num*record_num//batch_size
-
+    feature_num=featureNumX+featureNumY
 
 
 
@@ -83,16 +84,26 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
 
     @tfe.local_computation("XOwner")
     def provide_training_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
-        train_x = get_data(64, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1, with_label=False)
+        train_x = get_data_x(64, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
         return train_x
 
     @tfe.local_computation("YOwner")
     def provide_training_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
-        train_y = get_data(64, path, featureNum=0, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1,with_label=True)
+        train_y = get_data_y(64, path, matchColNum=matchColNumX, epoch=epoch_num,  skip_row_num=1)
         return train_y
 
-    x_train = provide_training_data_x(path_x)
-    y_train = provide_training_data_y(path_y)
+    @tfe.local_computation("YOwner")
+    def provide_training_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+        train_x, train_y = get_data_xy(64, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
+        return train_x, train_y
+
+    if (featureNumY==0):
+        x_train = provide_training_data_x(path_x)
+        y_train = provide_training_data_y(path_y)
+    else:
+        x_train1, y_train=provide_training_data_xy(path_y)
+        x_train0=provide_training_data_x(path_x)
+        x_train=prot.concat([x_train0, x_train1],axis=1)
 
 
 
@@ -104,32 +115,29 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
 
 
 
-    model = LogisticRegression(data_owner_0.feature_num,learning_rate=0.01)
+    model = LogisticRegression(feature_num,learning_rate=learningRate)
+
+
+    save_op = model.save(modelFilePath,modelFileMachine)
 
     with tfe.Session() as sess:
 
-      sess.run(tfe.global_variables_initializer(),
+        sess.run(tfe.global_variables_initializer(),
                tag='init')
-      start_time=time.time()
-      model.fit(sess, x_train, y_train, train_batch_num)
+        start_time=time.time()
+        model.fit(sess, x_train, y_train, train_batch_num)
 
-      train_time=time.time()-start_time
-      print("train_time=", train_time)
+        train_time=time.time()-start_time
+        print("train_time=", train_time)
+
+        print("Saving model...")
+        sess.run(save_op)
+        print("Save OK.")
 
 
-      model.get_KS(sess, x_test, y_test, test_batch_num)
-      #sess.run(reveal_weights_op, tag='reveal')
 
 if __name__=='__main__':
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument('--lr', type=float, default=1E-2)
-    # parser.add_argument('--epoch', type=int, default=10)
-    # parser.add_argument('--batch_size', type=int, default=128)
-    # parser.add_argument('--regularizationL2', type=float, default=1E-3)
-    # parser.add_argument('--maxIter', type=int, default=5000)
-    # #parser.add_argument('--used_data_percent', type=float, default=1.0)
-    #
-    # args = parser.parse_args()
+
     with open('./qqq/conf', 'r') as f:
         conf=f.read()
         print(conf)
@@ -137,4 +145,5 @@ if __name__=='__main__':
     #print(input)
     conf=json.loads(conf)
     print(conf)
-    print(conf.get("trainParams").get("learningRate"))
+
+    run(taskId="qqq", algorithm="tfe_lr", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model")

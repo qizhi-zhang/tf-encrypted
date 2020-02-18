@@ -2,6 +2,7 @@
 logistic regression"""
 import tensorflow as tf
 import tf_encrypted as tfe
+import os
 #from read_data_tf import get_10w1k5col_x, get_10w1k5col_y, get_embed_op_5w_x, get_embed_op_5w_y, get_gaode3w_x, get_gaode3w_y
 import numpy as np
 from sklearn.preprocessing import StandardScaler
@@ -114,95 +115,32 @@ class LogisticRegression:
       sess.run(tf.local_variables_initializer())
       return sess.run(predict_y)
 
+  def save(self,  modelFilePath, modelFileMachine="YOwner") :
+    def _save(weights, modelFilePath) -> tf.Operation:
+      weights=tf.cast(weights,"float32")
+      weights=tf.serialize_tensor(weights)
+      save_op=tf.write_file(modelFilePath, weights)
+      return save_op
 
-class XOwner:
-  """Contains code meant to be executed by a data owner Player."""
-  def __init__(
-      self,
-      batch_size,
-  ):
-    self.player_name = "XOwner"
-    self.batch_size = batch_size
-    self.train_initializer = None
-    self.test_initializer = None
-
-
-    self.feature_num=291
-
-
-
-  @property
-  def initializer(self):
-    return tf.group(self.train_initializer, self.test_initializer)
-
-  @tfe.local_computation("XOwner")
-  def provide_training_data(self):
-    """Preprocess training dataset
-
-    Return single batch of training dataset
-    """
+    save_ops=[]
+    for i in range(len(self.weights)):
+      modelFilePath_i=os.path.join(modelFilePath, "param_{i}".format(i=i))
+      save_op=tfe.define_output(modelFileMachine, [self.weights[i], modelFilePath_i], _save)
+      save_ops=save_ops+[save_op]
+      save_op=tf.group(*save_ops)
+    return save_op
 
 
-    train_x = get_embed_op_5w_x(batch_size=self.batch_size, test_flag=False)
+  def load(self, modelFilePath, modelFileMachine="YOwner") :
+    @tfe.local_computation(modelFileMachine)
+    def _load(param_path):
+      param=tf.read_file(param_path)
+      param=tf.parse_tensor(param,"float32")
+      return param
+
+    for i in range(len(self.weights)):
+      modelFilePath_i=os.path.join(modelFilePath, "param_{i}".format(i=i))
+      self.weights[i]=_load(modelFilePath_i)
 
 
-    return train_x
-
-  @tfe.local_computation("XOwner")
-  def provide_testing_data(self):
-    """Preprocess testing dataset
-
-    Return single batch of testing dataset
-    """
-
-
-    test_x = get_embed_op_5w_x(batch_size=self.batch_size, test_flag=True)
-    return test_x
-
-
-class YOwner:
-  """Contains code meant to be executed by a data owner Player."""
-
-  def __init__(
-          self,
-          batch_size
-  ):
-    self.player_name = "YOwner"
-
-    self.batch_size = batch_size
-    self.train_initializer = None
-    self.test_initializer = None
-
-
-
-
-  @property
-  def initializer(self):
-    return tf.group(self.train_initializer, self.test_initializer)
-
-  @tfe.local_computation("YOwner")
-  def provide_training_data(self):
-    """Preprocess training dataset
-
-    Return single batch of training dataset
-    """
-
-
-
-    train_y=get_embed_op_5w_y(batch_size=self.batch_size, test_flag=False)
-
-    print("train_y", train_y)
-    return train_y
-
-  @tfe.local_computation("YOwner")
-  def provide_testing_data(self):
-    """Preprocess testing dataset
-
-    Return single batch of testing dataset
-    """
-
-
-
-    test_y=get_embed_op_5w_y(batch_size=self.batch_size, test_flag=True)
-    return test_y
 
