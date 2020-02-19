@@ -54,11 +54,16 @@ class LogisticRegression:
       fit_batch_op = self.backward(x, dy, self.learning_rate)
       return fit_batch_op
 
-  def fit(self, sess, x, y, num_batches):
+  def fit(self, sess, x, y, num_batches, progress_file):
     fit_batch_op = self.fit_batch(x, y)
-    for batch in range(num_batches):
-      print("Batch {0: >4d}".format(batch))
-      sess.run(fit_batch_op, tag='fit-batch')
+    with open(progress_file, "w") as f:
+      for batch in range(num_batches):
+        print("Batch {0: >4d}".format(batch))
+        sess.run(fit_batch_op, tag='fit-batch')
+        if (batch%10==0):
+          f.write(str(1.0*batch/num_batches)+"\n")
+          f.flush()
+
 
   def evaluate(self, sess, x, y, data_owner):
     """Return the accuracy"""
@@ -133,14 +138,24 @@ class LogisticRegression:
 
   def load(self, modelFilePath, modelFileMachine="YOwner") :
     @tfe.local_computation(modelFileMachine)
-    def _load(param_path):
+    def _load(param_path, shape):
       param=tf.read_file(param_path)
       param=tf.parse_tensor(param,"float32")
+      param=tf.reshape(param, shape)
+
+      print("param:", param)
       return param
 
+    weights=[]
     for i in range(len(self.weights)):
       modelFilePath_i=os.path.join(modelFilePath, "param_{i}".format(i=i))
-      self.weights[i]=_load(modelFilePath_i)
+      weights = weights+ [_load(modelFilePath_i,self.weights[i].shape)]
+
+    load_w_op=tfe.assign(self.w, weights[0])
+    load_b_op=tfe.assign(self.b, weights[1])
+
+    load_op=tf.group([load_w_op,load_b_op])
+    return load_op
 
 
 

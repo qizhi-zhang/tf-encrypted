@@ -4,9 +4,9 @@
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/common_private.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/common_private.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/qqq/conf" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/read_data_tf.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/read_data_tf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/training_joint_xy_private.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/training_joint_xy_private.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keeper/qqq/model/param_0" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/model/param_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keeper/qqq/model/param_1" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/model/param_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keeper/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,8 +65,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.training_joint_xy_private">
-    <configuration name="http_util" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.test">
+    <configuration name="common_private" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -78,7 +78,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/http_util.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/common_private.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -108,28 +108,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="single_host_test2" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="tf-encrypted" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/single_host_test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/single_host_test/single_host_test2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="tfe_keeper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -141,7 +120,28 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/tfe_keeper.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tf-encrypted" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/keeper" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/train.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -173,11 +173,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.train" />
+        <item itemvalue="Python.common_private" />
         <item itemvalue="Python.training_joint_xy_private" />
         <item itemvalue="Python.read_data_tf" />
-        <item itemvalue="Python.http_util" />
-        <item itemvalue="Python.tfe_keeper" />
-        <item itemvalue="Python.single_host_test2" />
       </list>
     </recent_temporary>
   </component>

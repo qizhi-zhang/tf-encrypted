@@ -52,7 +52,7 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
         matchColNumX = int(node_id1.get("matchColNum"))
         path_x= node_id1.get("storagePath")
 
-    train_batch_num=epoch_num*record_num//batch_size
+    batch_num=record_num//batch_size
     feature_num=featureNumX+featureNumY
 
 
@@ -83,33 +83,33 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
     # ))
 
     @tfe.local_computation("XOwner")
-    def provide_training_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
+    def provide_test_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
         train_x = get_data_x(64, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
         return train_x
 
     @tfe.local_computation("YOwner")
-    def provide_training_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+    def provide_test_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
         train_y = get_data_y(64, path, matchColNum=matchColNumX, epoch=epoch_num,  skip_row_num=1)
         return train_y
 
     @tfe.local_computation("YOwner")
-    def provide_training_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+    def provide_test_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
         train_x, train_y = get_data_xy(64, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
         return train_x, train_y
 
     if (featureNumY==0):
-        x_train = provide_training_data_x(path_x)
-        y_train = provide_training_data_y(path_y)
+        x_test = provide_test_data_x(path_x)
+        y_test = provide_test_data_y(path_y)
     else:
-        x_train1, y_train=provide_training_data_xy(path_y)
-        x_train0=provide_training_data_x(path_x)
-        x_train=prot.concat([x_train0, x_train1],axis=1)
+        x_test1, y_test=provide_test_data_xy(path_y)
+        x_test0=provide_test_data_x(path_x)
+        x_test=prot.concat([x_test0, x_test1],axis=1)
 
 
 
 
-    print("x_train:", x_train)
-    print("y_train:", y_train)
+    print("x_train:", x_test)
+    print("y_train:", y_test)
 
 
 
@@ -118,22 +118,27 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
     model = LogisticRegression(feature_num,learning_rate=learningRate)
 
 
-    save_op = model.save(modelFilePath,modelFileMachine)
+
+    load_op = model.load(modelFilePath,modelFileMachine)
 
     with tfe.Session() as sess:
 
         sess.run(tfe.global_variables_initializer(),
                tag='init')
         start_time=time.time()
-        progress_file="./"+taskId+"/progress_file"
-        model.fit(sess, x_train, y_train, train_batch_num, progress_file)
 
-        train_time=time.time()-start_time
-        print("train_time=", train_time)
+        print("Loading model...")
+        sess.run(load_op)
+        print("Load OK.")
 
-        print("Saving model...")
-        sess.run(save_op)
-        print("Save OK.")
+
+        #model.fit(sess, x_train, y_train, train_batch_num)
+        model.get_KS(sess, x_test,y_test, batch_num)
+
+        test_time=time.time()-start_time
+        print("test_time=", test_time)
+
+
 
 
 
