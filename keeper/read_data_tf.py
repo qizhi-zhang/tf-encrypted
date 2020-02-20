@@ -59,6 +59,33 @@ def get_data_x(batch_size, data_x_file,  featureNum, matchColNum=2, epoch=100, c
 
 
 
+def get_data_id_with_x(batch_size, data_x_file,  featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
+    def line_split(r):
+        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum, field_delim=",")
+    def norm(x):
+        x = tf.cast(x, tf.float32)
+        return tf.clip_by_value(x, -clip_by_value, clip_by_value)
+
+
+    data = tf.data.TextLineDataset(data_x_file).skip(skip_row_num).map(
+            line_split)  # .shuffle(buffer_size=50000,seed=10086)
+
+    batch_data_iter = data.map(lambda *r: tf.stack(r[matchColNum:], axis=-1)).map(norm).repeat(epoch).batch(
+            batch_size).make_one_shot_iterator()
+
+    batch_data=batch_data_iter.get_next()
+
+    batch_idx_iter = data.map(lambda *r: tf.stack(r[0:matchColNum], axis=-1)).map(norm).repeat(epoch).batch(
+            batch_size).make_one_shot_iterator()
+    batch_idx=batch_idx_iter.get_next()
+
+    batch_idx=tf.reshape(batch_idx, shape=[batch_size, matchColNum])
+    batch_data=tf.reshape(batch_data, shape=[batch_size, featureNum])
+    return (batch_idx, batch_data)
+
+
+
+
 def get_data_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_row_num=1):
 
     def line_split(r):

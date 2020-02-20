@@ -112,13 +112,54 @@ class LogisticRegression:
     for _ in range(batch_num):
       sess.run(print_KS_op, tag='evaluate_KS')
 
-  def predict(self, x, sess, num_batches):
-    for batch in range(num_batches):
-      predict_y=tfe.define_output("YOwner",
-                        x,
-                        self.forward)
-      sess.run(tf.local_variables_initializer())
-      return sess.run(predict_y)
+  # def predict_batch(self, x, file_name):
+  #   y_hat = self.forward(x)
+  #
+  #   def _save(x)  -> tf.Operation:
+  #     x=tf.strings.as_string(x)
+  #     x=tf.reduce_join(x, separator="\n")
+  #     predict_op=tf.write_file(file_name, x)
+  #     return predict_op
+  #
+  #   predict_batch_op=tfe.define_output("YOwner", [y_hat], _save)
+  #   return predict_batch_op
+  #
+  # def predict(self, sess, x, file_name, num_batches):
+  #   predict_batch_op = self.predict_batch(x, file_name)
+  #   #sess.run(tf.local_variables_initializer())
+  #   for batch in range(num_batches):
+  #     print("batch :", batch)
+  #     sess.run(predict_batch_op)
+
+
+
+  def predict_batch(self, x):
+    y_hat = self.forward(x)
+    y_hat=y_hat.reveal()
+    y_hat=y_hat.to_native()
+    return y_hat
+
+  def predict(self, sess, x, file_name, num_batches, idx):
+
+    #sess.run(tf.local_variables_initializer())
+
+    predict_batch = self.predict_batch(x)
+    predict_batch=tf.strings.as_string(predict_batch)
+    print("idx:", idx)
+    predict_batch=tf.concat([idx, predict_batch],axis=1)
+    predict_batch = tf.reduce_join(predict_batch, axis=1, separator=", ")
+    predict_batch=tf.reduce_join(predict_batch, separator="\n")
+    with open(file_name, "w") as f:
+      for batch in range(num_batches):
+        print("batch :", batch)
+        y_hat=sess.run(predict_batch)
+        y_hat=str(y_hat, encoding = "utf8")
+        #y_hat=str(y_hat)
+        #print(y_hat)
+        f.write(y_hat+"\n")
+
+
+
 
   def save(self,  modelFilePath, modelFileMachine="YOwner") :
     def _save(weights, modelFilePath) -> tf.Operation:
