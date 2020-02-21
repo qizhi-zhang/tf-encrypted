@@ -133,15 +133,19 @@ class LogisticRegression:
 
 
 
-  def predict_batch(self, x):
+  def predict_batch(self,x):
+
+
     y_hat = self.forward(x)
     y_hat=y_hat.reveal()
     y_hat=y_hat.to_native()
     return y_hat
 
-  def predict(self, sess, x, file_name, num_batches, idx):
+  def predict(self, sess, x, file_name, num_batches, idx, progress_file):
 
     #sess.run(tf.local_variables_initializer())
+
+
 
     predict_batch = self.predict_batch(x)
     predict_batch=tf.strings.as_string(predict_batch)
@@ -149,14 +153,19 @@ class LogisticRegression:
     predict_batch=tf.concat([idx, predict_batch],axis=1)
     predict_batch = tf.reduce_join(predict_batch, axis=1, separator=", ")
     predict_batch=tf.reduce_join(predict_batch, separator="\n")
-    with open(file_name, "w") as f:
+    with open(file_name, "w") as f , open(progress_file, "w") as progress_file:
+
       for batch in range(num_batches):
         print("batch :", batch)
-        y_hat=sess.run(predict_batch)
-        y_hat=str(y_hat, encoding = "utf8")
+        records=sess.run(predict_batch)
+
+        records=str(records, encoding = "utf8")
         #y_hat=str(y_hat)
         #print(y_hat)
-        f.write(y_hat+"\n")
+        f.write(records+"\n")
+        if (batch % 10 == 0):
+          progress_file.write(str(1.0*batch/num_batches)+"\n")
+          progress_file.flush()
 
 
 

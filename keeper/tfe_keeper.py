@@ -4,6 +4,8 @@ import json
 import tensorflow as tf
 from tf_encrypted.config import RemoteConfig
 from multiprocessing import Process
+import train_lr
+import predict_lr
 
 app = Flask(__name__)
 
@@ -178,7 +180,7 @@ def _train_lr(taskId,conf,modelFileMachine,modelFilePath):
     :return:
     """
 
-
+    train_lr.run(taskId,conf,modelFileMachine,modelFilePath)
 
 
 
