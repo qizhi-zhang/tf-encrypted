@@ -152,12 +152,23 @@ def train():
         print("request:",request)
         request_params = request.json
         print("request_params:",request_params)
-        task_id = request_params.get('task_id')
+        task_id = request_params.get('taskId')
         print("task_id:", task_id)
         algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
         modelFilePath = request_params.get('modelFilePath')
+        conf=request_params.get('conf')
 
+        test_flag=request_params.get('test_flag', False)
+
+        if test_flag:
+            tf_config_file=None
+        else:
+            tf_config_file ="./{task_id}/config.json".format(task_id=task_id)
+
+        # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
+        p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, tf_config_file))
+        p.start()
 
 
         state=True
@@ -169,18 +180,56 @@ def train():
         return e
 
 
-def _train_lr(taskId,conf,modelFileMachine,modelFilePath):
-    """
 
-    :param taskId:
-    :param algorithm:
-    :param conf:
-    :param modelFileMachine:
-    :param modelFilePath:
+@tfe_keeper.route('/predict', methods=['GET', 'POST'])
+def predict():
+    """
+    input:
+        taskId,algorithm,conf,modelFileMachine,modelFilePath
     :return:
+        state,
+        errorCode,
+        errorMsg
     """
 
-    train_lr.run(taskId,conf,modelFileMachine,modelFilePath)
+
+    print("predict")
+    try:
+        print("request:",request)
+        request_params = request.json
+        print("request_params:",request_params)
+        task_id = request_params.get('taskId')
+        print("task_id:", task_id)
+        algorithm = request_params.get('algorithm')
+        modelFileMachine = request_params.get('modelFileMachine')
+        modelFilePath = request_params.get('modelFilePath')
+        conf=request_params.get('conf')
+        test_flag = request_params.get('test_flag', False)
+
+        progress_file = "./" + task_id + "/predict_progress"
+
+        if test_flag:
+            tf_config_file=None
+        else:
+            tf_config_file ="./{task_id}/config.json".format(task_id=task_id)
+
+        #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
+
+        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
+        p.start()
+
+
+        state=True
+        errorCode=0
+        errorMsg=""
+        return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg, "progressFile": progress_file})
+    except Exception as e:
+        print(e)
+        return e
+
+
+
+
 
 
 

@@ -13,7 +13,7 @@ import time
 
 
 
-def run(taskId,conf,modelFileMachine,modelFilePath):
+def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
     trainParams=conf.get("trainParams")
 
     learningRate=float(trainParams.get("learningRate"))
@@ -57,10 +57,11 @@ def run(taskId,conf,modelFileMachine,modelFilePath):
 
 
 
-    if len(sys.argv) >= 2:
-      # config file was specified
-      config_file = sys.argv[1]
-      config = tfe.RemoteConfig.load(config_file)
+    # if len(sys.argv) >= 2:
+    #   # config file was specified
+    #   config_file = sys.argv[1]
+    if tf_config_file:
+      config = tfe.RemoteConfig.load(tf_config_file)
     else:
       # default to using local config
       config = tfe.LocalConfig([

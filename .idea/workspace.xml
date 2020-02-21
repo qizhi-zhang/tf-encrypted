@@ -4,14 +4,14 @@
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/common_private.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/common_private.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keeper/http_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/http_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keeper/predict_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/predict_lr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/qqq/model/param_0" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/model/param_0" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/qqq/model/param_1" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/model/param_1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/qqq/predict" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/predict" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/qqq/progress_file" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/read_data_tf.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/read_data_tf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keeper/qqq/predict_progress" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/predict_progress" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/tfe_keeper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keeper/train_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/train_lr.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +70,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.predict">
+  <component name="RunManager" selected="Python.http_util">
     <configuration name="common_private" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -84,6 +84,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/common_private.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="http_util" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tf-encrypted" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/keeper" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/http_util.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -113,7 +134,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="tfe_keeper" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -125,7 +146,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/tfe_keeper.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -155,34 +176,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="training_joint_xy_private" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="tf-encrypted" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/keeper" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/training_joint_xy_private.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.http_util" />
+        <item itemvalue="Python.tfe_keeper" />
         <item itemvalue="Python.predict" />
         <item itemvalue="Python.train" />
         <item itemvalue="Python.common_private" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.training_joint_xy_private" />
       </list>
     </recent_temporary>
   </component>

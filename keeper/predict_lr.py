@@ -12,10 +12,10 @@ from sklearn.preprocessing import OneHotEncoder
 import argparse
 import sys
 import time
+import math
 
 
-
-def run(taskId,conf,modelFileMachine,modelFilePath):
+def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_file=None):
     trainParams=conf.get("trainParams")
 
 
@@ -52,15 +52,16 @@ def run(taskId,conf,modelFileMachine,modelFilePath):
         matchColNumX = int(node_id1.get("matchColNum"))
         path_x= node_id1.get("storagePath")
 
-    batch_num=record_num//batch_size
+    batch_num=int(math.ceil(1.0*record_num/batch_size))
     feature_num=featureNumX+featureNumY
 
 
 
-    if len(sys.argv) >= 2:
-      # config file was specified
-      config_file = sys.argv[1]
-      config = tfe.RemoteConfig.load(config_file)
+    # if len(sys.argv) >= 2:
+    #   # config file was specified
+    #   config_file = sys.argv[1]
+    if tf_config_file:
+      config = tfe.RemoteConfig.load(tf_config_file)
     else:
       # default to using local config
       config = tfe.LocalConfig([
@@ -139,7 +140,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath):
         #model.fit(sess, x_train, y_train, train_batch_num)
         #model.get_KS(sess, x_test,y_test, batch_num)
 
-        progress_file = "./" + taskId + "/predict_progress"
+        #progress_file = "./" + taskId + "/predict_progress"
 
 
         model.predict(sess, x_test, "./{task_id}/predict".format(task_id=taskId), batch_num, idx, progress_file)
@@ -147,7 +148,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath):
 
 
         test_time=time.time()-start_time
-        print("test_time=", test_time)
+        print("predict_time=", test_time)
 
 
 
