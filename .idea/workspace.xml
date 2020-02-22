@@ -10,6 +10,7 @@
       <change beforePath="$PROJECT_DIR$/keeper/qqq/model/param_1" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/model/param_1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/qqq/predict" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/predict" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/qqq/predict_progress" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/predict_progress" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keeper/qqq/train_progress" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/train_progress" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/tfe_keeper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/keeper/train_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/train_lr.py" afterDir="false" />
     </list>
@@ -71,27 +72,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.http_util">
-    <configuration name="common_private" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="tf-encrypted" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/keeper" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/keeper/common_private.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="http_util" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,13 +156,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="typing" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tf-encrypted" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/.pyenv/versions/3.6.9/lib/python3.6" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/.pyenv/versions/3.6.9/lib/python3.6/typing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.http_util" />
+        <item itemvalue="Python.typing" />
         <item itemvalue="Python.tfe_keeper" />
         <item itemvalue="Python.predict" />
         <item itemvalue="Python.train" />
-        <item itemvalue="Python.common_private" />
       </list>
     </recent_temporary>
   </component>

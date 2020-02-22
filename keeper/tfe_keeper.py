@@ -95,7 +95,7 @@ def start_server():
         #p.join(timeout=5)
         print("p.pid:")
         print(p.pid)
-        with open('./{task_id}/pid'.format(task_id=task_id), 'w') as f:
+        with open('./{task_id}/server_pid'.format(task_id=task_id), 'w') as f:
             f.write(str(p.pid))
 
         state=True
@@ -170,6 +170,8 @@ def train():
         p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, tf_config_file))
         p.start()
 
+        with open('./{task_id}/train_pid'.format(task_id=task_id), 'w') as f:
+            f.write(str(p.pid))
 
         state=True
         errorCode=0
@@ -215,9 +217,13 @@ def predict():
 
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
 
+
+
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
         p.start()
 
+        with open('./{task_id}/predict_pid'.format(task_id=task_id), 'w') as f:
+            f.write(str(p.pid))
 
         state=True
         errorCode=0
@@ -232,7 +238,100 @@ def predict():
 
 
 
+@tfe_keeper.route('/check_progress', methods=['GET', 'POST'])
+def check_progress():
+    """
+    input: taskId, taskType
+    :return:
+            status
+            executeStatus
+            percent
+            errorMsg
+            errorCode
+    """
 
+    def check_pid(pid):
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            return False
+        else:
+            return True
+
+    print("predict")
+    try:
+        print("request:", request)
+        request_params = request.json
+        print("request_params:", request_params)
+        task_id = request_params.get('taskId')
+        print("task_id:", task_id)
+        taskType = request_params.get('taskType')
+        print("taskType:", taskType)
+
+        percent = "0.00"
+        if taskType=="train":
+            try:
+                with open('./{task_id}/train_pid'.format(task_id=task_id), 'r') as f:
+                    pid = f.readline()
+                pid = int(pid)
+                print("pid=",pid)
+
+                pid_exists=check_pid(pid)
+
+                with open("./{task_id}/train_progress".format(task_id=task_id), "r") as f:
+                    percent = f.readlines()[-1]
+                    print("percent=",percent)
+
+
+
+                if percent=="1.00":
+                    executeStatus = "SUCCESS"
+                elif pid_exists:
+                    executeStatus = "RUNNING"
+
+                else:
+                    executeStatus = "FAILED"
+
+
+
+            except Exception as e:
+                print(e)
+                executeStatus="FAILED"
+
+
+        else:
+            assert taskType=="predict"
+            try:
+                with open('./{task_id}/predict_pid'.format(task_id=task_id), 'r') as f:
+                    pid = f.readline()
+                pid = int(pid)
+                pid_exists=check_pid(pid)
+
+                with open("./{task_id}/predict_progress".format(task_id=task_id), "r") as f:
+                    percent = f.readlines()[-1]
+
+                if percent == "1.00":
+                    executeStatus = "SUCCESS"
+                elif pid_exists:
+                    executeStatus = "RUNNING"
+
+                else:
+                    executeStatus = "FAILED"
+
+
+
+            except Exception as e:
+                executeStatus="FAILED"
+
+
+        percent=int(float(percent)*100)
+        state=True
+        errorCode=0
+        errorMsg=""
+        return json.dumps({"state": state, "executeStatus": executeStatus, "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
+    except Exception as e:
+        print(e)
+        return e
 
 
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])
@@ -255,7 +354,7 @@ def kill_server():
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
 
-        with open('./{task_id}/pid'.format(task_id=task_id), 'r') as f:
+        with open('./{task_id}/server_pid'.format(task_id=task_id), 'r') as f:
             pid=f.readline()
 
         pid=int(pid)

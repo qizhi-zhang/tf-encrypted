@@ -136,6 +136,9 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
         sess.run(save_op)
         print("Save OK.")
 
+        with open(progress_file, "w") as f:
+            f.write("1.00")
+            f.flush()
 
 
 if __name__=='__main__':

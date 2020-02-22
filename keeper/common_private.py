@@ -63,8 +63,7 @@ class LogisticRegression:
         if (batch%10==0):
           f.write(str(1.0*batch/num_batches)+"\n")
           f.flush()
-      f.write("1.00")
-      f.flush()
+
 
 
   def evaluate(self, sess, x, y, data_owner):
@@ -169,8 +168,7 @@ class LogisticRegression:
           progress_file.write(str(1.0*batch/num_batches)+"\n")
           progress_file.flush()
 
-      progress_file.write("1.00")
-      progress_file.flush()
+
 
 
 

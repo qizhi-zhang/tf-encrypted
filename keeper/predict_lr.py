@@ -150,6 +150,9 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         test_time=time.time()-start_time
         print("predict_time=", test_time)
 
+        with open(progress_file, "w") as f:
+            f.write("1.00")
+            f.flush()
 
 
 
