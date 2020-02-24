@@ -570,6 +570,50 @@ class Morse(SecureNN):
         return z
 
 
+    def geq_zero_bak(self, x: PondPrivateTensor)-> PondPrivateTensor:
+        with tf.device(self.server_0.device_name):
+            xL_bits=x.share0.bits()
+            xL_lower_bits, xL_top_bit=xL_bits.split(num_split=[ int(xL_bits.shape[-1]-1) ,1], axis=-1)
+
+            ones=tf.ones_like(xL_lower_bits.value)
+            # from_1_to_n=tf.cumsum(ones, axis=-1)
+            # from_0_to_n_1=from_1_to_n-ones
+            # power2_from_0_to_n_1=tf.pow(2, from_0_to_n_1)
+
+            #xL_lower=bits_to_int(xL_lower_bits.value)
+
+            # xL_lower=x.share0.factory.tensor(xL_lower)
+            #
+            # high=x.share0.factory.tensor(np.array([1])).left_shift(xL_lower_bits.shape[-1]) # 2^{N-1}
+            # high_m_xL_lower=high-xL_lower
+
+            inver_xL_lower_bits=xL_lower_bits.factory.tensor(ones) - xL_lower_bits  # xL_lower_bits的反码
+
+
+        with tf.device(self.server_1.device_name):
+            xR_bits=x.share1.bits()
+            xR_lower_bits, xR_top_bit=xR_bits.split(num_split=[ int(xR_bits.shape[-1])-1 ,1], axis=-1)
+
+            # xR_lower=bits_to_int(xR_lower_bits.value)
+            # xR_lower=x.share1.factory.tensor(xR_lower)
+
+
+        top_bit_sum=PondPrivateTensor(self, share0=xL_top_bit.squeeze(axis=-1), share1=xR_top_bit.squeeze(axis=-1), is_scaled=False)
+
+
+        # print("high_m_xL_lower:", high_m_xL_lower)
+        # print("xR_lower:", xR_lower)
+        print("top_bit_sum:", top_bit_sum)
+
+        not_lower_carry=self.left_leq_right_from_bits(xR_lower_bits, inver_xL_lower_bits)
+        lower_carry=1-not_lower_carry
+        #print("lower_carry:", lower_carry)
+
+        z=(top_bit_sum+lower_carry+1)%(2)
+        print("z=", z)
+        #return PondPrivateTensor(self, share0=high_m_xL_lower, share1=high_m_xL_lower-high_m_xL_lower, is_scaled=False)
+
+        return z
 
 
 
