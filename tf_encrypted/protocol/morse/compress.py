@@ -108,10 +108,10 @@ def compress_int64(x: AbstractTensor)-> Tuple[AbstractFactory, tf.Tensor , tf.Te
 
 
     modulus=x.factory.modulus
-
+    x=x%modulus
 
     #compress_ratio=dtype_bitsize//data_bitsize  # 一个native type可以装下几个 module type ?
-    compress_ratio=int(math.floor(64 * math.log(2, modulus)) ) # 一个int64可以装下几个 module type ?
+    compress_ratio=int(math.floor(63 * math.log(2, modulus)) ) # 一个int64可以装下几个 module type ?
 
 
     x_flatten=tf.reshape(x.to_native(), [-1])
@@ -151,7 +151,7 @@ def de_compress_int64(factory: AbstractFactory, x_compress: tf.Tensor, original_
     """
 
     modulus=factory.modulus
-    compress_ratio=int(math.floor(64 * math.log(2, modulus)))  # 一个int64可以装下几个 module type ?
+    compress_ratio=int(math.floor(63 * math.log(2, modulus)))  # 一个int64可以装下几个 module type ?
 
     powers=np.power(modulus, range(compress_ratio)) # [0, modulus, modulus^2, ..., modulus^(compress_ratio-1)]
 
@@ -189,7 +189,7 @@ if __name__=='__main__':
     ZZ128 = native_factory(np.int32, 128)
 
     # x = np.random.randint(128, size=[2])
-    x = np.array(range(128)).reshape(16,8)
+    x = -np.array(range(128)).reshape(16,8)
     print("x=", x)
 
     x = ZZ128.tensor(x)

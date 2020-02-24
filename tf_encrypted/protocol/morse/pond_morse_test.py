@@ -11,8 +11,7 @@ import tf_encrypted as tfe
 from tf_encrypted.protocol.pond import PondPublicTensor,PondPrivateTensor
 from tf_encrypted.tensor import int64factory, int100factory, native_factory
 from tf_encrypted.tensor import fixed100, fixed100_ni
-from morse import Morse, cycle_rshift_tensor1 as cycle_rshift_tensor
-from morse import cycle_rshift, cycle_lshift
+from morse_compress import Morse,cycle_rshift, cycle_lshift
 from tf_encrypted.tensor.native import AbstractTensor
 import sys
 
