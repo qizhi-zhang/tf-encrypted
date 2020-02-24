@@ -3,16 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/common_private.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/common_private.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/http_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/http_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/predict_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/predict_lr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/qqq/model/param_0" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/model/param_0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/qqq/model/param_1" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/model/param_1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/qqq/predict" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/predict" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/qqq/predict_progress" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/predict_progress" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/qqq/train_progress" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/qqq/train_progress" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/tfe_keeper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/keeper/train_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/keeper/train_lr.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
