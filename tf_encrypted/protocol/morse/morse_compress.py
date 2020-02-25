@@ -259,8 +259,11 @@ class Morse(SecureNN):
         # output: yj=yjL+yjR   [n1, n2, ..., nk-1] on same type with y
         with tf.device(self.server_0.device_name):
             yjL=y.factory.sample_uniform(y.shape[0:-1])
+            yjL=yjL%y.factory.modulus
 
             yR=y-yjL.expand_dims(axis=-1)
+            yR=yR%y.factory.modulus
+
 
         yjR=self.assistant_OT(yR, j)
 
@@ -268,6 +271,26 @@ class Morse(SecureNN):
 
         return yj
 
+    def random_assistant_OT_fake(self, y: AbstractTensor, j: AbstractTensor)-> AbstractTensor:
+        # innput: y [n1,n2,...,nk-1, nk ] on device0,  j [n1, n2, ..., nk-1] on device1 mod nk
+        # output: yj=yjL+yjR   [n1, n2, ..., nk-1] on same type with y
+        with tf.device(self.server_0.device_name):
+            yjL=y.factory.sample_uniform(y.shape[0:-1])
+            yjL=yjL.mod(y.factory.modulus)
+            print("y.factory.modulus:",y.factory.modulus)
+
+            yR=y-yjL.expand_dims(axis=-1)
+            yR=yR%y.factory.modulus
+
+
+        yjR=self.assistant_OT(yR, j)
+
+        # zero=tf.zeros_like(yjR.to_native())
+        # zero=yjR.factory.tensor(zero)
+
+        yj=PondPrivateTensor(self, share0=yjL, share1=yjR, is_scaled=False)
+
+        return yj
 
     def left_equal_right_small(self,x: AbstractTensor, y: AbstractTensor, output_modulus: int)-> PondPrivateTensor:
         """
@@ -349,10 +372,10 @@ class Morse(SecureNN):
             output_modulus=x.shape.as_list()[-1]+1
 
         with tf.device(self.server_0.device_name):
-            x_bits_onehot = tf.one_hot(indices=x.to_native(), depth=2, axis=-1, dtype=np.uint8)
+            x_bits_onehot = tf.one_hot(indices=x.to_native(), depth=2, axis=-1, dtype=np.int32)
 
             ones_like_x = tf.ones_like(x.to_native())
-            ones_like_x_onehot = tf.one_hot(indices=ones_like_x, depth=2, axis=-1, dtype=np.uint8)
+            ones_like_x_onehot = tf.one_hot(indices=ones_like_x, depth=2, axis=-1, dtype=np.int32)
 
             x_bits_or_ones_onehot =x_bits_onehot+ones_like_x_onehot-x_bits_onehot*ones_like_x_onehot
 
@@ -371,13 +394,20 @@ class Morse(SecureNN):
 
 
 
-    def left_leq_right_from_bits(self, x_bits: AbstractTensor, y_bits: AbstractTensor, output_modulus=None) -> PondPrivateTensor:
+    def _left_leq_right_from_bits(self, x_bits: AbstractTensor, y_bits: AbstractTensor, output_modulus=None) -> PondPrivateTensor:
+        if output_modulus:
+
+            assert output_modulus%2==0
 
         with tf.device(self.server_0.device_name):
             #x_bits=x.bits()
             #x_bits_expand=tf.expand_dims(x_bits.to_native,axis=-1)
-            if not output_modulus:
-                output_modulus = x_bits.shape.as_list()[-1]+1
+            if output_modulus:
+                assert output_modulus >= x_bits.shape.as_list()[-1] + 1
+            else:
+                output_modulus = x_bits.shape.as_list()[-1] + 1
+                if output_modulus%2==1:
+                    output_modulus=output_modulus+1
 
             ones=tf.ones_like(x_bits.to_native())
 
@@ -414,7 +444,7 @@ class Morse(SecureNN):
         with tf.device(self.server_1.device_name):
             #y_bits=y.bits()    # 从低位到高位
 
-            ny_bits=1-y_bits
+            ny_bits=-y_bits+1
 
             ones = tf.ones_like(y_bits.to_native())
             ones_plusdim = tf.expand_dims(ones, -1) * tf.expand_dims(ones, -2)
@@ -484,12 +514,16 @@ class Morse(SecureNN):
         :param y: in device 1
         :return:  1 if x<=y else 0 in PondPrivateTensor
         """
+        if output_modulus:
+            assert output_modulus%2==0  # output_modulus应为偶数
+
+
         with tf.device(self.server_0.device_name):
             x_bits = x.bits()
         with tf.device(self.server_1.device_name):
             y_bits = y.bits()  # 从低位到高位
 
-        return self.left_leq_right_from_bits(x_bits, y_bits, output_modulus=None)
+        return self._left_leq_right_from_bits(x_bits, y_bits, output_modulus)
 
 
 
@@ -527,8 +561,10 @@ class Morse(SecureNN):
 
 
     def geq_zero(self, x: PondPrivateTensor)-> PondPrivateTensor:
+
         with tf.device(self.server_0.device_name):
-            xL_bits=x.share0.bits()
+
+            xL_bits=(x.share0%x.share0.factory.modulus).bits()
             xL_lower_bits, xL_top_bit=xL_bits.split(num_split=[ int(xL_bits.shape[-1]-1) ,1], axis=-1)
 
             # ones=tf.ones_like(xL_lower_bits)
@@ -541,17 +577,21 @@ class Morse(SecureNN):
             xL_lower=x.share0.factory.tensor(xL_lower)
 
             high=x.share0.factory.tensor(np.array([1])).left_shift(xL_lower_bits.shape[-1]) # 2^{N-1}
+            #high=x.share0.factory.modulus
             high_m_xL_lower=high-xL_lower
-
+            # with tf.Session() as sess:
+            #     print("high_m_xL_lower:",sess.run(high_m_xL_lower.to_native()))
 
 
         with tf.device(self.server_1.device_name):
-            xR_bits=x.share1.bits()
+            xR_bits=(x.share1%x.share1.factory.modulus).bits()
             xR_lower_bits, xR_top_bit=xR_bits.split(num_split=[ int(xR_bits.shape[-1])-1 ,1], axis=-1)
 
             xR_lower=bits_to_int(xR_lower_bits.value)
             xR_lower=x.share1.factory.tensor(xR_lower)
 
+            # with tf.Session() as sess:
+            #     print("xR_lower:", sess.run(xR_lower.to_native()))
 
         top_bit_sum=PondPrivateTensor(self, share0=xL_top_bit.squeeze(axis=-1), share1=xR_top_bit.squeeze(axis=-1), is_scaled=False)
 
@@ -567,7 +607,10 @@ class Morse(SecureNN):
         print("z=", z)
         #return PondPrivateTensor(self, share0=high_m_xL_lower, share1=high_m_xL_lower-high_m_xL_lower, is_scaled=False)
 
+
+
         return z
+
 
 
     def geq_zero_bak(self, x: PondPrivateTensor)-> PondPrivateTensor:
@@ -709,6 +752,87 @@ def cycle_rshift_tensor(x_reshape : tf.Tensor, k_reshape: tf.Tensor):
     return x_reshape_shift
 
 
+
+def test_left_leq_right_bits(morse):
+    ZZ128 = native_factory(np.int32, 128)
+    x = np.array([0,1,1,0,1])
+    print("x=", x)
+    x = ZZ128.tensor(x)
+
+    y= np.array([1,0,0,1,1])
+    print("y=", y)
+    y = ZZ128.tensor(y)
+
+    z=morse.left_leq_right_bits(x,y)
+    return z
+
+def test_left_equal_right_bits(morse):
+    ZZ128 = native_factory(np.int32, 128)
+    x = np.array([0,1,1,0,1])
+    print("x=", x)
+    x = ZZ128.tensor(x)
+
+    y= np.array([1,0,0,1,1])
+    print("y=", y)
+    y = ZZ128.tensor(y)
+
+    z=morse.left_equal_right_bits(x,y)
+    return z
+
+def test_left_leq_right_from_bits(morse):
+    ZZ128 = native_factory(np.int32, 128)
+    x = np.array([0,1,1,0,1])
+    print("x=", x)
+    x = ZZ128.tensor(x)
+
+    y= np.array([1,0,0,1,1])
+    print("y=", y)
+    y = ZZ128.tensor(y)
+
+    z=morse.left_leq_right_from_bits(x,y)
+    return z
+
+def test_left_leq_right(morse):
+    ZZ128 = native_factory(np.int32, 128)
+    x = np.array([0,1,1,0,1])
+    print("x=", x)
+    x = ZZ128.tensor(x)
+
+    y= np.array([1,0,0,1,1])
+    print("y=", y)
+    y = ZZ128.tensor(y)
+
+    z=morse.left_leq_right(x,y)
+    return z
+
+def test_random_assistant_OT(morse):
+    ZZ128 = native_factory(np.int32, 128)
+    x = np.array([[2,3],[4,5],[6,7]])
+    print("x=", x)
+    x = ZZ128.tensor(x)
+
+    ZZ2 = native_factory(np.int32, 2)
+    y= np.array([0,1,0])
+    print("y=", y)
+    y = ZZ2.tensor(y)
+
+    z=morse.random_assistant_OT_fake(x,y)
+    return z
+
+def test_assistant_OT(morse):
+    ZZ128 = native_factory(np.int32, 128)
+    x = np.array([[2,3],[4,5],[6,7]])
+    print("x=", x)
+    x = ZZ128.tensor(x)
+
+    ZZ2 = native_factory(np.int32, 2)
+    y= np.array([0,1,0])
+    print("y=", y)
+    y = ZZ2.tensor(y)
+
+    z=morse.assistant_OT(x,y)
+    return z
+
 if __name__=='__main__':
     print("test")
     config = tfe.LocalConfig([
@@ -736,10 +860,25 @@ if __name__=='__main__':
 
     y= x+1
 
-    morse.left_equal_right()
+    #z=test_left_leq_right_bits(morse)
 
+    #z=test_left_equal_right_bits(morse)
 
-    sess=tf.Session()
+    #z = test_left_leq_right_from_bits(morse)
+
+    z = test_left_leq_right(morse)
+
+    wr=test_random_assistant_OT(morse)
+
+    #w = test_assistant_OT(morse)
+    with tfe.Session() as sess:
+
+        #print(sess.run(wr.to_native()))
+        #print(sess.run(wr.reveal())) # [-14348818 -14348896 -14348874]
+        #print(sess.run(wr.unwrapped)) # [array([ 54,  56, 107], dtype=int32), array([0, 0, 0], dtype=int32)]
+        #所以最后是 reveal()不靠谱！
+
+        print(sess.run(z.unwrapped))
 
 
 

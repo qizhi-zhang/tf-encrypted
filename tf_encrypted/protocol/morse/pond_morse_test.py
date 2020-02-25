@@ -11,7 +11,7 @@ import tf_encrypted as tfe
 from tf_encrypted.protocol.pond import PondPublicTensor,PondPrivateTensor
 from tf_encrypted.tensor import int64factory, int100factory, native_factory
 from tf_encrypted.tensor import fixed100, fixed100_ni
-from morse_compress import Morse,cycle_rshift, cycle_lshift
+from morse_compress import Morse,cycle_rshift, cycle_lshift, bits_to_int
 from tf_encrypted.tensor.native import AbstractTensor
 import sys
 
@@ -132,13 +132,19 @@ class TestMorse():
 
         print("x<=y:", leq)
 
+class Testbits_to_int():
+    def test_bits_to_int(self):
+        x=tf.constant([1,0,0,1])
+        y=bits_to_int(x)
 
+        with tf.Session() as sess:
+            print(sess.run(y))
 
 
 class Testgeq0():
     def test_geq0(self):
-        ZZ128 = native_factory(np.int32, 128)
-        x = np.array(range(-50, 50)).reshape(20,5)
+        ZZ128 = native_factory(np.int32, 1024 )
+        x = np.array(range(-500, 500)).reshape(200,5)
         print("x=", x)
 
 
@@ -149,16 +155,16 @@ class Testgeq0():
         zero=ZZ128.tensor(np.zeros_like(x))
         x = ZZ128.tensor(x)
 
-        i=np.array(range(-10,10))
-        print("i=", i)
-        ZZ5 = native_factory(np.int32, 5)
-        i = ZZ5.tensor(i)
-
-        shifted_x=cycle_lshift(x, i)
+        # i=np.array(range(-10,10))
+        # print("i=", i)
+        # ZZ5 = native_factory(np.int32, 5)
+        # i = ZZ5.tensor(i)
+        #
+        # shifted_x=cycle_lshift(x, i)
 
         #shifted_x2=cycle_lshift2(x,i)
 
-
+        x_leq_0=morse.left_leq_right(x,zero)
 
 
         x=PondPrivateTensor(morse, share0=x, share1= zero, is_scaled=False)
@@ -170,7 +176,7 @@ class Testgeq0():
         xgeq0_sercurNN=morse.non_negative(x)
 
         with tfe.Session() as sess:
-            print("shifted_x=",shifted_x, sess.run(shifted_x))
+            #print("shifted_x=",shifted_x, sess.run(shifted_x))
             #print("shifted_x2=",shifted_x2, sess.run(shifted_x2))
 
 
@@ -181,20 +187,23 @@ class Testgeq0():
             # time1 = datetime.datetime.now()
             # print((time1 - time0).microseconds)
 
-            print("x>=0 SercurNN")
-            time0=datetime.datetime.now()
-            xgeq0=sess.run(xgeq0_sercurNN.unwrapped)
-            print( (np.array(xgeq0[0])+np.array(xgeq0[1]))%2)
-            time1 = datetime.datetime.now()
-            print((time1 - time0).total_seconds())
+            for i in range(10):
+                print("x>=0 SercurNN")
+                time0=datetime.datetime.now()
+                xgeq0=sess.run(xgeq0_sercurNN.unwrapped)
+                print( (np.array(xgeq0[0])+np.array(xgeq0[1]))%2)
+                time1 = datetime.datetime.now()
+                print((time1 - time0).total_seconds())
 
 
-            print("x>=0 Morse")
-            time0=datetime.datetime.now()
-            xgeq0=sess.run(xgeq0_morse.unwrapped)
-            print( (np.array(xgeq0[0])+np.array(xgeq0[1]))%2)
-            time1 = datetime.datetime.now()
-            print((time1 - time0).total_seconds())
+                print("x>=0 Morse")
+                time0=datetime.datetime.now()
+                xgeq0=sess.run(xgeq0_morse.unwrapped)
+                print( (np.array(xgeq0[0])+np.array(xgeq0[1]))%2)
+                time1 = datetime.datetime.now()
+                print((time1 - time0).total_seconds())
+
+                #print("x_leq_0:",sess.run(x_leq_0.unwrapped))
 
 
 
@@ -202,4 +211,8 @@ if __name__ == '__main__':
     #unittest.main()
     test_geq0=Testgeq0()
     test_geq0.test_geq0()
+
+    # test=Testbits_to_int()
+    # test.test_bits_to_int()
+
 
