@@ -210,8 +210,8 @@ class Testgeq0():
                     time_morse=time_morse+(time1 - time0).total_seconds()
                 #print("x_leq_0:",sess.run(x_leq_0.unwrapped))
 
-                print("avg time_SercurNN=",time_SercurNN/9)
-                print("avg time_morse=", time_morse/9)
+            print("avg time_SercurNN=",time_SercurNN/9)
+            print("avg time_morse=", time_morse/9)
 
 
 
