@@ -238,7 +238,7 @@ class Morse(SecureNN):
             yj=yj_reshape.reshape(axes=j.shape)
             return yj
 
-    assistant_OT=assistant_OT_lrcompress
+    assistant_OT=assistant_OT_rcompress
 
     def get_indexed_tensor(self, x: AbstractTensor, i: AbstractTensor)->  AbstractTensor:
         """

@@ -143,7 +143,7 @@ class Testbits_to_int():
 
 class Testgeq0():
     def test_geq0(self):
-        ZZ128 = native_factory(np.int32, 1024 )
+        ZZ128 = native_factory(np.int32, 128 )
         x = np.array(range(-50, 50)).reshape(20,5)
         print("x=", x)
 
@@ -187,6 +187,8 @@ class Testgeq0():
             # time1 = datetime.datetime.now()
             # print((time1 - time0).microseconds)
 
+            time_SercurNN=0
+            time_morse=0
             for i in range(10):
                 print("x>=0 SercurNN")
                 time0=datetime.datetime.now()
@@ -194,6 +196,8 @@ class Testgeq0():
                 print( (np.array(xgeq0[0])+np.array(xgeq0[1]))%2)
                 time1 = datetime.datetime.now()
                 print((time1 - time0).total_seconds())
+                if i>=1:
+                    time_SercurNN=time_SercurNN+(time1 - time0).total_seconds()
 
 
                 print("x>=0 Morse")
@@ -202,8 +206,12 @@ class Testgeq0():
                 print( (np.array(xgeq0[0])+np.array(xgeq0[1]))%2)
                 time1 = datetime.datetime.now()
                 print((time1 - time0).total_seconds())
-
+                if i>=1:
+                    time_morse=time_morse+(time1 - time0).total_seconds()
                 #print("x_leq_0:",sess.run(x_leq_0.unwrapped))
+
+                print("avg time_SercurNN=",time_SercurNN/9)
+                print("avg time_morse=", time_morse/9)
 
 
 
