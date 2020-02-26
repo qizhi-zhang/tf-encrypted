@@ -144,7 +144,7 @@ class Testbits_to_int():
 class Testgeq0():
     def test_geq0(self):
         ZZ128 = native_factory(np.int32, 1024 )
-        x = np.array(range(-500, 500)).reshape(200,5)
+        x = np.array(range(-50, 50)).reshape(20,5)
         print("x=", x)
 
 

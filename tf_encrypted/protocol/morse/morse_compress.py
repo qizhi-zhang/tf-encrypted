@@ -259,10 +259,10 @@ class Morse(SecureNN):
         # output: yj=yjL+yjR   [n1, n2, ..., nk-1] on same type with y
         with tf.device(self.server_0.device_name):
             yjL=y.factory.sample_uniform(y.shape[0:-1])
-            yjL=yjL%y.factory.modulus
+            #yjL=yjL%y.factory.modulus
 
             yR=y-yjL.expand_dims(axis=-1)
-            yR=yR%y.factory.modulus
+            #yR=yR%y.factory.modulus
 
 
         yjR=self.assistant_OT(yR, j)
@@ -276,8 +276,8 @@ class Morse(SecureNN):
         # output: yj=yjL+yjR   [n1, n2, ..., nk-1] on same type with y
         with tf.device(self.server_0.device_name):
             yjL=y.factory.sample_uniform(y.shape[0:-1])
-            yjL=yjL.mod(y.factory.modulus)
-            print("y.factory.modulus:",y.factory.modulus)
+            #yjL=yjL.mod(y.factory.modulus)
+            #print("y.factory.modulus:",y.factory.modulus)
 
             yR=y-yjL.expand_dims(axis=-1)
             yR=yR%y.factory.modulus
@@ -399,15 +399,17 @@ class Morse(SecureNN):
 
             assert output_modulus%2==0
 
+        if output_modulus:
+            assert output_modulus >= x_bits.shape.as_list()[-1] + 1
+        else:
+            output_modulus = x_bits.shape.as_list()[-1] + 1
+            if output_modulus % 2 == 1:
+                output_modulus = output_modulus + 1
+
         with tf.device(self.server_0.device_name):
             #x_bits=x.bits()
             #x_bits_expand=tf.expand_dims(x_bits.to_native,axis=-1)
-            if output_modulus:
-                assert output_modulus >= x_bits.shape.as_list()[-1] + 1
-            else:
-                output_modulus = x_bits.shape.as_list()[-1] + 1
-                if output_modulus%2==1:
-                    output_modulus=output_modulus+1
+
 
             ones=tf.ones_like(x_bits.to_native())
 
@@ -648,7 +650,7 @@ class Morse(SecureNN):
         # print("xR_lower:", xR_lower)
         print("top_bit_sum:", top_bit_sum)
 
-        not_lower_carry=self.left_leq_right_from_bits(xR_lower_bits, inver_xL_lower_bits)
+        not_lower_carry=self._left_leq_right_from_bits(xR_lower_bits, inver_xL_lower_bits)
         lower_carry=1-not_lower_carry
         #print("lower_carry:", lower_carry)
 
