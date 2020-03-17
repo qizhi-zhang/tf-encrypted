@@ -170,18 +170,18 @@ if __name__=='__main__':
 
     # test train
 
-    # with open('./qqq/conf', 'r') as f:
-    #     conf=f.read()
-    #     print(conf)
-    # conf=conf.replace("True","true").replace("False","false")
-    # #print(input)
-    # conf=json.loads(conf)
-    # print(conf)
-    #
-    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "./qqq/model", "test_flag": True }
-    #
-    # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
-    # print(x)
+    with open('./qqq/conf', 'r') as f:
+        conf=f.read()
+        print(conf)
+    conf=conf.replace("True","true").replace("False","false")
+    #print(input)
+    conf=json.loads(conf)
+    print(conf)
+
+    data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "./qqq/model", "test_flag": True }
+
+    x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
+    print(x)
 
     # # check_progress
 
