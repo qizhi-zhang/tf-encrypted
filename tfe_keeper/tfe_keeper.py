@@ -83,11 +83,57 @@ def start_server():
         print("request_params:",request_params)
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
+
         RS_iphost = request_params.get('RS')
+        if RS_iphost==None:
+            RS_iphost=request_params.get("thirdOwner")
         print("RS_iphost:",RS_iphost)
+        if RS_iphost==None:
+            state = False
+            errorCode = 1
+            errorMsg = "nether RS nor thirdOwner are given"
+            return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+
         XOwner_iphost = request_params.get('XOwner')
+        if XOwner_iphost==None:
+            XOwner_iphost = request_params.get('xOwner')
+        print("XOwner_iphost=", XOwner_iphost)
+        if XOwner_iphost==None:
+            state = False
+            errorCode = 1
+            errorMsg = "nether xOwner nor XOwner are given"
+            return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+
+
         YOwner_iphost = request_params.get('YOwner')
+        if YOwner_iphost==None:
+            YOwner_iphost = request_params.get('yOwner')
+        if YOwner_iphost == None:
+            state = False
+            errorCode = 1
+            errorMsg = "nether yOwner nor YOwner are given"
+            return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+
+
+
+
         Player=request_params.get('Player')
+        if Player==None:
+            Player=request_params.get('player')
+        if YOwner_iphost == None:
+            state = False
+            errorCode = 1
+            errorMsg = "nether Player nor player are given"
+            return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+
+        if Player=="x_owner":
+            Player="XOwner"
+        if Player=="y_owner":
+            Player="YOwner"
+        if Player=="third_owner":
+            Player="RS"
+
+
 
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
         #state=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
@@ -156,6 +202,15 @@ def train():
         print("task_id:", task_id)
         algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
+        if modelFileMachine=="x_owner":
+            modelFileMachine="XOwner"
+        if modelFileMachine=="y_owner":
+            modelFileMachine="YOwner"
+        if modelFileMachine=="third_owner":
+            modelFileMachine="RS"
+
+
+
         modelFilePath = request_params.get('modelFilePath')
         conf=request_params.get('conf')
 
@@ -204,6 +259,13 @@ def predict():
         print("task_id:", task_id)
         algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
+        if modelFileMachine=="x_owner":
+            modelFileMachine="XOwner"
+        if modelFileMachine=="y_owner":
+            modelFileMachine="YOwner"
+        if modelFileMachine=="third_owner":
+            modelFileMachine="RS"
+
         modelFilePath = request_params.get('modelFilePath')
         conf=request_params.get('conf')
         test_flag = request_params.get('test_flag', False)

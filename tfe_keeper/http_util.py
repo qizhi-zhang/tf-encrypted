@@ -160,8 +160,8 @@ if __name__=='__main__':
     httpUtil=HttpUtil()
 
 
-    # test start_server
-    # data={"taskId":  "qqq", "XOwner" : "127.0.0.1:5677", "YOwner" : "127.0.0.1:5678", "RS" : "127.0.0.1:5679", "Player": "XOwner"}
+    #test start_server
+    # data={"taskId":  "qqq", "xOwner" : "127.0.0.1:5677", "yOwner" : "127.0.0.1:5678", "thirdOwner" : "127.0.0.1:5679", "player": "x_owner"}
     #
     # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/start_server",json_data=json.dumps(data))
     # print(x)
@@ -170,21 +170,21 @@ if __name__=='__main__':
 
     # test train
 
-    with open('./qqq/conf', 'r') as f:
-        conf=f.read()
-        print(conf)
-    conf=conf.replace("True","true").replace("False","false")
-    #print(input)
-    conf=json.loads(conf)
-    print(conf)
-
-    data={"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "./qqq/model", "test_flag": True }
-
-    x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
-    print(x)
+    # with open('./qqq/conf', 'r') as f:
+    #     conf=f.read()
+    #     print(conf)
+    # conf=conf.replace("True","true").replace("False","false")
+    # #print(input)
+    # conf=json.loads(conf)
+    # print(conf)
+    #
+    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "./qqq/model", "test_flag": True }
+    #
+    # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
+    # print(x)
 
     # # check_progress
-    #
+
     # data={"taskId": "qqq", "taskType": "train" }
     # x = httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/check_progress", json_data=json.dumps(data))
     # print(x)
@@ -193,7 +193,14 @@ if __name__=='__main__':
 
     # predict
 
-    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "./qqq/model", "test_flag": True,  }
+    # with open('./qqq/conf', 'r') as f:
+    #     conf=f.read()
+    #     print(conf)
+    # conf=conf.replace("True","true").replace("False","false")
+    # #print(input)
+    # conf=json.loads(conf)
+    # print(conf)
+    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "./qqq/model", "test_flag": True,  }
     #
     # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/predict",json_data=json.dumps(data))
     # print(x)
@@ -207,7 +214,7 @@ if __name__=='__main__':
     # print(x)
 
 
-    # test kill server
+    #test kill server
     # data={"taskId":  "qqq"}
     # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/kill_server",json_data=json.dumps(data))
     # print(x)
