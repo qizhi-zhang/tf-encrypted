@@ -37,6 +37,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
         featureNumX = int(node_id2.get("featureNum"))
         matchColNumX = int(node_id2.get("matchColNum"))
         path_x= node_id2.get("storagePath")
+
         record_num=int(node_id2.get("fileRecord"))
 
         featureNumY = int(node_id1.get("featureNum"))
@@ -53,6 +54,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
         matchColNumX = int(node_id1.get("matchColNum"))
         path_x= node_id1.get("storagePath")
 
+    path_x = os.path.join(absolute_path, path_x)
+    path_y=os.path.join(absolute_path, path_y)
     train_batch_num=epoch_num*record_num//batch_size
     feature_num=featureNumX+featureNumY
 

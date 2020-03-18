@@ -230,6 +230,7 @@ def train():
 
 
         modelFilePath = request_params.get('modelFilePath')
+        modelFilePath=os.path.join( absolute_path,modelFilePath)
         conf=request_params.get('conf')
 
         test_flag=request_params.get('test_flag', False)

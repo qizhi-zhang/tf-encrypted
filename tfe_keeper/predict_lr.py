@@ -54,6 +54,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         matchColNumX = int(node_id1.get("matchColNum"))
         path_x= node_id1.get("storagePath")
 
+    path_x = os.path.join(absolute_path, path_x)
+    path_y=os.path.join(absolute_path, path_y)
     batch_num=int(math.ceil(1.0*record_num/batch_size))
     feature_num=featureNumX+featureNumY
 

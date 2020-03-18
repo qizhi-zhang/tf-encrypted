@@ -3,9 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file/qqq/server_pid" beforeDir="false" afterPath="$PROJECT_DIR$/file/qqq/server_pid" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file/qqq/train_pid" beforeDir="false" afterPath="$PROJECT_DIR$/file/qqq/train_pid" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file/qqq/train_progress" beforeDir="false" afterPath="$PROJECT_DIR$/file/qqq/train_progress" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tfe_keeper/http_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/http_util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tfe_keeper/predict_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/predict_lr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/qqq/conf" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/qqq/conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/train_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/train_lr.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,7 +70,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.predict_lr">
+  <component name="RunManager" selected="Python.http_util (2)">
     <configuration name="http_util (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -173,9 +178,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.predict_lr" />
         <item itemvalue="Python.http_util (2)" />
         <item itemvalue="Python.tfe_keeper (1)" />
+        <item itemvalue="Python.predict_lr" />
         <item itemvalue="Python.http_util (1)" />
         <item itemvalue="Python.tfe_keeper" />
       </list>
