@@ -161,28 +161,28 @@ if __name__=='__main__':
 
 
     #test start_server
-    data={"taskId":  "qqq", "xOwner" : "127.0.0.1:5677", "yOwner" : "127.0.0.1:5678", "thirdOwner" : "127.0.0.1:5679", "player": "x_owner"}
-
-    #x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/start_server",json_data=json.dumps(data))
-    x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/start_server", json_data=json.dumps(data))
-    print(x)
+    # data={"taskId":  "qqq", "xOwner" : "0.0.0.0:5677", "yOwner" : "0.0.0.0:5678", "thirdOwner" : "0.0.0.0:5679", "player": "third_owner"}
+    #
+    # #x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/start_server",json_data=json.dumps(data))
+    # x = httpUtil.post(url="http://0.0.0.0:8083/tfe_keeper/start_server", json_data=json.dumps(data))
+    # print(x)
 
 
 
     # test train
 
-    # with open('./qqq/conf', 'r') as f:
-    #     conf=f.read()
-    #     print(conf)
-    # conf=conf.replace("True","true").replace("False","false")
-    # #print(input)
-    # conf=json.loads(conf)
-    # print(conf)
-    #
-    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "./qqq/model", "test_flag": True }
-    #
-    # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
-    # print(x)
+    with open('./qqq/conf', 'r') as f:
+        conf=f.read()
+        print(conf)
+    conf=conf.replace("True","true").replace("False","false")
+    #print(input)
+    conf=json.loads(conf)
+    print(conf)
+
+    data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "../file/qqq/model", "test_flag": True }
+
+    x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/train",json_data=json.dumps(data))
+    print(x)
 
     # # check_progress
 
@@ -217,7 +217,7 @@ if __name__=='__main__':
 
     #test kill server
     # data={"taskId":  "qqq"}
-    # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/kill_server",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/kill_server",json_data=json.dumps(data))
     # print(x)
 
 

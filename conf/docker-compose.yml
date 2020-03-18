@@ -7,8 +7,8 @@ tfe:
     - ./file:/app/file
     #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     ports:
-    - 5000:5000
-    - 5677:5677
+    - 8080:8080
+    - 5677:80
 #    - 5678:5678
 #    - 5679:5679
     environment:

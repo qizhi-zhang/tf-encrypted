@@ -28,14 +28,14 @@
     },
     "dataSet": {
         "node_id1": {
-            "storagePath": "../file/qqq/data/embed_op_fea_5w_format_x.csv",
+            "storagePath": "/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv",
             "fileRecord": 50038,
             "isContainY": False,
             "matchColNum": 2,
             "featureNum": 291
         },
         "node_id2": {
-            "storagePath": "../file/qqq/data/embed_op_fea_5w_format_y.csv",
+            "storagePath": "/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv",
             "fileRecord": 50038,
             "isContainY": True,
             "matchColNum": 2,
