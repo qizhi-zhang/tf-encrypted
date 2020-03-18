@@ -23,7 +23,7 @@ RUN pip install -r /app/conf/requirements.txt
 RUN mkdir -p /app/conf
 # ADD ./conf/dataleaguelocal_nginx.conf /app/conf
 ADD ./conf/docker-entry-tfe.sh  /app/
-# ADD ./conf/tfe_uwsgi.ini  /app/conf
+ADD ./conf/tfe_uwsgi.ini  /app/conf
 
 ENTRYPOINT ["/app/docker-entry-tfe.sh"]
 
