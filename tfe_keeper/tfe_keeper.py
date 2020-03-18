@@ -457,12 +457,12 @@ def kill_server():
 
 if __name__ == '__main__':
 
-    #app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
-    #app.run(host="0.0.0.0",port="8080", debug = True)
+    app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
+    app.run(host="0.0.0.0",port="8080", debug = True)
     #print(platform.system())
 
 
-    print(absolute_path)
-    state=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677", YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
+    #print(absolute_path)
+    #state=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677", YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
     #print(state)
 

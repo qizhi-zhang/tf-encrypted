@@ -161,16 +161,16 @@ if __name__=='__main__':
 
 
     #test start_server
-    data={"taskId":  "qqq", "xOwner" : "0.0.0.0:5677", "yOwner" : "0.0.0.0:5678", "thirdOwner" : "0.0.0.0:5679", "player": "x_owner"}
-
-    #x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/start_server",json_data=json.dumps(data))
-    x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/start_server", json_data=json.dumps(data))
-    print(x)
+    # data={"taskId":  "qqq", "xOwner" : "0.0.0.0:5677", "yOwner" : "0.0.0.0:5678", "thirdOwner" : "0.0.0.0:5679", "player": "x_owner"}
+    #
+    # #x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/start_server",json_data=json.dumps(data))
+    # x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/start_server", json_data=json.dumps(data))
+    # print(x)
 
 
 
     # test train
-
+    #
     # with open('./qqq/conf', 'r') as f:
     #     conf=f.read()
     #     print(conf)
@@ -181,14 +181,14 @@ if __name__=='__main__':
     #
     # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "../file/qqq/model", "test_flag": True }
     #
-    # x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/train",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/train",json_data=json.dumps(data))
     # print(x)
-
+    #
     # # check_progress
-
-    # data={"taskId": "qqq", "taskType": "train" }
-    # x = httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/check_progress", json_data=json.dumps(data))
-    # print(x)
+    #
+    data={"taskId": "qqq", "taskType": "train" }
+    x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/check_progress", json_data=json.dumps(data))
+    print(x)
 
 
 
@@ -201,7 +201,7 @@ if __name__=='__main__':
     # #print(input)
     # conf=json.loads(conf)
     # print(conf)
-    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "./qqq/model", "test_flag": True,  }
+    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "../file/qqq/model", "test_flag": True,  }
     #
     # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/predict",json_data=json.dumps(data))
     # print(x)
