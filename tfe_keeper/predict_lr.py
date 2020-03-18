@@ -9,7 +9,13 @@ from read_data_tf import get_data_xy, get_data_x, get_data_y, get_data_id_with_y
 import sys
 import time
 import math
+import os
+import platform
 
+if platform.system()=="Darwin":
+    absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
+else:
+    absolute_path="/app"
 
 def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_file=None):
     trainParams=conf.get("trainParams")
@@ -139,7 +145,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         #progress_file = "./" + taskId + "/predict_progress"
 
 
-        model.predict(sess, x_test, "./{task_id}/predict".format(task_id=taskId), batch_num, idx, progress_file)
+        model.predict(sess, x_test, os.path.join(absolute_path, "/file/{task_id}/predict".format(task_id=taskId), batch_num, idx, progress_file))
 
 
 
