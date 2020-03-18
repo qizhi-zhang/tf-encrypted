@@ -171,23 +171,23 @@ if __name__=='__main__':
 
     # test train
     #
-    with open('./qqq/conf', 'r') as f:
-        conf=f.read()
-        print(conf)
-    conf=conf.replace("True","true").replace("False","false")
-    #print(input)
-    conf=json.loads(conf)
-    print(conf)
-
-    data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model", "test_flag": True }
-
-    x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/train",json_data=json.dumps(data))
-    print(x)
+    # with open('./qqq/conf', 'r') as f:
+    #     conf=f.read()
+    #     print(conf)
+    # conf=conf.replace("True","true").replace("False","false")
+    # #print(input)
+    # conf=json.loads(conf)
+    # print(conf)
+    #
+    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model", "test_flag": True } #相对路径
+    #
+    # x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/train",json_data=json.dumps(data))
+    # print(x)
     #
     # # check_progress
 
     # data={"taskId": "qqq", "taskType": "train" }
-    # x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/check_progress", json_data=json.dumps(data))
+    # x = httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/check_progress", json_data=json.dumps(data))
     # print(x)
 
 
@@ -201,9 +201,9 @@ if __name__=='__main__':
     # #print(input)
     # conf=json.loads(conf)
     # print(conf)
-    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "../file/qqq/model", "test_flag": True,  }
+    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model", "test_flag": True } #相对路径
     #
-    # x=httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/predict",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/predict",json_data=json.dumps(data))
     # print(x)
 
 
@@ -211,13 +211,13 @@ if __name__=='__main__':
     # check_progress
 
     # data={"taskId": "qqq", "taskType": "predict" }
-    # x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/check_progress", json_data=json.dumps(data))
+    # x = httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/check_progress", json_data=json.dumps(data))
     # print(x)
 
 
     #test kill server
-    # data={"taskId":  "qqq"}
-    # x=httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/kill_server",json_data=json.dumps(data))
-    # print(x)
+    data={"taskId":  "qqq"}
+    x=httpUtil.post(url="http://0.0.0.0:8083/tfe_keeper/kill_server",json_data=json.dumps(data))
+    print(x)
 
 

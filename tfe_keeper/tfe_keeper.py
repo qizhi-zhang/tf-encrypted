@@ -286,6 +286,7 @@ def predict():
             modelFileMachine="RS"
 
         modelFilePath = request_params.get('modelFilePath')
+        modelFilePath = os.path.join(absolute_path, modelFilePath)
         conf=request_params.get('conf')
         test_flag = request_params.get('test_flag', False)
 
@@ -297,7 +298,6 @@ def predict():
             tf_config_file =os.path.join(absolute_path,"file/{task_id}/config.json".format(task_id=task_id))
 
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
-
 
 
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
