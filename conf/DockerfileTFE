@@ -1,6 +1,7 @@
 # base image
 # FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsebase:vsmodel1
-FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v0
+#FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v0
+FROM continuumio/miniconda3
 #FROM reg.docker.alibaba-inc.com/morse/morsebase:gs01
 
 # add appliction code

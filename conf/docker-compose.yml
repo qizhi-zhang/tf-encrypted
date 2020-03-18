@@ -3,12 +3,14 @@ tfe:
     image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v1
     volumes:
     - ./conf:/app/conf/parser
-    - ./logs/smodel:/app/logs
+    - ./logs/tfe:/app/logs
     - ./file:/app/file
-    - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     ports:
-    - 1050:1050/tcp
-    - 1000:1000/tcp
+    - 5000:5000
+    - 5677:5677
+#    - 5678:5678
+#    - 5679:5679
     environment:
     - random_service_url=http://47.102.15.80:8213/random_data_fetch
     - random_service_public_key=MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAM//1xyIlrcaHlJmQJxxJYkIRXwR0ymZBCsBYpEfUyAyY432Fa/GPQ7W7tXw/jF+SFa8qDBkmqooI4e6mJPBdvGbWfx6ygphv7mP1YaYOHIpVyUvj87xnIrcUlNVDFzj8uQGQIBNnDVieqp0lMTfkubVQyquD/1n426j/E91cCOFAgMBAAECgYBh9IrJ1UmlUZeWFrG2+1JCBrMyivJ3VKix2CUjUy1CrHhWEt6DuUhoBLDV8HjFtkM7Ff3fTIHKQLz63tWcQDBTHwtclYHbsgCxAcuYcotmTXPCUjSHIm9wLaWRMQyfbjQAjzcX2ypKBD/GwZFVXbtnZvaRdTK9znC5YqCN61agAQJBAOjcxt9Kdv8lOPo3jmpBj6dcGDl2+6MOtMsfWSnJS8GBMBHcH5OEwR403wEVLaZSkHwaK76wkL1emQ/JPO1s6oECQQDkqqIGef3rl2zKMutSbZaGAuHp1KrFrJqBBu09uhrdid3dXpzTjewd+HcrGoo5xpk3EfeJ0FY6Y9tj8WAzkg8FAkEAuSA8IuzKadGn2JUubZ8tm7oFsDm9mEZqyUlk02mrBm20T56Wo+rYtTEHUY8Kub3ODDuqJ3GrwEFiokA0ZfU/AQJAW6C4PioiAoZx9HAE9cmt+FMtXXp3V7B7VNqGtCZf34gAHFVuOCN1iujmL6J54v7epD+R1mpiMxGSdvDg4KlVVQJABLz4hujq38w35y2izmvlYBuEBhbHbeyk88US4l9aJKsI5r5En0HGSHtjFgrTsSLRR4Z+3EtIdKr1rah7uJgm3w==

@@ -5,8 +5,7 @@ import tf_encrypted as tfe
 import os
 #from read_data_tf import get_10w1k5col_x, get_10w1k5col_y, get_embed_op_5w_x, get_embed_op_5w_y, get_gaode3w_x, get_gaode3w_y
 import numpy as np
-from sklearn.preprocessing import StandardScaler
-from sklearn.utils import shuffle
+
 
 
 class LogisticRegression:

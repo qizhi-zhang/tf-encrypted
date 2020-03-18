@@ -135,7 +135,8 @@ def start_server():
             Player="RS"
 
 
-        os.system("mkdir ../file/{task_id}".format(task_id=task_id))
+
+        os.makedirs("../file/{task_id}".format(task_id=task_id),exist_ok=True)
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
         #state=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
         p.start()
@@ -169,7 +170,7 @@ def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
         """.format(l="{", r="}", XOwner_iphost=XOwner_iphost, YOwner_iphost=YOwner_iphost, RS_iphost=RS_iphost)
         print("config:", config)
         os.system("pwd")
-        os.system("mkdir {task_id}".format(task_id=task_id))
+        #os.system("mkdir {task_id}".format(task_id=task_id))
 
         with open('../file/{task_id}/config.json'.format(task_id=task_id), 'w') as f:
             f.write(config)
@@ -441,7 +442,7 @@ def kill_server():
 
 if __name__ == '__main__':
     app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
-    app.run(debug = True)
+    app.run(host="0.0.0.0",port="8080", debug = True)
 
     #state=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677", YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
     #print(state)

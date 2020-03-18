@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
+
 # read_line=tf.TextLineReader(skip_header_lines=1)
 # filename_queue = tf.train.string_input_producer(["./data/10w1k5col_x.csv"])
 # recodes=read_line.read(filename_queue)
