@@ -185,10 +185,10 @@ if __name__=='__main__':
     # print(x)
     #
     # # check_progress
-    #
-    data={"taskId": "qqq", "taskType": "train" }
-    x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/check_progress", json_data=json.dumps(data))
-    print(x)
+
+    # data={"taskId": "qqq", "taskType": "train" }
+    # x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/check_progress", json_data=json.dumps(data))
+    # print(x)
 
 
 
@@ -203,7 +203,7 @@ if __name__=='__main__':
     # print(conf)
     # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "../file/qqq/model", "test_flag": True,  }
     #
-    # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/predict",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/predict",json_data=json.dumps(data))
     # print(x)
 
 
@@ -211,13 +211,13 @@ if __name__=='__main__':
     # check_progress
 
     # data={"taskId": "qqq", "taskType": "predict" }
-    # x = httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/check_progress", json_data=json.dumps(data))
+    # x = httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/check_progress", json_data=json.dumps(data))
     # print(x)
 
 
     #test kill server
-    # data={"taskId":  "qqq"}
-    # x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/kill_server",json_data=json.dumps(data))
-    # print(x)
+    data={"taskId":  "qqq"}
+    x=httpUtil.post(url="http://0.0.0.0:8080/tfe_keeper/kill_server",json_data=json.dumps(data))
+    print(x)
 
 
