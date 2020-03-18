@@ -8,13 +8,19 @@ import train_lr
 import predict_lr
 import os
 import platform
-
-if platform.system()=="Darwin":
+absolute_path = None
+if platform.system() == "Darwin":
+    #os.putenv('absolute_path', "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted")
     absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
 else:
+    #os.putenv('absolute_path', "/app")
     absolute_path="/app"
 
+
 app = Flask(__name__)
+
+
+
 
 
 @app.route('/success/<name>')
@@ -142,7 +148,7 @@ def start_server():
 
 
 
-        os.makedirs(os.path.join(absolute_path,"/file/{task_id}".format(task_id=task_id)),exist_ok=True)
+        os.makedirs(os.path.join(absolute_path,"file/{task_id}".format(task_id=task_id)),exist_ok=True)
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
         #state=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
         p.start()
@@ -150,7 +156,7 @@ def start_server():
         print("p.pid:")
         print(p.pid)
 
-        with open(os.path.join(absolute_path,'/file/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,'file/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
         state=True
@@ -176,12 +182,15 @@ def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
         """.format(l="{", r="}", XOwner_iphost=XOwner_iphost, YOwner_iphost=YOwner_iphost, RS_iphost=RS_iphost)
         print("config:", config)
         os.system("pwd")
-        #os.system("mkdir {task_id}".format(task_id=task_id))
+        print("absolute_path:",absolute_path)
+        print("1. tfe config.json:", os.path.join(absolute_path, 'file/{task_id}/config.json'.format(task_id=task_id)))
 
-        with open(os.path.join(absolute_path,'/file/{task_id}/config.json'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,'file/{task_id}/config.json'.format(task_id=task_id)), 'w') as f:
             f.write(config)
 
-        config = RemoteConfig.load(os.path.join(absolute_path,'/file/{task_id}/config.json'.format(task_id=task_id)))
+        print("2. tfe config.json:",os.path.join(absolute_path,'file/{task_id}/config.json'.format(task_id=task_id)))
+
+        config = RemoteConfig.load(os.path.join(absolute_path,'file/{task_id}/config.json'.format(task_id=task_id)))
         server = config.server(Player, start=True)
         server.join()
     except Exception as e:
@@ -228,13 +237,13 @@ def train():
         if test_flag:
             tf_config_file=None
         else:
-            tf_config_file =os.path.join(absolute_path,"/file/{task_id}/config.json".format(task_id=task_id))
+            tf_config_file =os.path.join(absolute_path,"file/{task_id}/config.json".format(task_id=task_id))
 
         # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
         p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, tf_config_file))
         p.start()
 
-        with open(os.path.join(absolute_path,'/file/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,'file/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
         state=True
@@ -279,12 +288,12 @@ def predict():
         conf=request_params.get('conf')
         test_flag = request_params.get('test_flag', False)
 
-        progress_file = os.path.join(absolute_path,"/file/" + task_id + "/predict_progress")
+        progress_file = os.path.join(absolute_path,"file/" + task_id + "/predict_progress")
 
         if test_flag:
             tf_config_file=None
         else:
-            tf_config_file =os.path.join(absolute_path,"/file/{task_id}/config.json".format(task_id=task_id))
+            tf_config_file =os.path.join(absolute_path,"file/{task_id}/config.json".format(task_id=task_id))
 
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
 
@@ -293,7 +302,7 @@ def predict():
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
         p.start()
 
-        with open(os.path.join(absolute_path,'/file/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,'file/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
         state=True
@@ -342,14 +351,14 @@ def check_progress():
         percent = "0.00"
         if taskType=="train":
             try:
-                with open(os.path.join(absolute_path,'/file/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
+                with open(os.path.join(absolute_path,'file/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
                     pid = f.readline()
                 pid = int(pid)
                 print("pid=",pid)
 
                 pid_exists=check_pid(pid)
 
-                with open(os.path.join(absolute_path,'/file/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
+                with open(os.path.join(absolute_path,'file/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
                     percent = f.readlines()[-1]
                     print("percent=",percent)
 
@@ -373,12 +382,12 @@ def check_progress():
         else:
             assert taskType=="predict"
             try:
-                with open(os.path.join(absolute_path,'/file/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
+                with open(os.path.join(absolute_path,'file/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
                     pid = f.readline()
                 pid = int(pid)
                 pid_exists=check_pid(pid)
 
-                with open(os.path.join(absolute_path,"/file/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
+                with open(os.path.join(absolute_path,"file/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
                     percent = f.readlines()[-1]
 
                 if percent == "1.00":
@@ -425,7 +434,7 @@ def kill_server():
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
 
-        with open(os.path.join(absolute_path,'/file/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
+        with open(os.path.join(absolute_path,'file/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
             pid=f.readline()
 
         pid=int(pid)
@@ -447,10 +456,13 @@ def kill_server():
 
 
 if __name__ == '__main__':
-    app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
-    app.run(host="0.0.0.0",port="8080", debug = True)
+
+    #app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
+    #app.run(host="0.0.0.0",port="8080", debug = True)
     #print(platform.system())
 
-    #state=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677", YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
+
+    print(absolute_path)
+    state=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677", YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
     #print(state)
 
