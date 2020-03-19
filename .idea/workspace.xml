@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/DockerfileTFE" beforeDir="false" afterPath="$PROJECT_DIR$/conf/DockerfileTFE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/conf/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conf/tfe_uwsgi.ini" beforeDir="false" afterPath="$PROJECT_DIR$/conf/tfe_uwsgi.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/http_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/http_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +99,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tfe_keeper/http_util.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/http_util.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />

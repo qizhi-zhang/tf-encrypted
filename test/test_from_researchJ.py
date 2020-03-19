@@ -1,20 +1,19 @@
-# coding=utf-8
-"""
-   Alipay.com Inc.
+"""lipay.com Inc.
    Copyright (c) 2004-2018 All Rights Reserved.
    ------------------------------------------------------
-   File Name : http_util
-   Author : huazhong.whz
-   Email: huazhong.whz@alibaba-inc.com
-   Create Time : 2018/8/6 下午5:10
-   Description : description what the main function of this file
+   File Name : test_from_researchJ
+   Author : qizhi.zqz
+   Email: qizhi.zqz@alibaba-inc.com
+   Create Time : 2020.3.19
+   Description : test_from_researchJ
 """
 import os
 import sys
 import time
 import json
 import requests
-#from commonutils.common_config import CommonConfig
+
+# from commonutils.common_config import CommonConfig
 
 requests.packages.urllib3.disable_warnings()
 
@@ -43,7 +42,7 @@ class HttpUtil(object):
             response = session.get(url, dic_data, timeout=time_out, verify=False)
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
-            #CommonConfig.http_logger.info(
+            # CommonConfig.http_logger.info(
             #    '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(dic_data),
             #                                                               response.status_code))
             # 返回字典类型
@@ -51,7 +50,7 @@ class HttpUtil(object):
         except Exception as e:
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
-             # CommonConfig.error_logger.exception('http post error:[{}], , cost:{}, exception msg:{}'.format(
+            # CommonConfig.error_logger.exception('http post error:[{}], , cost:{}, exception msg:{}'.format(
             #     url, millis, str(e)))
             return None
 
@@ -156,68 +155,59 @@ class HttpUtil(object):
             # raise Exception("http post error,url:{},error msg:{}".format(url, e.message))
 
 
-if __name__=='__main__':
-    httpUtil=HttpUtil()
+if __name__ == '__main__':
+    httpUtil = HttpUtil()
 
+    # test start_server
+    data = {"taskId": "qqq", "xOwner": "172.19.1.218:5678", "yOwner": "172.19.1.219:5678",
+            "thirdOwner": "172.19.1.214:5678", "player": "third_owner"}
 
-    #test start_server
-    # data={"taskId":  "qqq", "xOwner" : "0.0.0.0:5677", "yOwner" : "0.0.0.0:5678", "thirdOwner" : "0.0.0.0:5679", "player": "third_owner"}
-    #
-    # #x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/start_server",json_data=json.dumps(data))
-    # x = httpUtil.post(url="http://0.0.0.0:8083/tfe_keeper/start_server", json_data=json.dumps(data))
-    # print(x)
-
-
+    x = httpUtil.post(url="http://172.19.1.214:8081/tfe_keeper/start_server", json_data=json.dumps(data))
+    print(x)
 
     # test train
     #
     # with open('./qqq/conf', 'r') as f:
-    #     conf=f.read()
-    #     print(conf)
+    #    conf=f.read()
+    #    print(conf)
     # conf=conf.replace("True","true").replace("False","false")
-    # #print(input)
+    # print(input)
     # conf=json.loads(conf)
     # print(conf)
     #
     # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model", "test_flag": True } #相对路径
     #
-    # x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/train",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://172.19.1.219:8081/tfe_keeper/train",json_data=json.dumps(data))
     # print(x)
-    #
+
     # # check_progress
 
     # data={"taskId": "qqq", "taskType": "train" }
-    # x = httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/check_progress", json_data=json.dumps(data))
+    # x = httpUtil.post(url="http://172.19.1.219:8081/tfe_keeper/check_progress", json_data=json.dumps(data))
     # print(x)
-
-
 
     # predict
 
     # with open('./qqq/conf', 'r') as f:
-    #     conf=f.read()
-    #     print(conf)
+    #    conf=f.read()
+    #    print(conf)
     # conf=conf.replace("True","true").replace("False","false")
-    # #print(input)
+    # print(input)
     # conf=json.loads(conf)
     # print(conf)
     # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model", "test_flag": True } #相对路径
     #
-    # x=httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/predict",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://172.19.1.219:8081/tfe_keeper/predict",json_data=json.dumps(data))
     # print(x)
-
-
 
     # check_progress
 
     # data={"taskId": "qqq", "taskType": "predict" }
-    # x = httpUtil.post(url="http://0.0.0.0:8082/tfe_keeper/check_progress", json_data=json.dumps(data))
+    # x = httpUtil.post(url="http://172.19.1.219:8081/tfe_keeper/check_progress", json_data=json.dumps(data))
     # print(x)
 
-
-    #test kill server
-    data={"taskId":  "qqq"}
-    x=httpUtil.post(url="http://0.0.0.0:8083/tfe_keeper/kill_server",json_data=json.dumps(data))
-    print(x)
-
+    # test kill server
+    # data={"taskId":  "qqq"}
+    # x=httpUtil.post(url="http://172.19.1.214:8081/tfe_keeper/kill_server",json_data=json.dumps(data))
+    # print(x)
 

@@ -452,13 +452,12 @@ def kill_server():
         print(e)
         return e
 
-
-
+app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
 
 
 if __name__ == '__main__':
 
-    app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
+
     app.run(host="0.0.0.0",port="8080", debug = True)
     #print(platform.system())
 
