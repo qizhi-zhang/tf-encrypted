@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/tfe_uwsgi.ini" beforeDir="false" afterPath="$PROJECT_DIR$/conf/tfe_uwsgi.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tfe_keeper/http_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/http_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file/qqq/server_pid" beforeDir="false" afterPath="$PROJECT_DIR$/file/qqq/server_pid" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/http_util.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +47,7 @@
       <recent name="$PROJECT_DIR$/keeper" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test" />
       <recent name="$PROJECT_DIR$/conf" />
       <recent name="$PROJECT_DIR$/single_host_test" />
     </key>
