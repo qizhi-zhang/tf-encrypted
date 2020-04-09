@@ -148,7 +148,7 @@ def start_server():
             Player="XOwner"
         if Player=="y_owner":
             Player="YOwner"
-        if Player=="third_owner":
+        if Player=="third_owner" or Player == 'thirdOwner':
             Player="RS"
 
 

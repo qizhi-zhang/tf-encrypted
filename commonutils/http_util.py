@@ -14,7 +14,7 @@ import sys
 import time
 import json
 import requests
-from commonutils.common_config import CommonConfig
+#from commonutils.common_config import CommonConfig
 
 requests.packages.urllib3.disable_warnings()
 
@@ -43,16 +43,16 @@ class HttpUtil(object):
             response = session.get(url, dic_data, timeout=time_out, verify=False)
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
-            CommonConfig.http_logger.info(
-               '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(dic_data),
-                                                                          response.status_code))
+            # CommonConfig.http_logger.info(
+            #    '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(dic_data),
+            #                                                               response.status_code))
             # 返回字典类型
             return response.json()
         except Exception as e:
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
-            CommonConfig.error_logger.exception('http post error:[{}], , cost:{}, exception msg:{}'.format(
-                url, millis, str(e)))
+            # CommonConfig.error_logger.exception('http post error:[{}], , cost:{}, exception msg:{}'.format(
+            #     url, millis, str(e)))
             return None
 
     @staticmethod
@@ -65,16 +65,16 @@ class HttpUtil(object):
             response = session.post(url, data=json_data, headers=headers, timeout=time_out, verify=False)
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
-            CommonConfig.http_logger.info(
-                '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(json_data),
-                                                                          response.status_code))
+            # CommonConfig.http_logger.info(
+            #     '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(json_data),
+            #                                                               response.status_code))
             # 返回字典类型
             return response.json()
         except Exception as e:
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
-            CommonConfig.error_logger.exception(
-                'http post error:[{}], , cost:{}, exception msg:{}'.format(url, millis, str(e)))
+            # CommonConfig.error_logger.exception(
+            #     'http post error:[{}], , cost:{}, exception msg:{}'.format(url, millis, str(e)))
             return None
             # raise Exception("http post error,url:{},error msg:{}".format(url, e.message))
 
@@ -96,14 +96,14 @@ class HttpUtil(object):
             millis = int((end_time - begin_time) * 1000)
             unique_id = json.loads(param_dic).get('uniqueId')
             step = json.loads(param_dic).get('step')
-            CommonConfig.http_logger.info(
-                '[{}]elapsed {} millis, input_size[{}], status[{}], id:{}, step:{}'.format(
-                    url, millis, sys.getsizeof(data), response.status_code, unique_id, step))
+            # CommonConfig.http_logger.info(
+            #     '[{}]elapsed {} millis, input_size[{}], status[{}], id:{}, step:{}'.format(
+            #        url, millis, sys.getsizeof(data), response.status_code, unique_id, step))
 
             return response.json()
         except Exception as e:
-            CommonConfig.error_logger.exception('http post error:[{}], input[], param_dic:{} exception msg:{}'.format(
-                url, param_dic, str(e)))
+            # CommonConfig.error_logger.exception('http post error:[{}], input[], param_dic:{} exception msg:{}'.format(
+            #     url, param_dic, str(e)))
             # # res = dict()
             # res['status'] = False
             # res['errMsg'] = e
@@ -119,17 +119,17 @@ class HttpUtil(object):
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
             content = response.content
-            CommonConfig.http_logger.info(
-                '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(files),
-                                                                           response.status_code))
+            # CommonConfig.http_logger.info(
+            #     '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(files),
+               #                                                            response.status_code))
             # print content.json()
             # print json.loads(content)
             return json.loads(content)
         except Exception as e:
             #traceback.print_exc(e)
-            CommonConfig.error_logger.exception('http post error:[{}], input[], param_dic:{} exception msg:{}'.format(
-                url, param_dic, str(e)))
-            #return None
+            # CommonConfig.error_logger.exception('http post error:[{}], input[], param_dic:{} exception msg:{}'.format(
+            #     url, param_dic, str(e)))
+            # #return None
             print(e)
 
     @staticmethod
@@ -142,17 +142,17 @@ class HttpUtil(object):
             response = session.post(url, data=json_data, headers=headers, timeout=time_out, verify=False)
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
-            CommonConfig.http_logger.info(
-                '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(json_data),
-                                                                          response.status_code))
+            # CommonConfig.http_logger.info(
+            #     '[{}]elapsed {} millis, input_size[{}], status[{}]'.format(url, millis, sys.getsizeof(json_data),
+            #                                                               response.status_code))
             # 返回字典类型
             return response
         except Exception as e:
             end_time = time.time()
             millis = int((end_time - begin_time) * 1000)
-            CommonConfig.error_logger.exception('http post error:[{}], , cost:{}, exception msg:{}'.format(
-                url, millis, str(e)))
-            return None
+            # CommonConfig.error_logger.exception('http post error:[{}], , cost:{}, exception msg:{}'.format(
+            #     url, millis, str(e)))
+            #return None
             raise Exception("http post error,url:{},error msg:{}".format(url, e.message))
 
 
@@ -165,6 +165,13 @@ if __name__=='__main__':
 
     x=httpUtil.post(url="http://127.0.0.1:8080/tfe_keeper/start_server",json_data=json.dumps(data))
     print(x)
+
+    #内网 devU, devV, manager
+    #data={"taskId":  "qqq", "xOwner" : "172.19.1.216:5678", "yOwner" : "172.19.1.217:5678", "thirdOwner" : "172.19.1.213:5678", "player": "x_owner"}
+    #
+    # x=httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/start_server",json_data=json.dumps(data))
+    # print(x)
+
 
 
 
