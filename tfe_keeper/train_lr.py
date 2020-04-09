@@ -24,12 +24,16 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
     regularizationL1=float(trainParams.get("regularizationL1"))
     regularizationL2=float(trainParams.get("regularizationL2"))
 
+    dataSet = conf.get("dataSet")
+    node_list = dataSet.keys()
+    node_key_id1 = node_list.pop()
+    node_key_id2 = node_list.pop()
 
+    node_id1 = dataSet.get(node_key_id1)
+    node_id2 = dataSet.get(node_key_id2)
 
-
-    dataSet=conf.get("dataSet")
-    node_id1=dataSet.get("node_id1")
-    node_id2=dataSet.get("node_id2")
+    # node_id1=dataSet.get("node_id1")
+    # node_id2=dataSet.get("node_id2")
 
     print("node1_containY:",node_id1.get("isContainY"))
 
