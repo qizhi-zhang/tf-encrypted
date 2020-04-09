@@ -15,7 +15,7 @@ if platform.system() == "Darwin":
     absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
 else:
     #os.putenv('absolute_path', "/app")
-    absolute_path="/app"
+    absolute_path="/app/file"
 
 
 app = Flask(__name__)
@@ -50,9 +50,11 @@ def detect_idle():
     """
     print("detect_idle start")
     try:
-        print("request:",request)
+        #print("request:",request)
+        CommonConfig.http_logger.info("detect_idle request:"+str(request))
         request_params = request.json
-        print("request_params:",request_params)
+        CommonConfig.http_logger.info("detect_idle request_params:" + str(request_params))
+        #print("request_params:",request_params)
         ip_host = request_params.get('ipHost')
         print("ip_host:", ip_host)
         state=_detect_idle(ip_host)
@@ -94,9 +96,9 @@ def start_server():
     """
     print("start_server")
     try:
-        print("request:",request)
+        CommonConfig.http_logger.info("start_server request:" + str(request))
         request_params = request.json
-        print("request_params:",request_params)
+        CommonConfig.http_logger.info("start_server request_params:" + str(request_params))
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
 
@@ -151,7 +153,7 @@ def start_server():
 
 
 
-        os.makedirs(os.path.join(absolute_path,"file/{task_id}".format(task_id=task_id)),exist_ok=True)
+        os.makedirs(os.path.join(absolute_path,"tfe/{task_id}".format(task_id=task_id)),exist_ok=True)
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
         #state=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
         p.start()
@@ -191,14 +193,14 @@ def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
         print("config:", config)
         os.system("pwd")
         print("absolute_path:",absolute_path)
-        print("1. tfe config.json:", os.path.join(absolute_path, 'file/{task_id}/config.json'.format(task_id=task_id)))
+        print("1. tfe config.json:", os.path.join(absolute_path, 'tfe/{task_id}/config.json'.format(task_id=task_id)))
 
-        with open(os.path.join(absolute_path,'file/{task_id}/config.json'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,'tfe/{task_id}/config.json'.format(task_id=task_id)), 'w') as f:
             f.write(config)
 
-        print("2. tfe config.json:",os.path.join(absolute_path,'file/{task_id}/config.json'.format(task_id=task_id)))
+        print("2. tfe config.json:",os.path.join(absolute_path,'tfe/{task_id}/config.json'.format(task_id=task_id)))
 
-        config = RemoteConfig.load(os.path.join(absolute_path,'file/{task_id}/config.json'.format(task_id=task_id)))
+        config = RemoteConfig.load(os.path.join(absolute_path,'tfe/{task_id}/config.json'.format(task_id=task_id)))
         server = config.server(Player, start=True)
         server.join()
     except Exception as e:
@@ -221,9 +223,9 @@ def train():
 
     print("train")
     try:
-        print("request:",request)
+        CommonConfig.http_logger.info("train request:" + str(request))
         request_params = request.json
-        print("request_params:",request_params)
+        CommonConfig.http_logger.info("train request_params:" + str(request_params))
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
         algorithm = request_params.get('algorithm')
@@ -246,13 +248,13 @@ def train():
         if test_flag:
             tf_config_file=None
         else:
-            tf_config_file =os.path.join(absolute_path,"file/{task_id}/config.json".format(task_id=task_id))
+            tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
         # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
         p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, tf_config_file))
         p.start()
 
-        with open(os.path.join(absolute_path,'file/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
         state=True
@@ -280,9 +282,9 @@ def predict():
 
     print("predict")
     try:
-        print("request:",request)
+        CommonConfig.http_logger.info("pridict request:" + str(request))
         request_params = request.json
-        print("request_params:",request_params)
+        CommonConfig.http_logger.info("predict request_params:" + str(request_params))
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
         algorithm = request_params.get('algorithm')
@@ -299,12 +301,12 @@ def predict():
         conf=request_params.get('conf')
         test_flag = request_params.get('test_flag', False)
 
-        progress_file = os.path.join(absolute_path,"file/" + task_id + "/predict_progress")
+        progress_file = os.path.join(absolute_path,"tfe/" + task_id + "/predict_progress")
 
         if test_flag:
             tf_config_file=None
         else:
-            tf_config_file =os.path.join(absolute_path,"file/{task_id}/config.json".format(task_id=task_id))
+            tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
 
@@ -312,7 +314,7 @@ def predict():
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
         p.start()
 
-        with open(os.path.join(absolute_path,'file/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
         state=True
@@ -350,9 +352,9 @@ def check_progress():
 
     print("predict")
     try:
-        print("request:", request)
+        CommonConfig.http_logger.info("check_progress request:" + str(request))
         request_params = request.json
-        print("request_params:", request_params)
+        CommonConfig.http_logger.info("check_progress request_params:" + str(request_params))
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
         taskType = request_params.get('taskType')
@@ -361,14 +363,14 @@ def check_progress():
         percent = "0.00"
         if taskType=="train":
             try:
-                with open(os.path.join(absolute_path,'file/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
+                with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
                     pid = f.readline()
                 pid = int(pid)
                 print("pid=",pid)
 
                 pid_exists=check_pid(pid)
 
-                with open(os.path.join(absolute_path,'file/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
+                with open(os.path.join(absolute_path,'tfe/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
                     percent = f.readlines()[-1]
                     print("percent=",percent)
 
@@ -393,12 +395,12 @@ def check_progress():
         else:
             assert taskType=="predict"
             try:
-                with open(os.path.join(absolute_path,'file/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
+                with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
                     pid = f.readline()
                 pid = int(pid)
                 pid_exists=check_pid(pid)
 
-                with open(os.path.join(absolute_path,"file/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
+                with open(os.path.join(absolute_path,"tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
                     percent = f.readlines()[-1]
 
                 if percent == "1.00":
@@ -441,13 +443,13 @@ def kill_server():
 
     print("kill_server")
     try:
-        print("request:",request)
+        CommonConfig.http_logger.info("kill_server request:" + str(request))
         request_params = request.json
-        print("request_params:",request_params)
+        CommonConfig.http_logger.info("kill_server request_params:" + str(request_params))
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
 
-        with open(os.path.join(absolute_path,'file/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
+        with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
             pid=f.readline()
 
         pid=int(pid)

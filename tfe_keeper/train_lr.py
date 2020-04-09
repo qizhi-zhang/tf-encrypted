@@ -12,7 +12,7 @@ import os
 if platform.system()=="Darwin":
     absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
 else:
-    absolute_path="/app"
+    absolute_path="/app/file"
 
 def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
     trainParams=conf.get("trainParams")
@@ -130,7 +130,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
         sess.run(tfe.global_variables_initializer(),
                tag='init')
         start_time=time.time()
-        progress_file=os.path.join(absolute_path,"file/"+taskId+"/train_progress")
+        progress_file=os.path.join(absolute_path,"tfe/"+taskId+"/train_progress")
         model.fit(sess, x_train, y_train, train_batch_num, progress_file)
 
         train_time=time.time()-start_time
