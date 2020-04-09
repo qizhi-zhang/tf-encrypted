@@ -1,6 +1,6 @@
 tfe:
     #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsesmodel:2.20.0.20200210_release
-    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v1
+    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v3
     volumes:
     - ./conf:/app/conf/parser
     - ./logs/model:/app/logs

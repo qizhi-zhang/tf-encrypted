@@ -1,6 +1,6 @@
 .PHONY: up compose morsetfe
 
-TFE_VERSION = v2
+TFE_VERSION = v2.1
 BASE_VERSION = vpython3base
 
 # run all docker
@@ -25,7 +25,7 @@ compose:
 morsetfe:
 	python precompile.py
 	docker build -t morsetfe:$(TFE_VERSION) -f conf/DockerfileTFE . | tail -n 1 | cut -d' ' -f3 | xargs -t -I{} docker tag {} registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:$(TFE_VERSION)
-	@echo "build morsetfe docker image ok"
+	echo "build morsetfe docker image ok"
 
 
 # Push docker images
