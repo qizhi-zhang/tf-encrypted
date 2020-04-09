@@ -17,7 +17,7 @@ from logging import Formatter
 from logging.handlers import TimedRotatingFileHandler
 
 operating_system_platform = platform.system()
-default_logs = "../../../" if operating_system_platform == "Darwin" else "/app"
+default_logs = "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted" if operating_system_platform == "Darwin" else "/app"
 
 _LOG_FORMAT = '%(asctime)s %(levelname)s ' \
               '%(module)s.%(funcName)s:%(lineno)d %(message)s'
