@@ -1,6 +1,6 @@
 .PHONY: up compose morsetfe
 
-TFE_VERSION = v2.3
+TFE_VERSION = v2.4
 BASE_VERSION = vpython3base
 
 # run all docker

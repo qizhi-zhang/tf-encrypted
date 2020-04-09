@@ -57,9 +57,9 @@ def detect_idle():
         #print("request_params:",request_params)
         ip_host = request_params.get('ipHost')
         print("ip_host:", ip_host)
-        state=_detect_idle(ip_host)
-        print("state:", state)
-        return json.dumps({"state": state})
+        status=_detect_idle(ip_host)
+        print("status:", status)
+        return json.dumps({"status": status})
     except Exception as e:
         CommonConfig.error_logger.exception(
             'detelt_idle error on input: {}, exception msg:{}'.format(str(request.json),str(e)))
@@ -72,12 +72,12 @@ def _detect_idle(ip_host):
         print("cluster:", cluster)
         server = tf.train.Server(cluster)
         print("server:", server)
-        state="idle"
+        status="idle"
         #server.join()
     except Exception as e:
         print(e)
-        state="busy"
-    return state
+        status="busy"
+    return status
 
 
 
@@ -107,30 +107,30 @@ def start_server():
             RS_iphost=request_params.get("thirdOwner")
         print("RS_iphost:",RS_iphost)
         if RS_iphost==None:
-            state = False
+            status = False
             errorCode = 1
             errorMsg = "nether RS nor thirdOwner are given"
-            return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
         XOwner_iphost = request_params.get('XOwner')
         if XOwner_iphost==None:
             XOwner_iphost = request_params.get('xOwner')
         print("XOwner_iphost=", XOwner_iphost)
         if XOwner_iphost==None:
-            state = False
+            status = False
             errorCode = 1
             errorMsg = "nether xOwner nor XOwner are given"
-            return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
 
         YOwner_iphost = request_params.get('YOwner')
         if YOwner_iphost==None:
             YOwner_iphost = request_params.get('yOwner')
         if YOwner_iphost == None:
-            state = False
+            status = False
             errorCode = 1
             errorMsg = "nether yOwner nor YOwner are given"
-            return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
 
 
@@ -139,10 +139,10 @@ def start_server():
         if Player==None:
             Player=request_params.get('player')
         if YOwner_iphost == None:
-            state = False
+            status = False
             errorCode = 1
             errorMsg = "nether Player nor player are given"
-            return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
         if Player=="x_owner":
             Player="XOwner"
@@ -155,7 +155,7 @@ def start_server():
 
         os.makedirs(os.path.join(absolute_path,"tfe/{task_id}".format(task_id=task_id)),exist_ok=True)
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
-        #state=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
+        #status=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
         p.start()
         #p.join(timeout=5)
         print("p.pid:")
@@ -164,13 +164,13 @@ def start_server():
         with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
-        state=True
+        status=True
         errorCode=0
         errorMsg=""
 
         #print("p.exitcode:", p.exitcode)
 
-        return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
         print(e)
         return e
@@ -210,7 +210,7 @@ def train():
     input:
         taskId,algorithm,conf,modelFileMachine,modelFilePath
     :return:
-        state,
+        status,
         errorCode,
         errorMsg
     """
@@ -252,10 +252,10 @@ def train():
         with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
-        state=True
+        status=True
         errorCode=0
         errorMsg=""
-        return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
         print(e)
         return e
@@ -268,7 +268,7 @@ def predict():
     input:
         taskId,algorithm,conf,modelFileMachine,modelFilePath
     :return:
-        state,
+        status,
         errorCode,
         errorMsg
     """
@@ -311,10 +311,10 @@ def predict():
         with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
-        state=True
+        status=True
         errorCode=0
         errorMsg=""
-        return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg, "progressFile": progress_file})
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "progressFile": progress_file})
     except Exception as e:
         print(e)
         return e
@@ -411,10 +411,10 @@ def check_progress():
 
 
         percent=int(float(percent)*100)
-        state=True
+        status=True
         errorCode=0
         errorMsg=""
-        return json.dumps({"state": state, "executeStatus": executeStatus, "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
+        return json.dumps({"status": status, "executeStatus": executeStatus, "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
     except Exception as e:
         print(e)
         return e
@@ -427,7 +427,7 @@ def kill_server():
 
 
     :return:
-    state,
+    status,
     errorCode,
     errorMsg
     """
@@ -446,13 +446,13 @@ def kill_server():
         pid=int(pid)
         os.kill(pid,9)
 
-        state=True
+        status=True
         errorCode=0
         errorMsg=""
 
         #print("p.exitcode:", p.exitcode)
 
-        return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
         print(e)
         return e
@@ -468,6 +468,6 @@ if __name__ == '__main__':
 
 
     #print(absolute_path)
-    #state=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677", YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
-    #print(state)
+    #status=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677", YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
+    #print(status)
 
