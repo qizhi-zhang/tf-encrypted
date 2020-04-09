@@ -6,7 +6,6 @@ from tf_encrypted.config import RemoteConfig
 from multiprocessing import Process
 import train_lr
 import predict_lr
-from commonutils.common_config import CommonConfig
 import os
 import platform
 absolute_path = None
@@ -15,7 +14,7 @@ if platform.system() == "Darwin":
     absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
 else:
     #os.putenv('absolute_path', "/app")
-    absolute_path="/app"
+    absolute_path="/app/file"
 
 
 app = Flask(__name__)
@@ -24,7 +23,7 @@ app = Flask(__name__)
 
 
 
-@app.route('/success/<name>')
+@app.route('/service/<name>')
 def success(name):
    return 'welcome %s' % name
 
@@ -159,10 +158,6 @@ def start_server():
         print("p.pid:")
         print(p.pid)
 
-        # if p.pid is None:
-        #     CommonConfig.error_logger.exception(
-        #         'start_server error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
-
         with open(os.path.join(absolute_path,'file/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
@@ -174,9 +169,8 @@ def start_server():
 
         return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
-        CommonConfig.error_logger.exception(
-            'start_server error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
-
+        print(e)
+        return e
 
 
 def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
@@ -260,9 +254,8 @@ def train():
         errorMsg=""
         return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
-        CommonConfig.error_logger.exception(
-            'train error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
-
+        print(e)
+        return e
 
 
 
@@ -320,8 +313,8 @@ def predict():
         errorMsg=""
         return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg, "progressFile": progress_file})
     except Exception as e:
-        CommonConfig.error_logger.exception(
-            'predict error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
+        print(e)
+        return e
 
 
 
@@ -385,9 +378,8 @@ def check_progress():
 
 
             except Exception as e:
+                print(e)
                 executeStatus="FAILED"
-                CommonConfig.error_logger.exception(
-                    'check_process error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
 
 
         else:
@@ -413,8 +405,6 @@ def check_progress():
 
             except Exception as e:
                 executeStatus="FAILED"
-                CommonConfig.error_logger.exception(
-                    'check_process error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
 
 
         percent=int(float(percent)*100)
@@ -423,8 +413,8 @@ def check_progress():
         errorMsg=""
         return json.dumps({"state": state, "executeStatus": executeStatus, "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
     except Exception as e:
-        CommonConfig.error_logger.exception(
-            'check_process error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
+        print(e)
+        return e
 
 
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])
@@ -461,8 +451,8 @@ def kill_server():
 
         return json.dumps({"state": state, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
-        CommonConfig.error_logger.exception(
-            'kill_server error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
+        print(e)
+        return e
 
 app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
 

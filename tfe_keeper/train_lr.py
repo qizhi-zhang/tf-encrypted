@@ -12,7 +12,7 @@ import os
 if platform.system()=="Darwin":
     absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
 else:
-    absolute_path="/app"
+    absolute_path="/app/file"
 
 def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
     trainParams=conf.get("trainParams")
