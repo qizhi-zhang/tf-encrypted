@@ -4,6 +4,7 @@ import json
 import tensorflow as tf
 from tf_encrypted.config import RemoteConfig
 from multiprocessing import Process
+from commonutils.common_config import CommonConfig
 import train_lr
 import predict_lr
 import os
@@ -160,7 +161,7 @@ def start_server():
         print("p.pid:")
         print(p.pid)
 
-        with open(os.path.join(absolute_path,'file/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
         state=True
