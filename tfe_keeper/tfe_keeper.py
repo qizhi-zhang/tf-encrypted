@@ -252,6 +252,7 @@ def train():
             tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
         # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
+
         p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, tf_config_file))
         p.start()
 

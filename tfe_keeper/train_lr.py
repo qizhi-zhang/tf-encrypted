@@ -160,14 +160,18 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
 
         CommonConfig.http_logger.info("modelFilePath:" + str(modelFilePath))
         CommonConfig.http_logger.info("modelFileMachine:" + str(modelFileMachine))
-        save_op = model.save(modelFilePath,modelFileMachine)
 
+        save_op = model.save(modelFilePath,modelFileMachine)
+        CommonConfig.http_logger.info("save_op:" + str(save_op))
         with tfe.Session() as sess:
 
             sess.run(tfe.global_variables_initializer(),
                    tag='init')
             start_time=time.time()
+            CommonConfig.http_logger.info("start_time:" + str(start_time))
+
             progress_file=os.path.join(absolute_path,"tfe/"+taskId+"/train_progress")
+            CommonConfig.http_logger.info("progress_file:" + str(progress_file))
 
             CommonConfig.http_logger.info("train_lr/run:  x_train:" + str(x_train))
             CommonConfig.http_logger.info("train_lr/run:  y_train:" + str(y_train))
