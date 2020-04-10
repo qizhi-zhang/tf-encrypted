@@ -146,9 +146,9 @@ def start_server():
             errorMsg = "nether Player nor player are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
-        if Player=="x_owner":
+        if Player=="x_owner" or Player=="xOwner":
             Player="XOwner"
-        if Player=="y_owner":
+        if Player=="y_owner" or Player=="yOwner":
             Player="YOwner"
         if Player=="third_owner" or Player == 'thirdOwner':
             Player="RS"
