@@ -55,7 +55,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
         matchColNumY = int(node_id1.get("matchColNum"))
         path_y= node_id1.get("storagePath")
     else:
-        assert node_id2.get("isContainY")==True
+        if node_id2.get("isContainY")==False:
+            CommonConfig.error_logger.error("both isContainY are False")
         featureNumY = int(node_id2.get("featureNum"))
         matchColNumY = int(node_id2.get("matchColNum"))
         path_y= node_id2.get("storagePath")
