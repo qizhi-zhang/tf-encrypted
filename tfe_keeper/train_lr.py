@@ -28,6 +28,9 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
     regularizationL2=float(trainParams.get("regularizationL2"))
 
     dataSet = conf.get("dataSet")
+
+    CommonConfig.http_logger.info("dataSet:" + str(dataSet))
+
     node_list = dataSet.keys()
     node_key_id1 = node_list.pop()
     node_key_id2 = node_list.pop()
@@ -38,7 +41,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
     # node_id1=dataSet.get("node_id1")
     # node_id2=dataSet.get("node_id2")
 
-    print("node1_containY:",node_id1.get("isContainY"))
+    #print("node1_containY:",node_id1.get("isContainY"))
+    CommonConfig.http_logger.info("node1_containY:" + str(node_id1.get("isContainY")))
 
     if (node_id1.get("isContainY")==True):
         featureNumX = int(node_id2.get("featureNum"))
@@ -61,10 +65,19 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
         matchColNumX = int(node_id1.get("matchColNum"))
         path_x= node_id1.get("storagePath")
 
+    CommonConfig.http_logger.info("path_x:" + str(path_x))
+    CommonConfig.http_logger.info("path_y:" + str(path_y))
+
+
     path_x = os.path.join(absolute_path, path_x)
     path_y=os.path.join(absolute_path, path_y)
     train_batch_num=epoch_num*record_num//batch_size
     feature_num=featureNumX+featureNumY
+
+    CommonConfig.http_logger.info("path_x:" + str(path_x))
+    CommonConfig.http_logger.info("path_y:" + str(path_y))
+    CommonConfig.http_logger.info("train_batch_num:" + str(train_batch_num))
+    CommonConfig.http_logger.info("feature_num:" + str(feature_num))
 
 
 
@@ -122,8 +135,10 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
 
 
 
-    print("x_train:", x_train)
-    print("y_train:", y_train)
+    #print("x_train:", x_train)
+    #print("y_train:", y_train)
+    CommonConfig.http_logger.info("x_train:" + str(x_train))
+    CommonConfig.http_logger.info("y_train:" + str(y_train))
 
 
 
