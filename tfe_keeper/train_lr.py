@@ -158,7 +158,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
 
         model = LogisticRegression(feature_num,learning_rate=learningRate)
 
-
+        CommonConfig.http_logger.info("modelFilePath:" + str(modelFilePath))
+        CommonConfig.http_logger.info("modelFileMachine:" + str(modelFileMachine))
         save_op = model.save(modelFilePath,modelFileMachine)
 
         with tfe.Session() as sess:
