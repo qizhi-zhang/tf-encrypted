@@ -225,11 +225,11 @@ def train():
         print("task_id:", task_id)
         algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
-        if modelFileMachine=="x_owner":
+        if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":
             modelFileMachine="XOwner"
-        if modelFileMachine=="y_owner":
+        if modelFileMachine=="y_owner" or modelFileMachine=="yOwner":
             modelFileMachine="YOwner"
-        if modelFileMachine=="third_owner":
+        if modelFileMachine=="third_owner" or modelFileMachine=="thirdOwner":
             modelFileMachine="RS"
 
 
@@ -283,11 +283,12 @@ def predict():
         print("task_id:", task_id)
         algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
-        if modelFileMachine=="x_owner":
+
+        if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":
             modelFileMachine="XOwner"
-        if modelFileMachine=="y_owner":
+        if modelFileMachine=="y_owner" or modelFileMachine=="yOwner":
             modelFileMachine="YOwner"
-        if modelFileMachine=="third_owner":
+        if modelFileMachine=="third_owner" or modelFileMachine=="thirdOwner":
             modelFileMachine="RS"
 
         modelFilePath = request_params.get('modelFilePath')
