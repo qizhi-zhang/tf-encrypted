@@ -30,13 +30,17 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
     dataSet = conf.get("dataSet")
 
     CommonConfig.http_logger.info("dataSet:" + str(dataSet))
+    try:
+        node_list = dataSet.keys()
+        node_key_id1 = node_list.pop()
+        node_key_id2 = node_list.pop()
 
-    node_list = dataSet.keys()
-    node_key_id1 = node_list.pop()
-    node_key_id2 = node_list.pop()
+        node_id1 = dataSet.get(node_key_id1)
+        node_id2 = dataSet.get(node_key_id2)
+    except Exception as e:
+        CommonConfig.error_logger.exception(
+            'get node  from dataSet {} error , exception msg:{}'.format(str(dataSet), str(e)))
 
-    node_id1 = dataSet.get(node_key_id1)
-    node_id2 = dataSet.get(node_key_id2)
 
     # node_id1=dataSet.get("node_id1")
     # node_id2=dataSet.get("node_id2")
