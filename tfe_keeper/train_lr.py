@@ -8,6 +8,7 @@ import sys
 import time
 import platform
 import os
+from commonutils.common_config import CommonConfig
 
 if platform.system()=="Darwin":
     absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
@@ -16,6 +17,8 @@ else:
 
 def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
     trainParams=conf.get("trainParams")
+
+    CommonConfig.http_logger.info("train_lr/run:  trainParams:" + str(trainParams))
 
     learningRate=float(trainParams.get("learningRate"))
     batch_size = int(trainParams.get("batchSize"))
@@ -77,6 +80,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
           'YOwner',
           'RS'
       ])
+
+    CommonConfig.http_logger.info("train_lr/run:  config:" + str(config))
     tfe.set_config(config)
     players = ['XOwner', 'YOwner', 'RS']
     prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
@@ -135,6 +140,12 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
                tag='init')
         start_time=time.time()
         progress_file=os.path.join(absolute_path,"tfe/"+taskId+"/train_progress")
+
+        CommonConfig.http_logger.info("train_lr/run:  x_train:" + str(x_train))
+        CommonConfig.http_logger.info("train_lr/run:  y_train:" + str(y_train))
+        CommonConfig.http_logger.info("train_lr/run:  train_batch_num:" + str(train_batch_num))
+        CommonConfig.http_logger.info("train_lr/run:  progress_file:" + str(progress_file))
+
         model.fit(sess, x_train, y_train, train_batch_num, progress_file)
 
         train_time=time.time()-start_time
