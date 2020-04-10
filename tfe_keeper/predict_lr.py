@@ -33,7 +33,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
     # node_id2=dataSet.get("node_id2")
 
     dataSet = conf.get("dataSet")
-    node_list = dataSet.keys()
+    node_list = list(dataSet.keys())
     node_key_id1 = node_list.pop()
     node_key_id2 = node_list.pop()
 
