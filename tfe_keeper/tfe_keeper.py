@@ -75,7 +75,9 @@ def _detect_idle(ip_host):
         status="idle"
         #server.join()
     except Exception as e:
-        print(e)
+        #print(e)
+        CommonConfig.error_logger.exception(
+            '_detelt_idle error on input: {}, exception msg:{}'.format(str(ip_host), str(e)))
         status="busy"
     return status
 
@@ -172,8 +174,10 @@ def start_server():
 
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
-        print(e)
-        return e
+        #print(e)
+        #return e
+        CommonConfig.error_logger.exception(
+            'start_server error , exception msg:{}'.format(str(e)))
 
 
 def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
@@ -199,7 +203,9 @@ def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
         server = config.server(Player, start=True)
         server.join()
     except Exception as e:
-        print(e)
+        CommonConfig.error_logger.exception(
+            '_start_server error , exception msg:{}'.format(str(e)))
+        #print(e)
 
 
 
@@ -257,8 +263,10 @@ def train():
         errorMsg=""
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
-        print(e)
-        return e
+        #print(e)
+        CommonConfig.error_logger.exception(
+            'train error , exception msg:{}'.format(str(e)))
+        #return e
 
 
 
@@ -317,8 +325,10 @@ def predict():
         errorMsg=""
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "progressFile": progress_file})
     except Exception as e:
-        print(e)
-        return e
+        #print(e)
+        CommonConfig.error_logger.exception(
+            'predict error , exception msg:{}'.format(str(e)))
+        #return e
 
 
 
@@ -382,7 +392,9 @@ def check_progress():
 
 
             except Exception as e:
-                print(e)
+                #print(e)
+                CommonConfig.error_logger.exception(
+                    'check_progress error , exception msg:{}'.format(str(e)))
                 executeStatus="FAILED"
 
 
@@ -408,6 +420,8 @@ def check_progress():
 
 
             except Exception as e:
+                CommonConfig.error_logger.exception(
+                    'check_progress error , exception msg:{}'.format(str(e)))
                 executeStatus="FAILED"
 
 
@@ -417,7 +431,8 @@ def check_progress():
         errorMsg=""
         return json.dumps({"status": status, "executeStatus": executeStatus, "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
     except Exception as e:
-        print(e)
+        CommonConfig.error_logger.exception(
+            'check_progress error , exception msg:{}'.format(str(e)))
         return e
 
 
@@ -455,7 +470,8 @@ def kill_server():
 
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
-        print(e)
+        CommonConfig.error_logger.exception(
+            'kill_server error , exception msg:{}'.format(str(e)))
         return e
 
 app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
