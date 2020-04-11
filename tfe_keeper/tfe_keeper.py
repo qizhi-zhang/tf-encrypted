@@ -159,16 +159,27 @@ def start_server():
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
         #status=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
         p.start()
-        #p.join(timeout=5)
+        p.join(timeout=5)
         print("p.pid:")
         print(p.pid)
+        if p.exitcode==0:
 
-        with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
-            f.write(str(p.pid))
 
-        status=True
-        errorCode=0
-        errorMsg=""
+            #with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
+            with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id=task_id)), 'w') as f:
+                f.write(str(p.pid))
+
+            status=True
+            errorCode=0
+            errorMsg=""
+
+        else:
+
+            status = False
+            errorCode = p.exitcode
+            errorMsg = "start server over time=5s"
+
+
 
         #print("p.exitcode:", p.exitcode)
 
@@ -178,6 +189,11 @@ def start_server():
         #return e
         CommonConfig.error_logger.exception(
             'start_server error , exception msg:{}'.format(str(e)))
+
+        status = False
+        errorCode = -1
+        errorMsg = "start server faild"
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
 
 def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
@@ -459,15 +475,23 @@ def kill_server():
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
 
-        with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
+        #with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
+        with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id=task_id)), 'r') as f:
             pid=f.readline()
 
-        pid=int(pid)
-        os.kill(pid,9)
+        if pid:
+            pid=int(pid)
+            os.kill(pid,9)
+            errorMsg = "killed {pid}".format(pid=pid)
+        else:
+            errorMsg = "server is not running"
+
 
         status=True
         errorCode=0
-        errorMsg=""
+
+
+
 
         #print("p.exitcode:", p.exitcode)
 
