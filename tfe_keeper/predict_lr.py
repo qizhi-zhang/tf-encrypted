@@ -4,6 +4,7 @@ by qizhi.zqz """
 import tf_encrypted as tfe
 import tensorflow as tf
 import json
+from tf_encrypted.keras import backend as KE
 #from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
 from common_private import  LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y, get_data_id_with_y, get_data_id_with_xy
@@ -145,41 +146,41 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
 
         CommonConfig.http_logger.info("load_op:" + str(load_op))
 
-        with tfe.Session() as sess:
 
-            try:
-                #sess.run(tfe.global_variables_initializer(), tag='init')
-                sess.run(tf.local_variables_initializer())
-            except Exception as e:
-                CommonConfig.error_logger.exception(
-                    'global_variables_initializer error , exception msg:{}'.format(str(e)))
-            start_time=time.time()
-            CommonConfig.http_logger.info("start_time:" + str(start_time))
+        sess = KE.get_session()
+        try:
+            #sess.run(tfe.global_variables_initializer(), tag='init')
+            sess.run(tf.local_variables_initializer())
+        except Exception as e:
+            CommonConfig.error_logger.exception(
+                'global_variables_initializer error , exception msg:{}'.format(str(e)))
+        start_time=time.time()
+        CommonConfig.http_logger.info("start_time:" + str(start_time))
 
-            print("Loading model...")
-            sess.run(load_op)
-            print("Load OK.")
+        print("Loading model...")
+        sess.run(load_op)
+        print("Load OK.")
 
-            CommonConfig.http_logger.info("Load OK.")
+        CommonConfig.http_logger.info("Load OK.")
 
-            #model.fit(sess, x_train, y_train, train_batch_num)
-            #model.get_KS(sess, x_test,y_test, batch_num)
+        #model.fit(sess, x_train, y_train, train_batch_num)
+        #model.get_KS(sess, x_test,y_test, batch_num)
 
-            #progress_file = "./" + taskId + "/predict_progress"
-
-
-            model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, progress_file)
+        #progress_file = "./" + taskId + "/predict_progress"
 
 
+        model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, progress_file)
 
-            test_time=time.time()-start_time
-            print("predict_time=", test_time)
 
-            CommonConfig.http_logger.info("predict_time=:" + str(test_time))
 
-            with open(progress_file, "w") as f:
-                f.write("1.00")
-                f.flush()
+        test_time=time.time()-start_time
+        print("predict_time=", test_time)
+
+        CommonConfig.http_logger.info("predict_time=:" + str(test_time))
+
+        with open(progress_file, "w") as f:
+            f.write("1.00")
+            f.flush()
 
 
 
