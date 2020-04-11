@@ -169,7 +169,7 @@ def start_server():
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
         #status=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
         p.start()
-        p.join(timeout=5)
+        p.join(timeout=10)
         print("p.pid:")
         print(p.pid)
         if p.exitcode==0:
@@ -187,7 +187,7 @@ def start_server():
 
             status = False
             errorCode = p.exitcode
-            errorMsg = "start server over time=5s"
+            errorMsg = "start server over time=10s"
         # todo
 
 
