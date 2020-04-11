@@ -6,6 +6,7 @@
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tfe/qqq/predict" beforeDir="false" afterPath="$PROJECT_DIR$/tfe/qqq/predict" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tfe_keeper/predict_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/predict_lr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/train_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/train_lr.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -4,6 +4,7 @@ import json
 #from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
 from common_private import  LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y
+import tensorflow as tf
 import sys
 import time
 import platform
@@ -196,8 +197,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
         CommonConfig.http_logger.info("save_op:" + str(save_op))
         with tfe.Session() as sess:
             try:
-                sess.run(tfe.global_variables_initializer(),
-                       tag='init')
+                #sess.run(tfe.global_variables_initializer(), tag='init')
+                sess.run(tf.local_variables_initializer())
             except Exception as e:
                 CommonConfig.error_logger.exception(
                     'global_variables_initializer error , exception msg:{}'.format(str(e)))

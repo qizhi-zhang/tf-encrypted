@@ -148,8 +148,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         with tfe.Session() as sess:
 
             try:
-                sess.run(tfe.global_variables_initializer(),
-                       tag='init')
+                #sess.run(tfe.global_variables_initializer(), tag='init')
+                sess.run(tf.local_variables_initializer())
             except Exception as e:
                 CommonConfig.error_logger.exception(
                     'global_variables_initializer error , exception msg:{}'.format(str(e)))
