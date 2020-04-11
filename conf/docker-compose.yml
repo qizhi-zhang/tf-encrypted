@@ -3,7 +3,7 @@ tfe:
     image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v2.5
     volumes:
     - ./conf:/app/conf/parser
-    - ./logs/model:/app/logs
+    #- ./logs/model:/app/logs
     - ./logs/tfe:/app/logs
     - ./file:/app/file
     #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime

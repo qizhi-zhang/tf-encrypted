@@ -356,7 +356,7 @@ def check_progress():
         else:
             return True
 
-    print("predict")
+    print("check_progress")
     try:
         CommonConfig.http_logger.info("check_progress request:" + str(request))
         request_params = request.json

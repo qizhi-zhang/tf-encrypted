@@ -80,7 +80,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
 
 
 
-        train_batch_num=epoch_num*record_num//batch_size
+        train_batch_num=epoch_num*record_num//batch_size+1
         feature_num=featureNumX+featureNumY
 
 
@@ -116,33 +116,46 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
 
 
 
-        # tfe.set_protocol(tfe.protocol.Pond(
-        #     tfe.get_config().get_player(data_owner_0.player_name),
-        #     tfe.get_config().get_player(data_owner_1.player_name)
-        # ))
+        # @tfe.local_computation("XOwner")
+        # def provide_training_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
+        #     train_x = get_data_x(64, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
+        #     return train_x
+        #
+        # @tfe.local_computation("YOwner")
+        # def provide_training_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+        #     train_y = get_data_y(64, path, matchColNum=matchColNumX, epoch=epoch_num,  skip_row_num=1)
+        #     return train_y
+        #
+        # @tfe.local_computation("YOwner")
+        # def provide_training_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+        #     train_x, train_y = get_data_xy(64, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
+        #     return train_x, train_y
+        #
+        # if (featureNumY==0):
+        #
+        #     x_train = provide_training_data_x(path_x)
+        #     y_train = provide_training_data_y(path_y)
+        # else:
+        #     x_train1, y_train=provide_training_data_xy(path_y)
+        #     x_train0=provide_training_data_x(path_x)
+        #     x_train=prot.concat([x_train0, x_train1],axis=1)
 
-        @tfe.local_computation("XOwner")
-        def provide_training_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
-            train_x = get_data_x(64, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
-            return train_x
 
-        @tfe.local_computation("YOwner")
-        def provide_training_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
-            train_y = get_data_y(64, path, matchColNum=matchColNumX, epoch=epoch_num,  skip_row_num=1)
-            return train_y
 
-        @tfe.local_computation("YOwner")
-        def provide_training_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
-            train_x, train_y = get_data_xy(64, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
-            return train_x, train_y
+        if (featureNumY == 0):
 
-        if (featureNumY==0):
-            x_train = provide_training_data_x(path_x)
-            y_train = provide_training_data_y(path_y)
+
+            x_train = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
+                                                    arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num*2, 3.0, 1))
+            y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_y,
+                                                    arguments=(batch_size, path_y, matchColNumY, epoch_num*2, 1))
+
         else:
-            x_train1, y_train=provide_training_data_xy(path_y)
-            x_train0=provide_training_data_x(path_x)
-            x_train=prot.concat([x_train0, x_train1],axis=1)
+            x_train1, y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_xy,
+                                                    arguments=(batch_size, path_y, featureNumY, matchColNumY, epoch_num*2, 3.0, 1))
+            x_train0 = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
+                                                    arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num*2, 3.0, 1))
+            x_train = prot.concat([x_train0, x_train1], axis=1)
 
 
 
@@ -164,9 +177,14 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
         save_op = model.save(modelFilePath,modelFileMachine)
         CommonConfig.http_logger.info("save_op:" + str(save_op))
         with tfe.Session() as sess:
+            try:
+                sess.run(tfe.global_variables_initializer(),
+                       tag='init')
+            except Exception as e:
+                CommonConfig.error_logger.exception(
+                    'global_variables_initializer error , exception msg:{}'.format(str(e)))
 
-            sess.run(tfe.global_variables_initializer(),
-                   tag='init')
+            CommonConfig.http_logger.info("start_time:")
             start_time=time.time()
             CommonConfig.http_logger.info("start_time:" + str(start_time))
 
