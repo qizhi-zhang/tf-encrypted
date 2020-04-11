@@ -192,7 +192,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
         save_op = model.save(modelFilePath,modelFileMachine)
         save_as_plaintext_op=model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
-
+        load_op = model.load(modelFilePath, modelFileMachine)
 
         CommonConfig.http_logger.info("save_op:" + str(save_op))
         with tfe.Session() as sess:
