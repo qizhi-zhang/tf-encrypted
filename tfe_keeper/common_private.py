@@ -183,7 +183,21 @@ class LogisticRegression:
       modelFilePath_i=os.path.join(modelFilePath, "param_{i}".format(i=i))
       save_op=tfe.define_output(modelFileMachine, [self.weights[i], modelFilePath_i], _save)
       save_ops=save_ops+[save_op]
-      save_op=tf.group(*save_ops)
+    save_op=tf.group(*save_ops)
+    return save_op
+
+  def save_as_plaintext(self,  modelFilePath, modelFileMachine="YOwner") :
+    def _save(weights, modelFilePath) -> tf.Operation:
+      weights = tf.cast(weights, "float32")
+      weights = tf.strings.as_string(weights, precision=6)
+      weights = tf.reduce_join(weights, separator=",")
+      save_op = tf.write_file(modelFilePath, weights)
+      return save_op
+
+
+    weights=tfe.concat([self.b, self.w.reshape([-1])], axis=0)
+
+    save_op=tfe.define_output(modelFileMachine, [weights, modelFilePath], _save)
     return save_op
 
 

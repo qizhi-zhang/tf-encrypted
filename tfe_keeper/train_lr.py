@@ -15,7 +15,7 @@ if platform.system()=="Darwin":
 else:
     absolute_path="/app/file"
 
-def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
+def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_config_file=None):
     trainParams=conf.get("trainParams")
 
     CommonConfig.http_logger.info("train_lr/run:  trainParams:" + str(trainParams))
@@ -173,8 +173,12 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
 
         CommonConfig.http_logger.info("modelFilePath:" + str(modelFilePath))
         CommonConfig.http_logger.info("modelFileMachine:" + str(modelFileMachine))
+        CommonConfig.http_logger.info("modelFilePlainTextPath:" + str(modelFilePlainTextPath))
 
         save_op = model.save(modelFilePath,modelFileMachine)
+        save_as_plaintext_op=model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
+
+
         CommonConfig.http_logger.info("save_op:" + str(save_op))
         with tfe.Session() as sess:
             try:
@@ -203,6 +207,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, tf_config_file=None):
 
             print("Saving model...")
             sess.run(save_op)
+            sess.run(save_as_plaintext_op)
             print("Save OK.")
 
             with open(progress_file, "w") as f:
@@ -224,4 +229,4 @@ if __name__=='__main__':
     conf=json.loads(conf)
     print(conf)
 
-    run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model")
+    run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model")

@@ -242,6 +242,8 @@ def train():
 
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath=os.path.join( absolute_path,modelFilePath)
+        modelName = request_params.get('modelName')
+        modelFilePlainTextPath = os.path.join(modelFilePath, modelName)
         conf=request_params.get('conf')
 
         test_flag=request_params.get('test_flag', False)
@@ -253,7 +255,7 @@ def train():
 
         # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
 
-        p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, tf_config_file))
+        p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
         p.start()
 
         with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
