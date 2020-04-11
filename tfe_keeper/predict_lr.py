@@ -151,7 +151,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         try:
             sess = KE.get_session()
             # sess.run(tfe.global_variables_initializer(), tag='init')
-            sess.run(tfe.global_variables_initializer())
+            sess.run(tf.global_variables_initializer())
             #sess.run(tf.local_variables_initializer())
         except Exception as e:
             CommonConfig.error_logger.exception(
