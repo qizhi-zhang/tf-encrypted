@@ -4,6 +4,7 @@ import json
 #from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
 from common_private import  LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y
+from tf_encrypted.keras import backend as KE
 import tensorflow as tf
 import sys
 import time
@@ -195,39 +196,43 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
         load_op = model.load(modelFilePath, modelFileMachine)
 
         CommonConfig.http_logger.info("save_op:" + str(save_op))
-        with tfe.Session() as sess:
-            try:
-                sess.run(tfe.global_variables_initializer(), tag='init')
-                #sess.run(tf.local_variables_initializer())
-            except Exception as e:
-                CommonConfig.error_logger.exception(
-                    'global_variables_initializer error , exception msg:{}'.format(str(e)))
+        #with tfe.Session() as sess:
 
-            CommonConfig.http_logger.info("start_time:")
-            start_time=time.time()
-            CommonConfig.http_logger.info("start_time:" + str(start_time))
+        try:
+            sess = KE.get_session()
+            #sess.run(tfe.global_variables_initializer(), tag='init')
+            sess.run(tfe.global_variables_initializer())
+            #sess.run(tf.local_variables_initializer())
+        except Exception as e:
+            CommonConfig.error_logger.exception(
+                'global_variables_initializer error , exception msg:{}'.format(str(e)))
 
-
-
-            CommonConfig.http_logger.info("train_lr/run:  x_train:" + str(x_train))
-            CommonConfig.http_logger.info("train_lr/run:  y_train:" + str(y_train))
-            CommonConfig.http_logger.info("train_lr/run:  train_batch_num:" + str(train_batch_num))
+        CommonConfig.http_logger.info("start_time:")
+        start_time=time.time()
+        CommonConfig.http_logger.info("start_time:" + str(start_time))
 
 
 
-            model.fit(sess, x_train, y_train, train_batch_num, progress_file)
+        CommonConfig.http_logger.info("train_lr/run:  x_train:" + str(x_train))
+        CommonConfig.http_logger.info("train_lr/run:  y_train:" + str(y_train))
+        CommonConfig.http_logger.info("train_lr/run:  train_batch_num:" + str(train_batch_num))
 
-            train_time=time.time()-start_time
-            print("train_time=", train_time)
 
-            print("Saving model...")
-            sess.run(save_op)
-            sess.run(save_as_plaintext_op)
-            print("Save OK.")
 
-            with open(progress_file, "w") as f:
-                f.write("1.00")
-                f.flush()
+        model.fit(sess, x_train, y_train, train_batch_num, progress_file)
+
+        train_time=time.time()-start_time
+        print("train_time=", train_time)
+
+        print("Saving model...")
+        sess.run(save_op)
+        sess.run(save_as_plaintext_op)
+        print("Save OK.")
+
+        with open(progress_file, "w") as f:
+            f.write("1.00")
+            f.flush()
+        sess.close()
     except Exception as e:
         CommonConfig.error_logger.exception(
             'train.run() error , exception msg:{}'.format(str(e)))
