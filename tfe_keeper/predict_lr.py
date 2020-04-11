@@ -145,8 +145,12 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
 
     with tfe.Session() as sess:
 
-        sess.run(tfe.global_variables_initializer(),
-               tag='init')
+        try:
+            sess.run(tfe.global_variables_initializer(),
+                   tag='init')
+        except Exception as e:
+            CommonConfig.error_logger.exception(
+                'global_variables_initializer error , exception msg:{}'.format(str(e)))
         start_time=time.time()
         CommonConfig.http_logger.info("start_time:" + str(start_time))
 
@@ -174,6 +178,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         with open(progress_file, "w") as f:
             f.write("1.00")
             f.flush()
+
 
 
 

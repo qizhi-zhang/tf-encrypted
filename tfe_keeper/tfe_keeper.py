@@ -195,8 +195,10 @@ def start_server():
 
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except MorseException as e:
-        err_msg = e.get_message()
-        err_code = e.get_code()
+        status = False
+        errorMsg = e.get_message()
+        errorCode = e.get_code()
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
         err_msg = str(e)
         err_code = result_code.START_SERVER_SYSTEM_ERROR.get_code()
