@@ -9,6 +9,11 @@ import train_lr
 import predict_lr
 import os
 import platform
+from commonutils.exception_utils.exception_utils import MorseException
+from commonutils.exception_utils.result_code import result_code
+
+
+
 absolute_path = None
 if platform.system() == "Darwin":
     #os.putenv('absolute_path', "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted")
@@ -104,6 +109,11 @@ def start_server():
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
 
+        if task_id is None:
+            raise MorseException(result_code.PARAM_ERROR, param="taskId")
+        # if other is None:
+        #     raise MorseException(result_code.PARAM_ERROR, param="other")
+
         RS_iphost = request_params.get('RS')
         if RS_iphost==None:
             RS_iphost=request_params.get("thirdOwner")
@@ -178,13 +188,19 @@ def start_server():
             status = False
             errorCode = p.exitcode
             errorMsg = "start server over time=5s"
-
+        # todo
 
 
         #print("p.exitcode:", p.exitcode)
 
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+    except MorseException as e:
+        err_msg = e.get_message()
+        err_code = e.get_code()
     except Exception as e:
+        err_msg = str(e)
+        err_code = result_code.START_SERVER_SYSTEM_ERROR.get_code()
+
         #print(e)
         #return e
         CommonConfig.error_logger.exception(
@@ -193,7 +209,7 @@ def start_server():
         status = False
         errorCode = -1
         errorMsg = "start server faild"
-        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+        return json.dumps({"status": status, "errorCode": err_code, "errorMsg": err_msg})
 
 
 def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):

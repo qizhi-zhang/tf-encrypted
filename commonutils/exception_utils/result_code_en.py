@@ -17,10 +17,15 @@ VERIFY_SGIN_ERROR = ResultCode("ME151MODL0002", "verify sign error", "verify sig
 
 PARAM_NONE_ERROR = ResultCode("ME151MODL1001", "param[%(param)s] None error")
 
-# 自定义错误
-TEE_SYSTEM_ERROR = ResultCode("ME151MODL9999", "tee-algo system error")
+# TFE Keeper  1001+  9999-   ME15*TFEE****
+START_SERVER_SYSTEM_ERROR = ResultCode("ME151TFEE9999", "start server system error")
 
 
-MODEL_SOLVER_ERROR = ResultCode("ME152MODL1001", "param[solver] should be auto_smart/sgd_gc/newton_gc")
+
+PARAM_ERROR = ResultCode("ME151TFEE1001", "param[%(param)s] should not be none")
+
+
+
+
 MODEL_MPC_EXBYTE_ERROR = ResultCode("ME151MODL1002", "exchange bytes len %(ex)s does not match matrix dim %(shape)s")
 FILE_NOT_EXIST_ERROR = ResultCode("ME151MODL1003", "file [%(filename)s] not exist")
