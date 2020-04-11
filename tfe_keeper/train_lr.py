@@ -16,6 +16,14 @@ else:
     absolute_path="/app/file"
 
 def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_config_file=None):
+
+    progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/train_progress")
+    CommonConfig.http_logger.info("progress_file:" + str(progress_file))
+    with open(progress_file, "w") as f:
+        f.write(str(0.0) + "\n")
+        f.flush()
+
+
     trainParams=conf.get("trainParams")
 
     CommonConfig.http_logger.info("train_lr/run:  trainParams:" + str(trainParams))
@@ -27,9 +35,15 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
     regularizationL1=float(trainParams.get("regularizationL1"))
     regularizationL2=float(trainParams.get("regularizationL2"))
 
+
+
+
     dataSet = conf.get("dataSet")
 
     CommonConfig.http_logger.info("dataSet:" + str(dataSet))
+
+
+
     try:
         node_list = list(dataSet.keys())
         node_key_id1 = node_list.pop()
@@ -192,13 +206,13 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
             start_time=time.time()
             CommonConfig.http_logger.info("start_time:" + str(start_time))
 
-            progress_file=os.path.join(absolute_path,"tfe/"+taskId+"/train_progress")
-            CommonConfig.http_logger.info("progress_file:" + str(progress_file))
+
 
             CommonConfig.http_logger.info("train_lr/run:  x_train:" + str(x_train))
             CommonConfig.http_logger.info("train_lr/run:  y_train:" + str(y_train))
             CommonConfig.http_logger.info("train_lr/run:  train_batch_num:" + str(train_batch_num))
-            CommonConfig.http_logger.info("train_lr/run:  progress_file:" + str(progress_file))
+
+
 
             model.fit(sess, x_train, y_train, train_batch_num, progress_file)
 
