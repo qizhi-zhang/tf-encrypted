@@ -4,6 +4,7 @@
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commonutils/exception_utils/result_code.py" beforeDir="false" afterPath="$PROJECT_DIR$/commonutils/exception_utils/result_code.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,7 +66,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.test_process">
+  <component name="RunManager" selected="Python.test_rw">
     <configuration name="http_util (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -87,27 +88,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="http_util (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="tf-encrypted" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tfe_keeper" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/http_util.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="test_process" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -121,6 +101,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_process.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_rw" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="tf-encrypted" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_rw.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -173,11 +174,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.test_rw" />
         <item itemvalue="Python.test_process" />
         <item itemvalue="Python.train_lr" />
         <item itemvalue="Python.tfe_keeper (1)" />
         <item itemvalue="Python.http_util (1)" />
-        <item itemvalue="Python.http_util (2)" />
       </list>
     </recent_temporary>
   </component>
@@ -206,5 +207,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/commonutils/exception_utils/result_code.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

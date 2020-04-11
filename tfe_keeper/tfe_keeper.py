@@ -492,15 +492,17 @@ def kill_server():
         print("task_id:", task_id)
 
         #with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
+
+
         with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id=task_id)), 'r') as f:
             pid=f.readline()
 
-        if pid:
-            pid=int(pid)
-            os.kill(pid,9)
-            errorMsg = "killed {pid}".format(pid=pid)
-        else:
-            errorMsg = "server is not running"
+
+        pid=int(pid)
+        os.kill(pid,9)
+        errorMsg = "killed {pid}".format(pid=pid)
+
+
 
 
         status=True
@@ -515,7 +517,12 @@ def kill_server():
     except Exception as e:
         CommonConfig.error_logger.exception(
             'kill_server error , exception msg:{}'.format(str(e)))
-        return e
+
+        status = True
+        errorCode = 0
+        errorMsg = "server is not running"
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+
 
 app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
 

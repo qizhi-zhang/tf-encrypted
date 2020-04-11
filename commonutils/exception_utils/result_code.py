@@ -8,7 +8,7 @@
 """
 
 # 配置自己系统的Config，smodel里叫做SmodelConfig
-from smodel.smodel_config import SModelConfig
+#from smodel.smodel_config import SModelConfig
 
 from commonutils.exception_utils import result_code_en
 from commonutils.exception_utils import result_code_cn
@@ -16,7 +16,7 @@ from commonutils.exception_utils import result_code_cn
 
 result_code = result_code_en
 
-if SModelConfig.language == 'english':
-    result_code = result_code_en
-elif SModelConfig.language == 'chinese':
-    result_code = result_code_cn
+# if SModelConfig.language == 'english':
+#     result_code = result_code_en
+# elif SModelConfig.language == 'chinese':
+#     result_code = result_code_cn
