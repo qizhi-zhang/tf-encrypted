@@ -5,7 +5,7 @@ import tf_encrypted as tfe
 import os
 #from read_data_tf import get_10w1k5col_x, get_10w1k5col_y, get_embed_op_5w_x, get_embed_op_5w_y, get_gaode3w_x, get_gaode3w_y
 import numpy as np
-
+from commonutils.common_config import CommonConfig
 
 
 class LogisticRegression:
@@ -145,14 +145,20 @@ class LogisticRegression:
 
     #sess.run(tf.local_variables_initializer())
 
-
+    CommonConfig.http_logger.info("x:" + str(x))
 
     predict_batch = self.predict_batch(x)
     predict_batch=tf.strings.as_string(predict_batch)
     print("idx:", idx)
+    CommonConfig.http_logger.info("idx:" + str(idx))
     predict_batch=tf.concat([idx, predict_batch],axis=1)
     predict_batch = tf.reduce_join(predict_batch, axis=1, separator=", ")
     predict_batch=tf.reduce_join(predict_batch, separator="\n")
+
+    CommonConfig.http_logger.info("predict_batch:" + str(predict_batch))
+
+
+
     with open(file_name, "w") as f , open(progress_file, "w") as progress_file:
 
       for batch in range(num_batches):
@@ -166,6 +172,8 @@ class LogisticRegression:
         if (batch % 10 == 0):
           progress_file.write(str(1.0*batch/num_batches)+"\n")
           progress_file.flush()
+
+    CommonConfig.http_logger.info("predict OK")
 
 
 

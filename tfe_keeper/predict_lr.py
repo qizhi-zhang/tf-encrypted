@@ -11,6 +11,7 @@ import time
 import math
 import os
 import platform
+from commonutils.common_config import CommonConfig
 
 if platform.system()=="Darwin":
     absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
@@ -43,6 +44,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
 
     print("node1_containY:",node_id1.get("isContainY"))
 
+
     if (node_id1.get("isContainY")==True):
         featureNumX = int(node_id2.get("featureNum"))
         matchColNumX = int(node_id2.get("matchColNum"))
@@ -68,7 +70,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
     batch_num=int(math.ceil(1.0*record_num/batch_size))
     feature_num=featureNumX+featureNumY
 
-
+    CommonConfig.http_logger.info("progress_file:" + str(progress_file))
 
     # if len(sys.argv) >= 2:
     #   # config file was specified
@@ -129,26 +131,30 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
     print("x_test:", x_test)
     print("y_test:", y_test)
 
-
-
+    CommonConfig.http_logger.info("x_test:" + str(x_test))
+    CommonConfig.http_logger.info("y_test:" + str(y_test))
 
 
     model = LogisticRegression(feature_num,learning_rate=0.1)
 
-
+    CommonConfig.http_logger.info("model:" + str(model))
 
     load_op = model.load(modelFilePath,modelFileMachine)
+
+    CommonConfig.http_logger.info("load_op:" + str(load_op))
 
     with tfe.Session() as sess:
 
         sess.run(tfe.global_variables_initializer(),
                tag='init')
         start_time=time.time()
+        CommonConfig.http_logger.info("start_time:" + str(start_time))
 
         print("Loading model...")
         sess.run(load_op)
         print("Load OK.")
 
+        CommonConfig.http_logger.info("Load OK.")
 
         #model.fit(sess, x_train, y_train, train_batch_num)
         #model.get_KS(sess, x_test,y_test, batch_num)
@@ -162,6 +168,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
 
         test_time=time.time()-start_time
         print("predict_time=", test_time)
+
+        CommonConfig.http_logger.info("predict_time=:" + str(test_time))
 
         with open(progress_file, "w") as f:
             f.write("1.00")
