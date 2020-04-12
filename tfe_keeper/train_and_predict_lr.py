@@ -3,9 +3,10 @@ import tf_encrypted as tfe
 import json
 #from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
 from common_private import  LogisticRegression
-from read_data_tf import get_data_xy, get_data_x, get_data_y
+from read_data_tf import get_data_xy, get_data_x, get_data_y, get_data_id_with_y, get_data_id_with_xy
 from tf_encrypted.keras import backend as KE
 import tensorflow as tf
+import  math
 import sys
 import time
 import platform
@@ -19,23 +20,27 @@ else:
 
 def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_config_file=None):
 
-    progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/train_progress")
-    CommonConfig.http_logger.info("progress_file:" + str(progress_file))
-    with open(progress_file, "w") as f:
+    trian_progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/train_progress")
+    predict_progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/predict_progress")
+    CommonConfig.http_logger.info("progress_file:" + str(trian_progress_file))
+    with open(trian_progress_file, "w") as f:
+        f.write(str(0.0) + "\n")
+        f.flush()
+    with open(predict_progress_file, "w") as f:
         f.write(str(0.0) + "\n")
         f.flush()
 
 
-    trainParams=conf.get("trainParams")
+    train_predict_Params=conf.get("trainParams")
 
-    CommonConfig.http_logger.info("train_lr/run:  trainParams:" + str(trainParams))
+    CommonConfig.http_logger.info("train_predict_lr/run:  train_predict_Params:" + str(train_predict_Params))
 
-    learningRate=float(trainParams.get("learningRate"))
-    batch_size = int(trainParams.get("batchSize"))
-    epoch_num= int(trainParams.get("maxIter"))
-    epsilon = float(trainParams.get("epsilon"))
-    regularizationL1=float(trainParams.get("regularizationL1"))
-    regularizationL2=float(trainParams.get("regularizationL2"))
+    learningRate=float(train_predict_Params.get("learningRate"))
+    batch_size = int(train_predict_Params.get("batchSize"))
+    epoch_num= int(train_predict_Params.get("maxIter"))
+    epsilon = float(train_predict_Params.get("epsilon"))
+    regularizationL1=float(train_predict_Params.get("regularizationL1"))
+    regularizationL2=float(train_predict_Params.get("regularizationL2"))
 
 
 
@@ -193,10 +198,59 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
         save_op = model.save(modelFilePath,modelFileMachine)
         save_as_plaintext_op=model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
-        load_op = model.load(modelFilePath, modelFileMachine)
+        #load_op = model.load(modelFilePath, modelFileMachine)
 
         CommonConfig.http_logger.info("save_op:" + str(save_op))
         #with tfe.Session() as sess:
+
+
+        # predict:
+
+        path_x = os.path.join(absolute_path, path_x) # 需要修改
+        path_y = os.path.join(absolute_path, path_y) # 需要修改
+        batch_num = int(math.ceil(1.0 * record_num / batch_size))
+
+
+        @tfe.local_computation("XOwner")
+        def provide_test_data_x(
+                path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
+            x = get_data_x(batch_size, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=2,
+                           clip_by_value=3.0, skip_row_num=1)
+            return x
+
+        # @tfe.local_computation("YOwner")
+        def provide_test_data_y(
+                path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+            idx, y = get_data_id_with_y(batch_size, path, matchColNum=matchColNumX, epoch=2, skip_row_num=1)
+            return idx, y
+
+        # @tfe.local_computation("YOwner")
+        def provide_test_data_xy(
+                path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+            idx, x, y = get_data_id_with_xy(batch_size, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=2,
+                                            clip_by_value=3.0, skip_row_num=1)
+            return idx, x, y
+
+        if (featureNumY == 0):
+            x_test = provide_test_data_x(path_x)
+            idx, y_test = provide_test_data_y(path_y)
+            y_test = prot.define_private_input("YOwner", lambda: y_test)
+        else:
+            idx, x_test1, y_test = provide_test_data_xy(path_y)
+            x_test1 = prot.define_private_input("YOwner", lambda: x_test1)
+            y_test = prot.define_private_input("YOwner", lambda: y_test)
+
+            x_test0 = provide_test_data_x(path_x)
+            x_test = prot.concat([x_test0, x_test1], axis=1)
+
+        print("x_test:", x_test)
+        print("y_test:", y_test)
+
+
+
+
+
+
 
         try:
             sess = KE.get_session()
@@ -219,7 +273,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
 
 
-        model.fit(sess, x_train, y_train, train_batch_num, progress_file)
+        model.fit(sess, x_train, y_train, train_batch_num, trian_progress_file)
 
         train_time=time.time()-start_time
         print("train_time=", train_time)
@@ -229,13 +283,36 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
         sess.run(save_as_plaintext_op)
         print("Save OK.")
 
-        with open(progress_file, "w") as f:
+        with open(trian_progress_file, "w") as f:
             f.write("1.00")
             f.flush()
-        #sess.close()
+
+
+        # predict:
+
+        start_time = time.time()
+        CommonConfig.http_logger.info("predict start_time:" + str(start_time))
+
+
+
+
+
+        model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)),
+                      batch_num, idx, predict_progress_file)
+
+        test_time = time.time() - start_time
+        print("predict_time=", test_time)
+
+        CommonConfig.http_logger.info("predict_time=:" + str(test_time))
+
+        with open(predict_progress_file, "w") as f:
+            f.write("1.00")
+            f.flush()
+
+        sess.close()
     except Exception as e:
         CommonConfig.error_logger.exception(
-            'train.run() error , exception msg:{}'.format(str(e)))
+            'train_and_predict.run() error , exception msg:{}'.format(str(e)))
 
 
 
@@ -250,4 +327,3 @@ if __name__=='__main__':
     print(conf)
 
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model")
-    #run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model",tf_config_file="/app/file/tfe/qqq/config.json")

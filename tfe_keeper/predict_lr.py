@@ -199,3 +199,4 @@ if __name__=='__main__':
     print(conf)
     progress_file = os.path.join("./qqq/train_progress")
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", progress_file=progress_file)
+    run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", progress_file=progress_file, tf_config_file="/app/file/tfe/qqq/config.json")

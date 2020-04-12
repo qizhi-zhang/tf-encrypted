@@ -4,6 +4,7 @@ import json
 import tensorflow as tf
 from tf_encrypted.config import RemoteConfig
 from multiprocessing import Process
+import threading
 from commonutils.common_config import CommonConfig
 import train_lr
 import predict_lr
@@ -289,11 +290,19 @@ def train():
 
         # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
 
-        p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
+        #p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
+        p = threading.Thread(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
         p.start()
 
-        with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
-            f.write(str(p.pid))
+        # CommonConfig.http_logger.info("train Process pid:" + str(p.pid))
+        #
+        # with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
+        #     f.write(str(p.pid))
+
+        CommonConfig.http_logger.info("train Process pid:" + str(p.name))
+
+        with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
+            f.write(str(p.name))
 
         status=True
         errorCode=0
@@ -367,6 +376,71 @@ def predict():
             'predict error , exception msg:{}'.format(str(e)))
         #return e
 
+
+
+
+
+@tfe_keeper.route('/predict', methods=['GET', 'POST'])
+def train_and_predict():
+    """
+    input:
+        taskId,algorithm,conf,modelFileMachine,modelFilePath
+    :return:
+        status,
+        errorCode,
+        errorMsg
+    """
+
+
+    print("predict")
+    try:
+        CommonConfig.http_logger.info("pridict request:" + str(request))
+        request_params = request.json
+        CommonConfig.http_logger.info("predict request_params:" + str(request_params))
+        task_id = request_params.get('taskId')
+        print("task_id:", task_id)
+        algorithm = request_params.get('algorithm')
+        modelFileMachine = request_params.get('modelFileMachine')
+
+        if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":
+            modelFileMachine="XOwner"
+        if modelFileMachine=="y_owner" or modelFileMachine=="yOwner":
+            modelFileMachine="YOwner"
+        if modelFileMachine=="third_owner" or modelFileMachine=="thirdOwner":
+            modelFileMachine="RS"
+
+        modelFilePath = request_params.get('modelFilePath')
+        modelFilePath = os.path.join(absolute_path, modelFilePath)
+        modelName = request_params.get('modelName')
+        modelFilePlainTextPath = os.path.join(modelFilePath, modelName)
+        conf=request_params.get('conf')
+        test_flag = request_params.get('test_flag', False)
+
+        progress_file_predict = os.path.join(absolute_path,"tfe/" + task_id + "/predict_progress")
+
+        if test_flag:
+            tf_config_file=None
+        else:
+            tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
+
+        #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
+
+
+        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
+        p.start()
+
+        with open(os.path.join(absolute_path,'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'w') as f:
+            f.write(str(p.pid))
+
+        status=True
+        errorCode=0
+        errorMsg=""
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "progressFile": progress_file})
+    except Exception as e:
+        #print(e)
+        CommonConfig.error_logger.exception(
+            'predict error , exception msg:{}'.format(str(e)))
+        #return e
 
 
 
