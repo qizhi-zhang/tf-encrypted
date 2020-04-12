@@ -586,6 +586,9 @@ def check_progress():
         status=True
         errorCode=0
         errorMsg=""
+        CommonConfig.http_logger.info("percent:" + str(percent))
+        CommonConfig.http_logger.info("status:" + str(status))
+        CommonConfig.http_logger.info("executeStatus:" + str(executeStatus))
         return json.dumps({"status": status, "executeStatus": executeStatus, "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
     except Exception as e:
         CommonConfig.error_logger.exception(
