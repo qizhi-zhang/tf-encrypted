@@ -271,7 +271,6 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
             x_test = provide_test_data_x(path_x)
             with tf.device(YOwner.device_name):
                 idx, y_test = provide_test_data_y(path_y)
-            idx, y_test = provide_test_data_y(path_y)
             y_test = prot.define_private_input("YOwner", lambda: y_test)
         else:
             with tf.device(YOwner.device_name):
