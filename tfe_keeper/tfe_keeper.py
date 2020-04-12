@@ -8,6 +8,7 @@ import threading
 from commonutils.common_config import CommonConfig
 import train_lr
 import predict_lr
+import train_and_predict_lr
 import os
 import platform
 from commonutils.exception_utils.exception_utils import MorseException
@@ -357,10 +358,8 @@ def predict():
         else:
             tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
-        #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
 
-
-        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
+        p = Process(target=train_and_predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
         p.start()
         CommonConfig.http_logger.info("predict Process pid:" + str(p.pid))
         with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
@@ -369,7 +368,8 @@ def predict():
         status=True
         errorCode=0
         errorMsg=""
-        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "progressFile": progress_file})
+        predict_file = os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=task_id))
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
     except Exception as e:
         #print(e)
         CommonConfig.error_logger.exception(
@@ -380,7 +380,7 @@ def predict():
 
 
 
-@tfe_keeper.route('/predict', methods=['GET', 'POST'])
+@tfe_keeper.route('/train_and_predict', methods=['GET', 'POST'])
 def train_and_predict():
     """
     input:
@@ -426,7 +426,8 @@ def train_and_predict():
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
 
 
-        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
+        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
+
         p.start()
 
         with open(os.path.join(absolute_path,'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'w') as f:
@@ -435,7 +436,8 @@ def train_and_predict():
         status=True
         errorCode=0
         errorMsg=""
-        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "progressFile": progress_file})
+        predict_file = os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=task_id))
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
     except Exception as e:
         #print(e)
         CommonConfig.error_logger.exception(

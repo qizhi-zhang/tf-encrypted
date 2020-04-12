@@ -20,6 +20,7 @@ else:
 
 def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_config_file=None):
 
+
     trian_progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/train_progress")
     predict_progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/predict_progress")
     CommonConfig.http_logger.info("progress_file:" + str(trian_progress_file))
