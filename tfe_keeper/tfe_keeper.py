@@ -290,19 +290,19 @@ def train():
 
         # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
 
-        #p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
-        p = threading.Thread(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
+        p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
+        #p = threading.Thread(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
         p.start()
 
-        # CommonConfig.http_logger.info("train Process pid:" + str(p.pid))
+        CommonConfig.http_logger.info("train Process pid:" + str(p.pid))
+
+        with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
+            f.write(str(p.pid))
+
+        # CommonConfig.http_logger.info("train Process pid:" + str(p.name))
         #
-        # with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
-        #     f.write(str(p.pid))
-
-        CommonConfig.http_logger.info("train Process pid:" + str(p.name))
-
-        with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
-            f.write(str(p.name))
+        # with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
+        #     f.write(str(p.name))
 
         status=True
         errorCode=0
@@ -362,7 +362,7 @@ def predict():
 
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
         p.start()
-
+        CommonConfig.http_logger.info("predict Process pid:" + str(p.pid))
         with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
