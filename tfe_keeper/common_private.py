@@ -141,37 +141,39 @@ class LogisticRegression:
     y_hat=y_hat.to_native()
     return y_hat
 
-  def predict(self, sess, x, file_name, num_batches, idx, progress_file):
+  def predict(self, sess, x, file_name, num_batches, idx, progress_file, device_name):
 
     #sess.run(tf.local_variables_initializer())
 
     CommonConfig.http_logger.info("x:" + str(x))
 
     predict_batch = self.predict_batch(x)
-    predict_batch=tf.strings.as_string(predict_batch)
-    print("idx:", idx)
-    CommonConfig.http_logger.info("idx:" + str(idx))
-    predict_batch=tf.concat([idx, predict_batch],axis=1)
-    predict_batch = tf.reduce_join(predict_batch, axis=1, separator=", ")
-    predict_batch=tf.reduce_join(predict_batch, separator="\n")
 
-    CommonConfig.http_logger.info("predict_batch:" + str(predict_batch))
+    with tf.device(device_name):
+      predict_batch=tf.strings.as_string(predict_batch)
+      print("idx:", idx)
+      CommonConfig.http_logger.info("idx:" + str(idx))
+      predict_batch=tf.concat([idx, predict_batch],axis=1)
+      predict_batch = tf.reduce_join(predict_batch, axis=1, separator=", ")
+      predict_batch=tf.reduce_join(predict_batch, separator="\n")
+
+      CommonConfig.http_logger.info("predict_batch:" + str(predict_batch))
 
 
 
-    with open(file_name, "w") as f , open(progress_file, "w") as progress_file:
+      with open(file_name, "w") as f , open(progress_file, "w") as progress_file:
 
-      for batch in range(num_batches):
-        print("batch :", batch)
-        records=sess.run(predict_batch)
+        for batch in range(num_batches):
+          print("batch :", batch)
+          records=sess.run(predict_batch)
 
-        records=str(records, encoding = "utf8")
-        #y_hat=str(y_hat)
-        #print(y_hat)
-        f.write(records+"\n")
-        if (batch % 10 == 0):
-          progress_file.write(str(1.0*batch/num_batches)+"\n")
-          progress_file.flush()
+          records=str(records, encoding = "utf8")
+          #y_hat=str(y_hat)
+          #print(y_hat)
+          f.write(records+"\n")
+          if (batch % 10 == 0):
+            progress_file.write(str(1.0*batch/num_batches)+"\n")
+            progress_file.flush()
 
     CommonConfig.http_logger.info("predict OK")
 
