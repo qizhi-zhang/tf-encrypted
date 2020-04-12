@@ -204,11 +204,42 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
         #with tfe.Session() as sess:
 
 
-        # predict:
+        #------------------------ predict:------------------------------------------------------------
 
-        path_x = os.path.join(absolute_path, path_x) # 需要修改
-        path_y = os.path.join(absolute_path, path_y) # 需要修改
+        dataSet = conf.get("dataSetPredict")
+        node_list = list(dataSet.keys())
+        node_key_id1 = node_list.pop()
+        node_key_id2 = node_list.pop()
+
+        node_id1 = dataSet.get(node_key_id1)
+        node_id2 = dataSet.get(node_key_id2)
+
+        print("node1_containY:", node_id1.get("isContainY"))
+
+        if (node_id1.get("isContainY") == True):
+            # featureNumX = int(node_id2.get("featureNum"))
+            # matchColNumX = int(node_id2.get("matchColNum"))
+            path_x = node_id2.get("storagePath")
+            record_num = int(node_id2.get("fileRecord"))
+            #
+            # featureNumY = int(node_id1.get("featureNum"))
+            # matchColNumY = int(node_id1.get("matchColNum"))
+            path_y = node_id1.get("storagePath")
+        else:
+            assert node_id2.get("isContainY") == True
+            # featureNumY = int(node_id2.get("featureNum"))
+            # matchColNumY = int(node_id2.get("matchColNum"))
+            path_y = node_id2.get("storagePath")
+            record_num = int(node_id2.get("fileRecord"))
+
+            # featureNumX = int(node_id1.get("featureNum"))
+            # matchColNumX = int(node_id1.get("matchColNum"))
+            path_x = node_id1.get("storagePath")
+
+        path_x = os.path.join(absolute_path, path_x)
+        path_y = os.path.join(absolute_path, path_y)
         batch_num = int(math.ceil(1.0 * record_num / batch_size))
+        feature_num = featureNumX + featureNumY
 
 
         @tfe.local_computation("XOwner")
@@ -288,7 +319,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
             f.flush()
 
 
-        # predict:
+        # ---------------------predict:--------------------------------------
 
         start_time = time.time()
         CommonConfig.http_logger.info("predict start_time:" + str(start_time))

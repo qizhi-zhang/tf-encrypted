@@ -41,5 +41,21 @@
             "matchColNum": 2,
             "featureNum": 0
         }
+    },
+    "dataSetPredict": {
+        "node_id1": {
+            "storagePath": "file/qqq/data/embed_op_fea_5w_format_x.csv",
+            "fileRecord": 50038,
+            "isContainY": False,
+            "matchColNum": 2,
+            "featureNum": 291
+        },
+        "node_id2": {
+            "storagePath": "file/qqq/data/embed_op_fea_5w_format_y.csv",
+            "fileRecord": 50038,
+            "isContainY": True,
+            "matchColNum": 2,
+            "featureNum": 0
+        }
     }
 }
