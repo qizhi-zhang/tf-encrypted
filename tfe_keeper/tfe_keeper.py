@@ -511,8 +511,7 @@ def check_progress():
                 executeStatus="FAILED"
 
 
-        else:
-            assert taskType=="predict"
+        elif taskType=="predict":
             try:
                 with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
                     pid = f.readline()
@@ -536,6 +535,53 @@ def check_progress():
                 CommonConfig.error_logger.exception(
                     'check_progress error , exception msg:{}'.format(str(e)))
                 executeStatus="FAILED"
+
+        else:
+            assert taskType == "train_and_predict"
+            try:
+                #--------------train progress----------------------------------------
+                with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
+                    pid_train = f.readline()
+                pid_train = int(pid_train)
+                print("pid_train=",pid_train)
+
+                pid_train_exists=check_pid(pid_train)
+
+                with open(os.path.join(absolute_path,'tfe/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
+                    percent_train = f.readlines()[-1]
+                    print("percent_train=",percent_train)
+
+
+                #--------------predict progress---------------------------------
+
+                with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
+                    pid_predict = f.readline()
+                pid_predict = int(pid_predict)
+                pid_predict_exists=check_pid(pid_predict)
+
+                with open(os.path.join(absolute_path,"tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
+                    percent_predict = f.readlines()[-1]
+
+                if percent_predict == "1.00":
+                    executeStatus = "SUCCESS"
+                elif pid_train_exists or pid_predict_exists:
+                    executeStatus = "RUNNING"
+
+                else:
+                    executeStatus = "FAILED"
+
+                if percent_predict == "1.00":
+                    percent="1.00"
+                else:
+                    percent=str(float(percent_train)*0.95+float(percent_predict)*0.05)
+
+
+            except Exception as e:
+                CommonConfig.error_logger.exception(
+                    'check_progress error , exception msg:{}'.format(str(e)))
+                executeStatus="FAILED"
+
+
 
 
         percent=int(float(percent)*100)
