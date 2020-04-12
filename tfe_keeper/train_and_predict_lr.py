@@ -299,9 +299,9 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
 
 
-        CommonConfig.http_logger.info("train_lr/run:  x_train:" + str(x_train))
-        CommonConfig.http_logger.info("train_lr/run:  y_train:" + str(y_train))
-        CommonConfig.http_logger.info("train_lr/run:  train_batch_num:" + str(train_batch_num))
+        CommonConfig.http_logger.info("train_and_predict_lr/run:  x_train:" + str(x_train))
+        CommonConfig.http_logger.info("train_and_predict_lr/run:  y_train:" + str(y_train))
+        CommonConfig.http_logger.info("train_and_predict_lr/run:  train_batch_num:" + str(train_batch_num))
 
 
 
@@ -309,11 +309,14 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
         train_time=time.time()-start_time
         print("train_time=", train_time)
+        CommonConfig.http_logger.info("train_time="+str(train_time))
 
         print("Saving model...")
+        CommonConfig.http_logger.info("Saving model...")
         sess.run(save_op)
         sess.run(save_as_plaintext_op)
         print("Save OK.")
+        CommonConfig.http_logger.info("Save OK.")
 
         with open(trian_progress_file, "w") as f:
             f.write("1.00")
