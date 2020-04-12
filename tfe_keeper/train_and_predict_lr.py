@@ -253,13 +253,13 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
                            clip_by_value=3.0, skip_row_num=1)
             return x
 
-        @tfe.local_computation("YOwner")
+        #@tfe.local_computation("YOwner")
         def provide_test_data_y(
                 path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
             idx, y = get_data_id_with_y(batch_size, path, matchColNum=matchColNumX, epoch=2, skip_row_num=1)
             return idx, y
 
-        @tfe.local_computation("YOwner")
+        #@tfe.local_computation("YOwner")
         def provide_test_data_xy(
                 path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
             idx, x, y = get_data_id_with_xy(batch_size, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=2,
