@@ -266,12 +266,16 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
                                             clip_by_value=3.0, skip_row_num=1)
             return idx, x, y
 
+        YOwner = config.get_player("YOwner")
         if (featureNumY == 0):
             x_test = provide_test_data_x(path_x)
+            with tf.device(YOwner.device_name):
+                idx, y_test = provide_test_data_y(path_y)
             idx, y_test = provide_test_data_y(path_y)
             y_test = prot.define_private_input("YOwner", lambda: y_test)
         else:
-            idx, x_test1, y_test = provide_test_data_xy(path_y)
+            with tf.device(YOwner.device_name):
+                idx, x_test1, y_test = provide_test_data_xy(path_y)
             x_test1 = prot.define_private_input("YOwner", lambda: x_test1)
             y_test = prot.define_private_input("YOwner", lambda: y_test)
 
@@ -338,7 +342,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
 
         model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)),
-                      batch_num, idx, predict_progress_file)
+                      batch_num, idx, predict_progress_file, YOwner.device_name)
 
         test_time = time.time() - start_time
         print("predict_time=", test_time)
