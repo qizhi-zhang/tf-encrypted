@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/commonutils/http_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/commonutils/http_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/predict_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/predict_lr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tfe_keeper/train_and_predict_lr.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/train_and_predict_lr.py" afterDir="false" />
     </list>

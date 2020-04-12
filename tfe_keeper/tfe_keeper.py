@@ -359,7 +359,7 @@ def predict():
             tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
 
-        p = Process(target=train_and_predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
+        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
         p.start()
         CommonConfig.http_logger.info("predict Process pid:" + str(p.pid))
         with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
@@ -416,7 +416,7 @@ def train_and_predict():
         conf=request_params.get('conf')
         test_flag = request_params.get('test_flag', False)
 
-        progress_file_predict = os.path.join(absolute_path,"tfe/" + task_id + "/predict_progress")
+        #progress_file_predict = os.path.join(absolute_path,"tfe/" + task_id + "/predict_progress")
 
         if test_flag:
             tf_config_file=None
@@ -426,7 +426,7 @@ def train_and_predict():
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
 
 
-        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
+        p = Process(target=train_and_predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
 
         p.start()
 
