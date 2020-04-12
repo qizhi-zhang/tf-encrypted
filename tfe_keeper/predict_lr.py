@@ -115,13 +115,18 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         def provide_test_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
             idx, x, y = get_data_id_with_xy(batch_size, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=2, clip_by_value=3.0, skip_row_num=1)
             return idx, x, y
+#batch_size, data_file,  featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
+
+        YOwner = config.get_player("YOwner")
 
         if (featureNumY==0):
             x_test = provide_test_data_x(path_x)
-            idx, y_test = provide_test_data_y(path_y)
+            with tf.device(YOwner.device_name):
+                idx, y_test = provide_test_data_y(path_y)
             y_test=prot.define_private_input("YOwner", lambda : y_test)
         else:
-            idx, x_test1, y_test=provide_test_data_xy(path_y)
+            with tf.device(YOwner.device_name):
+                idx, x_test1, y_test=provide_test_data_xy(path_y)
             x_test1=prot.define_private_input("YOwner", lambda : x_test1)
             y_test=prot.define_private_input("YOwner", lambda : y_test)
 
