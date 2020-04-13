@@ -23,13 +23,24 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
     trian_progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/train_progress")
     predict_progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/predict_progress")
-    CommonConfig.http_logger.info("progress_file:" + str(trian_progress_file))
+
     with open(trian_progress_file, "w") as f:
         f.write(str(0.0) + "\n")
         f.flush()
     with open(predict_progress_file, "w") as f:
         f.write(str(0.0) + "\n")
         f.flush()
+    if not os.path.exists(trian_progress_file):
+        CommonConfig.error_logger.exception(
+            'trian_progress_file {} does not exists'.format(trian_progress_file))
+
+    if not os.path.exists(predict_progress_file):
+        CommonConfig.error_logger.exception(
+            'predict_progress_file {} does not exists'.format(predict_progress_file))
+
+    CommonConfig.http_logger.info("init train_progress_file:" + str(trian_progress_file))
+    CommonConfig.http_logger.info("init  predict_progress_file:" + str(predict_progress_file))
+
 
 
     train_predict_Params=conf.get("trainParams")

@@ -9,7 +9,13 @@ tfe:
     #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     ports:
     - 8080:8080  # keeper
-    - 5678:80    # tfe
+    - 5678:5678    # tfe
+    - 8216:8216  # devU tfe
+    #- 40216:40216 # devU keeper
+    - 8217:8217 # devV tfe
+    #- 40217:40217 #devV keeper
+    - 8218:8218 # researchJ tfe
+    #- 40218:40218 # researchJ keeper
 #    - 5678:5678
 #    - 5679:5679
     environment:
