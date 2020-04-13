@@ -553,6 +553,8 @@ def check_progress():
                     percent_train = f.readlines()[-1]
                     print("percent_train=",percent_train)
 
+                    CommonConfig.http_logger.info(
+                        "percent_train="+str(percent_train))
 
                 #--------------predict progress---------------------------------
 
@@ -560,6 +562,8 @@ def check_progress():
 
                 with open(os.path.join(absolute_path,"tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
                     percent_predict = f.readlines()[-1]
+                    CommonConfig.http_logger.info(
+                        "percent_predict=" + str(percent_predict))
 
                 if percent_predict == "1.00":
                     executeStatus = "SUCCESS"
