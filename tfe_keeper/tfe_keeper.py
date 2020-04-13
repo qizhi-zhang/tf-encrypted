@@ -554,11 +554,13 @@ def check_progress():
                     CommonConfig.error_logger.exception(
                         'trian_progress_file {} does not exists'.format(trian_progress_file))
                 with open(trian_progress_file, "r") as f:
-                    percent_train = f.readlines()[-1]
+                    percent_train = f.readlines()
                     print("percent_train=",percent_train)
-
                     CommonConfig.http_logger.info(
-                        "percent_train="+str(percent_train))
+                        "percent_train=" + str(percent_train))
+                    percent_train=percent_train[-1]
+
+
 
                 #--------------predict progress---------------------------------
 
@@ -567,9 +569,12 @@ def check_progress():
                     CommonConfig.error_logger.exception(
                         'predict_progress_file {} does not exists'.format(predict_progress_file))
                 with open(predict_progress_file, "r") as f:
-                    percent_predict = f.readlines()[-1]
+                    percent_predict = f.readlines()
+                    print("percent_predict=", percent_predict)
                     CommonConfig.http_logger.info(
                         "percent_predict=" + str(percent_predict))
+                    percent_predict=percent_predict[-1]
+
 
                 if percent_predict == "1.00":
                     executeStatus = "SUCCESS"
