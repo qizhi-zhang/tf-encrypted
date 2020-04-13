@@ -155,7 +155,7 @@ class LogisticRegression:
       CommonConfig.http_logger.info("idx:" + str(idx))
       predict_batch=tf.concat([idx, predict_batch],axis=1)
       predict_batch = tf.reduce_join(predict_batch, axis=1, separator=", ")
-      predict_batch=tf.reduce_join(predict_batch, separator="\n")
+      #predict_batch=tf.reduce_join(predict_batch, separator="\n")
 
       CommonConfig.http_logger.info("predict_batch:" + str(predict_batch))
 
@@ -167,13 +167,16 @@ class LogisticRegression:
           print("batch :", batch)
           records=sess.run(predict_batch)
 
-          records=str(records, encoding = "utf8")
+
           #y_hat=str(y_hat)
           #print(y_hat)
 
           if batch==num_batches-1:
 
             records=records[0:record_num_ceil_mod_batch_size,:]
+
+          #records = str(records, encoding="utf8")
+          records="\n".join(records)
 
           f.write(records+"\n")
 
