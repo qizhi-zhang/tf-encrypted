@@ -175,8 +175,10 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
 
         #progress_file = "./" + taskId + "/predict_progress"
 
-
-        model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, progress_file,YOwner.device_name)
+        record_num_ceil_mod_batch_size = record_num % batch_size
+        if record_num_ceil_mod_batch_size == 0:
+            record_num_ceil_mod_batch_size = batch_size
+        model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, progress_file,YOwner.device_name, record_num_ceil_mod_batch_size)
 
 
 
