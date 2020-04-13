@@ -59,7 +59,7 @@ class LogisticRegression:
       for batch in range(num_batches):
         print("Batch {0: >4d}".format(batch))
         sess.run(fit_batch_op, tag='fit-batch')
-        if(batch%10==0):
+        if(batch%int(num_batches/100)==0):
           f.write(str(1.0*batch/num_batches)+"\n")
           f.flush()
 
@@ -180,7 +180,8 @@ class LogisticRegression:
 
           f.write(records+"\n")
 
-          if (batch % 10 == 0):
+          #if (batch % 10 == 0):
+          if(batch%int(num_batches/100)==0):
             progress_file.write(str(1.0*batch/num_batches)+"\n")
             progress_file.flush()
 
