@@ -337,7 +337,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
         print("Save OK.")
         CommonConfig.http_logger.info("Save OK.")
 
-        with open(trian_progress_file, "w") as f:
+        with open(trian_progress_file, "a") as f:
             f.write("1.00")
             f.flush()
 
@@ -358,7 +358,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
         CommonConfig.http_logger.info("predict_time=:" + str(test_time))
 
-        with open(predict_progress_file, "w") as f:
+        with open(predict_progress_file, "a") as f:
             f.write("1.00")
             f.flush()
 

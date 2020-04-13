@@ -55,11 +55,11 @@ class LogisticRegression:
 
   def fit(self, sess, x, y, num_batches, progress_file):
     fit_batch_op = self.fit_batch(x, y)
-    with open(progress_file, "w") as f:
+    with open(progress_file, "a") as f:
       for batch in range(num_batches):
         print("Batch {0: >4d}".format(batch))
         sess.run(fit_batch_op, tag='fit-batch')
-        if (batch%10==0):
+        if(batch%10==0):
           f.write(str(1.0*batch/num_batches)+"\n")
           f.flush()
 
@@ -161,7 +161,7 @@ class LogisticRegression:
 
 
 
-      with open(file_name, "w") as f , open(progress_file, "w") as progress_file:
+      with open(file_name, "w") as f , open(progress_file, "a") as progress_file:
 
         for batch in range(num_batches):
           print("batch :", batch)
