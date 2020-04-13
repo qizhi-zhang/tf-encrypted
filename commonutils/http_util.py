@@ -196,19 +196,19 @@ if __name__=='__main__':
 
     #test train_and_predict
 
-    with open('./qqq/conf', 'r') as f:
-        conf=f.read()
-        print(conf)
-    conf=conf.replace("True","true").replace("False","false")
-    #print(input)
-    conf=json.loads(conf)
-    print(conf)
-
-    data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model",
-            "modelName": "model", "test_flag": False}  # 相对路径
+    # with open('./qqq/conf', 'r') as f:
+    #     conf=f.read()
+    #     print(conf)
+    # conf=conf.replace("True","true").replace("False","false")
+    # #print(input)
+    # conf=json.loads(conf)
+    # print(conf)
     #
-    x = httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/train_and_predict", json_data=json.dumps(data))
-    print(x)
+    # data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model",
+    #         "modelName": "model", "test_flag": False}  # 相对路径
+    # #
+    # x = httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/train_and_predict", json_data=json.dumps(data))
+    # print(x)
 
 
     # # check_progress
@@ -237,7 +237,7 @@ if __name__=='__main__':
 
     # test kill server
     # data={"taskId":  "qqq"}
-    # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/kill_server",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://127.0.0.1:8080/tfe_keeper/kill_server",json_data=json.dumps(data))
     # print(x)
 
 

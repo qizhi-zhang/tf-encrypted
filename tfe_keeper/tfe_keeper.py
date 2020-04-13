@@ -171,10 +171,14 @@ def start_server():
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
         #status=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
         p.start()
-        p.join(timeout=10)
+        p.join(timeout=1)
         print("p.pid:")
         print(p.pid)
-        if p.exitcode==0:
+        CommonConfig.http_logger.info("p.pid" + str(p.pid))
+        #print(p.is_alive())
+        print("p.exitcode",p.exitcode)
+        CommonConfig.http_logger.info("p.exitcode"+str(p.exitcode))
+        if p.is_alive():
 
 
             #with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
@@ -188,8 +192,8 @@ def start_server():
         else:
 
             status = False
-            errorCode = p.exitcode
-            errorMsg = "start server over time=10s"
+            errorCode = -1
+            errorMsg = "start server faild"
         # todo
 
 
@@ -202,18 +206,15 @@ def start_server():
         errorCode = e.get_code()
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
-        err_msg = str(e)
-        err_code = result_code.START_SERVER_SYSTEM_ERROR.get_code()
 
-        #print(e)
-        #return e
+
         CommonConfig.error_logger.exception(
             'start_server error , exception msg:{}'.format(str(e)))
 
         status = False
-        errorCode = -1
-        errorMsg = "start server faild"
-        return json.dumps({"status": status, "errorCode": err_code, "errorMsg": err_msg})
+        errorCode = result_code.START_SERVER_SYSTEM_ERROR.get_code()
+        errorMsg = str(e)
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
 
 def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
@@ -619,7 +620,7 @@ def kill_server():
         #with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
 
 
-        with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id=task_id)), 'r') as f:
+        with open(os.path.join(absolute_path, 'tfe/server_pid'), 'r') as f:
             pid=f.readline()
 
 
