@@ -549,7 +549,11 @@ def check_progress():
                 pid_exists=check_pid(pid)
 
                 # --------------train progress----------------------------------------
-                with open(os.path.join(absolute_path,'tfe/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
+                trian_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/train_progress")
+                if not os.path.exists(trian_progress_file):
+                    CommonConfig.error_logger.exception(
+                        'trian_progress_file {} does not exists'.format(trian_progress_file))
+                with open(trian_progress_file, "r") as f:
                     percent_train = f.readlines()[-1]
                     print("percent_train=",percent_train)
 
@@ -558,9 +562,11 @@ def check_progress():
 
                 #--------------predict progress---------------------------------
 
-
-
-                with open(os.path.join(absolute_path,"tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
+                predict_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/predict_progress")
+                if not os.path.exists(predict_progress_file):
+                    CommonConfig.error_logger.exception(
+                        'predict_progress_file {} does not exists'.format(predict_progress_file))
+                with open(predict_progress_file, "r") as f:
                     percent_predict = f.readlines()[-1]
                     CommonConfig.http_logger.info(
                         "percent_predict=" + str(percent_predict))
