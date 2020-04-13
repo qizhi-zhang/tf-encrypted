@@ -141,7 +141,7 @@ class LogisticRegression:
     y_hat=y_hat.to_native()
     return y_hat
 
-  def predict(self, sess, x, file_name, num_batches, idx, progress_file, device_name):
+  def predict(self, sess, x, file_name, num_batches, idx, progress_file, device_name, record_num_ceil_mod_batch_size):
 
     #sess.run(tf.local_variables_initializer())
 
@@ -170,7 +170,13 @@ class LogisticRegression:
           records=str(records, encoding = "utf8")
           #y_hat=str(y_hat)
           #print(y_hat)
+
+          if batch==num_batches-1:
+
+            records=records[0:record_num_ceil_mod_batch_size,:]
+
           f.write(records+"\n")
+
           if (batch % 10 == 0):
             progress_file.write(str(1.0*batch/num_batches)+"\n")
             progress_file.flush()
