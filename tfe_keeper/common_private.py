@@ -173,10 +173,10 @@ class LogisticRegression:
 
           if batch==num_batches-1:
 
-            records=records[0:record_num_ceil_mod_batch_size,:]
+            records=records[0:record_num_ceil_mod_batch_size]
 
           #records = str(records, encoding="utf8")
-          records="\n".join(records)
+          records="\n".join(records.astype('str'))
 
           f.write(records+"\n")
 

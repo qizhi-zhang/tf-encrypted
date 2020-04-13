@@ -4,7 +4,11 @@
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe/qqq/predict" beforeDir="false" afterPath="$PROJECT_DIR$/tfe/qqq/predict" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tfe_keeper/common_private.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/common_private.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/qqq/model/param_0" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/qqq/model/param_0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/qqq/model/param_1" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/qqq/model/param_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/qqq/model/plaintext_model" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/qqq/model/plaintext_model" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -66,7 +70,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.http_util">
+  <component name="RunManager" selected="Python.train_and_predict_lr">
     <configuration name="http_util" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -174,9 +178,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.train_and_predict_lr" />
         <item itemvalue="Python.http_util" />
         <item itemvalue="Python.tfe_keeper" />
-        <item itemvalue="Python.train_and_predict_lr" />
         <item itemvalue="Python.test_globle_variables" />
         <item itemvalue="Python.predict_lr" />
       </list>
