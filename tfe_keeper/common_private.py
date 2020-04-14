@@ -24,10 +24,13 @@ class LogisticRegression:
   def weights(self):
     return self.w, self.b
 
-  def forward(self, x):
+  def forward(self, x, with_sigmoid=True):
     with tf.name_scope("forward"):
       out = tfe.matmul(x, self.w_masked) + self.b_masked
-      y = tfe.sigmoid(out)
+      if with_sigmoid:
+        y = tfe.sigmoid(out)
+      else:
+        y=out
       return y
 
   def backward(self, x, dy, learning_rate=0.01):
@@ -136,9 +139,10 @@ class LogisticRegression:
   def predict_batch(self,x):
 
 
-    y_hat = self.forward(x)
+    y_hat = self.forward(x,with_sigmoid=False)
     y_hat=y_hat.reveal()
     y_hat=y_hat.to_native()
+    y_hat=tf.sigmoid(y_hat)
     return y_hat
 
   def predict(self, sess, x, file_name, num_batches, idx, progress_file, device_name, record_num_ceil_mod_batch_size):
