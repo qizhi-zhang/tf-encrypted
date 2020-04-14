@@ -56,7 +56,7 @@ def get_grpc_port():
     status = True
     errorCode = 0
     errorMsg = ""
-    return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "grpc_port": grpc_port})
+    return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "grpcPort": grpc_port})
 
 
 @tfe_keeper.route('/detect_idle', methods=['GET', 'POST'])

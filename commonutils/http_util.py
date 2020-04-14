@@ -160,6 +160,10 @@ if __name__=='__main__':
     httpUtil=HttpUtil()
 
 
+    # get grpc_port
+    x = httpUtil.post(url="http://172.19.1.218:8080/tfe_keeper/grpc_port", json_data={})
+    print(x)
+
     # test start_server
     data={"taskId":  "qqq", "XOwner" : "127.0.0.1:5677", "YOwner" : "127.0.0.1:5678", "RS" : "127.0.0.1:5679", "Player": "XOwner"}
 
