@@ -48,6 +48,17 @@ def login():
 
 tfe_keeper = Blueprint('tfe_keeper', __name__)
 
+
+
+@tfe_keeper.route('/grpc_port', methods=['GET', 'POST'])
+def get_grpc_port():
+    grpc_port = os.environ.get("grpc_port") or '80'
+    status = True
+    errorCode = 0
+    errorMsg = ""
+    return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "grpc_port": grpc_port})
+
+
 @tfe_keeper.route('/detect_idle', methods=['GET', 'POST'])
 def detect_idle():
     """

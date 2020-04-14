@@ -19,4 +19,4 @@ tfe:
 #    - 5678:5678
 #    - 5679:5679
     environment:
-    - proxy_url=http://47.102.15.80:8213
+    - grpc_port=5216   # =docker port=outer port
