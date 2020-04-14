@@ -169,9 +169,27 @@ if __name__=='__main__':
     #内网 devU, devV, manager
     #data={"taskId":  "qqq", "xOwner" : "172.19.1.216:5678", "yOwner" : "172.19.1.217:5678", "thirdOwner" : "172.19.1.213:5678", "player": "x_owner"}
     #
-    # x=httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/start_server",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://172.19.1.217:8080/tfe_keeper/start_server",json_data=json.dumps(data))
     # print(x)
 
+
+    #公网 devU, devV, researchJ
+    data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "x_owner"}
+
+    x=httpUtil.post(url="http://172.19.1.217:8080/tfe_keeper/start_server",json_data=json.dumps(data))
+    print(x)
+
+
+    data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "y_owner"}
+
+    x=httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/start_server",json_data=json.dumps(data))
+    print(x)
+
+
+    data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "third_owner"}
+
+    x=httpUtil.post(url="http://172.19.1.218:8080/tfe_keeper/start_server",json_data=json.dumps(data))
+    print(x)
 
 
 
@@ -194,6 +212,8 @@ if __name__=='__main__':
 
 
 
+
+
     #test train_and_predict
 
     # with open('./qqq/conf', 'r') as f:
@@ -208,6 +228,12 @@ if __name__=='__main__':
     #         "modelName": "model", "test_flag": False}  # 相对路径
     # #
     # x = httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/train_and_predict", json_data=json.dumps(data))
+    # print(x)
+
+    # 公网 devU, devV, researchJ
+    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "./qqq/model", "test_flag": True }
+    #
+    # x=httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/train_and_predict",json_data=json.dumps(data))
     # print(x)
 
 
