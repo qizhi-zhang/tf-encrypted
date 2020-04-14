@@ -181,7 +181,7 @@ class LogisticRegression:
           f.write(records+"\n")
 
           #if (batch % 10 == 0):
-          if(batch%int(num_batches/100)==0):
+          if(batch%(1+int(num_batches/100))==0):
             progress_file.write(str(1.0*batch/num_batches)+"\n")
             progress_file.flush()
 
