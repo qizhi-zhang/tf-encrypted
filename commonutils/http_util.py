@@ -10,7 +10,7 @@
    Description : description what the main function of this file
 """
 import os
-import sys
+#import sys
 import time
 import json
 import requests

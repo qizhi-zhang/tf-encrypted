@@ -38,7 +38,8 @@ python_lint:
   pluginConfig:
     encoding: UTF-8
     excludes:
-      - "./tf_encrypted/*"
+      - "tf_encrypted/*"
+      - "examples/*"
       - "**__init__.py**"
       - "*.sh"
       - "*.csv"

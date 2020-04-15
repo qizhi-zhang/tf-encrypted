@@ -18,14 +18,20 @@ VERIFY_SGIN_ERROR = ResultCode("ME151MODL0002", "verify sign error", "verify sig
 PARAM_NONE_ERROR = ResultCode("ME151MODL1001", "param[%(param)s] None error")
 
 # TFE Keeper  1001+  9999-   ME15*TFEE****
-START_SERVER_SYSTEM_ERROR = ResultCode("ME151TFEE9999", "start server system error")
+DETECT_IDLE_ERROR = ResultCode("ME151TFEE1001", "detect idle error")
+START_SERVER_ERROR = ResultCode("ME151TFEE1002", "start server error")
+TRAIN_ERROR = ResultCode("ME151TFEE1003", "train error")
+PREDICT_ERROR = ResultCode("ME151TFEE1004", "predict error")
+TRAIN_AND_PREDICT_ERROR = ResultCode("ME151TFEE1005", "train_and_predict error")
+CHECK_PROGRESS_ERROR = ResultCode("ME151TFEE1006", "check progress error")
+KILL_SERVER_ERROR = ResultCode("ME151TFEE1007", "kill server error")
 
 
 
-PARAM_ERROR = ResultCode("ME151TFEE1001", "param[%(param)s] should not be none")
+PARAM_ERROR = ResultCode("ME151TFEE2001", "param[%(param)s] should not be none")
+FILE_NOT_EXIST_ERROR = ResultCode("ME151MODL2002", "file [%(filename)s] not exist")
 
 
 
+#MODEL_MPC_EXBYTE_ERROR = ResultCode("ME151MODL1002", "exchange bytes len %(ex)s does not match matrix dim %(shape)s")
 
-MODEL_MPC_EXBYTE_ERROR = ResultCode("ME151MODL1002", "exchange bytes len %(ex)s does not match matrix dim %(shape)s")
-FILE_NOT_EXIST_ERROR = ResultCode("ME151MODL1003", "file [%(filename)s] not exist")

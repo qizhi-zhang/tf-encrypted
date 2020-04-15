@@ -11,7 +11,7 @@
 #from smodel.smodel_config import SModelConfig
 
 from commonutils.exception_utils import result_code_en
-from commonutils.exception_utils import result_code_cn
+#from commonutils.exception_utils import result_code_cn
 
 
 result_code = result_code_en
