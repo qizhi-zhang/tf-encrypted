@@ -19,10 +19,10 @@ from commonutils.exception_utils.result_code import result_code
 absolute_path = None
 if platform.system() == "Darwin":
     #os.putenv('absolute_path', "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted")
-    absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
+    absolute_path = "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
 else:
     #os.putenv('absolute_path', "/app")
-    absolute_path="/app/file"
+    absolute_path = "/app/file"
 
 
 app = Flask(__name__)
@@ -75,7 +75,7 @@ def detect_idle():
         #print("request_params:",request_params)
         ip_host = request_params.get('ipHost')
         print("ip_host:", ip_host)
-        status=_detect_idle(ip_host)
+        status = _detect_idle(ip_host)
         print("status:", status)
         return json.dumps({"status": status})
     except Exception as e:
@@ -90,13 +90,13 @@ def _detect_idle(ip_host):
         print("cluster:", cluster)
         server = tf.train.Server(cluster)
         print("server:", server)
-        status="idle"
+        status = "idle"
         #server.join()
     except Exception as e:
         #print(e)
         CommonConfig.error_logger.exception(
             '_detelt_idle error on input: {}, exception msg:{}'.format(str(ip_host), str(e)))
-        status="busy"
+        status = "busy"
     return status
 
 
@@ -129,7 +129,7 @@ def start_server():
 
         RS_iphost = request_params.get('RS')
         if RS_iphost is None:
-            RS_iphost=request_params.get("thirdOwner")
+            RS_iphost = request_params.get("thirdOwner")
         print("RS_iphost:",RS_iphost)
         if RS_iphost is None:
             status = False
@@ -160,21 +160,21 @@ def start_server():
 
 
 
-        Player=request_params.get('Player')
+        Player = request_params.get('Player')
         if Player is None:
-            Player=request_params.get('player')
+            Player = request_params.get('player')
         if YOwner_iphost is None:
             status = False
             errorCode = 1
             errorMsg = "nether Player nor player are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
-        if Player=="x_owner" or Player=="xOwner":
-            Player="XOwner"
-        if Player=="y_owner" or Player=="yOwner":
-            Player="YOwner"
-        if Player=="third_owner" or Player == 'thirdOwner':
-            Player="RS"
+        if Player == "x_owner" or Player == "xOwner":
+            Player = "XOwner"
+        if Player == "y_owner" or Player == "yOwner":
+            Player = "YOwner"
+        if Player == "third_owner" or Player == 'thirdOwner':
+            Player = "RS"
 
 
 
@@ -279,27 +279,27 @@ def train():
         print("task_id:", task_id)
         #algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
-        if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":
-            modelFileMachine="XOwner"
-        if modelFileMachine=="y_owner" or modelFileMachine=="yOwner":
-            modelFileMachine="YOwner"
-        if modelFileMachine=="third_owner" or modelFileMachine=="thirdOwner":
-            modelFileMachine="RS"
+        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
+            modelFileMachine = "XOwner"
+        if modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+            modelFileMachine = "YOwner"
+        if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+            modelFileMachine = "RS"
 
 
 
         modelFilePath = request_params.get('modelFilePath')
-        modelFilePath=os.path.join( absolute_path,modelFilePath)
+        modelFilePath = os.path.join( absolute_path,modelFilePath)
         modelName = request_params.get('modelName')
         modelFilePlainTextPath = os.path.join(modelFilePath, modelName)
-        conf=request_params.get('conf')
+        conf = request_params.get('conf')
 
-        test_flag=request_params.get('test_flag', False)
+        test_flag = request_params.get('test_flag', False)
 
         if test_flag:
-            tf_config_file=None
+            tf_config_file = None
         else:
-            tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
+            tf_config_file = os.path.join(absolute_path, "tfe/{task_id}/config.json".format(task_id=task_id))
 
         # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
 
@@ -319,9 +319,9 @@ def train():
         # with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
         #     f.write(str(p.name))
 
-        status=True
-        errorCode=0
-        errorMsg=""
+        status = True
+        errorCode = 0
+        errorMsg = ""
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
         #print(e)
@@ -353,24 +353,24 @@ def predict():
         #algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
-        if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":
-            modelFileMachine="XOwner"
-        if modelFileMachine=="y_owner" or modelFileMachine=="yOwner":
-            modelFileMachine="YOwner"
-        if modelFileMachine=="third_owner" or modelFileMachine=="thirdOwner":
-            modelFileMachine="RS"
+        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
+            modelFileMachine = "XOwner"
+        if modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+            modelFileMachine = "YOwner"
+        if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+            modelFileMachine = "RS"
 
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
-        conf=request_params.get('conf')
+        conf = request_params.get('conf')
         test_flag = request_params.get('test_flag', False)
 
         progress_file = os.path.join(absolute_path,"tfe/" + task_id + "/predict_progress")
 
         if test_flag:
-            tf_config_file=None
+            tf_config_file = None
         else:
-            tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
+            tf_config_file = os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
 
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine,
@@ -380,9 +380,9 @@ def predict():
         with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
-        status=True
-        errorCode=0
-        errorMsg=""
+        status = True
+        errorCode = 0
+        errorMsg = ""
         predict_file = os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=task_id))
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
     except Exception as e:
@@ -417,26 +417,26 @@ def train_and_predict():
         #algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
-        if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":
-            modelFileMachine="XOwner"
-        if modelFileMachine=="y_owner" or modelFileMachine=="yOwner":
-            modelFileMachine="YOwner"
-        if modelFileMachine=="third_owner" or modelFileMachine=="thirdOwner":
-            modelFileMachine="RS"
+        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
+            modelFileMachine = "XOwner"
+        if modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+            modelFileMachine = "YOwner"
+        if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+            modelFileMachine = "RS"
 
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
         modelFilePlainTextPath = os.path.join(modelFilePath, modelName)
-        conf=request_params.get('conf')
+        conf = request_params.get('conf')
         test_flag = request_params.get('test_flag', False)
 
         #progress_file_predict = os.path.join(absolute_path,"tfe/" + task_id + "/predict_progress")
 
         if test_flag:
-            tf_config_file=None
+            tf_config_file = None
         else:
-            tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
+            tf_config_file = os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
 
@@ -451,9 +451,9 @@ def train_and_predict():
                                'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
-        status=True
-        errorCode=0
-        errorMsg=""
+        status = True
+        errorCode = 0
+        errorMsg = ""
         predict_file = os.path.join(absolute_path,
                                     "tfe/{task_id}/predict".format(task_id=task_id))
         return json.dumps({"status": status, "errorCode": errorCode,
@@ -499,14 +499,14 @@ def check_progress():
         print("taskType:", taskType)
 
         percent = "0.00"
-        if taskType=="train":
+        if taskType == "train":
             try:
                 with open(os.path.join(absolute_path,'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
                     pid = f.readline()
                 pid = int(pid)
                 print("pid=",pid)
 
-                pid_exists=check_pid(pid)
+                pid_exists = check_pid(pid)
 
                 with open(os.path.join(absolute_path,'tfe/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
                     percent = f.readlines()[-1]
@@ -514,7 +514,7 @@ def check_progress():
 
 
 
-                if percent=="1.00":
+                if percent == "1.00":
                     executeStatus = "SUCCESS"
                 elif pid_exists:
                     executeStatus = "RUNNING"
@@ -536,7 +536,7 @@ def check_progress():
                 with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
                     pid = f.readline()
                 pid = int(pid)
-                pid_exists=check_pid(pid)
+                pid_exists = check_pid(pid)
 
                 with open(os.path.join(absolute_path,"tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
                     percent = f.readlines()[-1]
@@ -554,7 +554,7 @@ def check_progress():
             except Exception as e:
                 CommonConfig.error_logger.exception(
                     'check_progress error , exception msg:{}'.format(str(e)))
-                executeStatus="FAILED"
+                executeStatus = "FAILED"
 
         else:
             assert taskType == "train_and_predict"
@@ -565,7 +565,7 @@ def check_progress():
                 pid = int(pid)
                 print("pid=",pid)
 
-                pid_exists=check_pid(pid)
+                pid_exists = check_pid(pid)
 
                 # --------------train progress----------------------------------------
                 trian_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/train_progress")
@@ -577,7 +577,7 @@ def check_progress():
                     print("percent_train=",percent_train)
                     CommonConfig.http_logger.info(
                         "percent_train=" + str(percent_train))
-                    percent_train=percent_train[-1]
+                    percent_train = percent_train[-1]
 
 
 
@@ -592,7 +592,7 @@ def check_progress():
                     print("percent_predict=", percent_predict)
                     CommonConfig.http_logger.info(
                         "percent_predict=" + str(percent_predict))
-                    percent_predict=percent_predict[-1]
+                    percent_predict = percent_predict[-1]
 
 
                 if percent_predict == "1.00":
@@ -604,23 +604,23 @@ def check_progress():
                     executeStatus = "FAILED"
 
                 if percent_predict == "1.00":
-                    percent="1.00"
+                    percent = "1.00"
                 else:
-                    percent=str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
+                    percent = str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
 
 
             except Exception as e:
                 CommonConfig.error_logger.exception(
                     'check_progress error , exception msg:{}'.format(str(e)))
-                executeStatus="FAILED"
+                executeStatus = "FAILED"
 
 
 
 
-        percent=int(float(percent)*100)
-        status=True
-        errorCode=0
-        errorMsg=""
+        percent = int(float(percent)*100)
+        status = True
+        errorCode = 0
+        errorMsg = ""
         CommonConfig.http_logger.info("percent:" + str(percent))
         CommonConfig.http_logger.info("status:" + str(status))
         CommonConfig.http_logger.info("executeStatus:" + str(executeStatus))
@@ -657,18 +657,18 @@ def kill_server():
 
 
         with open(os.path.join(absolute_path, 'tfe/server_pid'), 'r') as f:
-            pid=f.readline()
+            pid = f.readline()
 
 
-        pid=int(pid)
+        pid = int(pid)
         os.kill(pid,9)
         errorMsg = "killed {pid}".format(pid=pid)
 
 
 
 
-        status=True
-        errorCode=0
+        status = True
+        errorCode = 0
 
 
 
@@ -692,7 +692,7 @@ app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
 if __name__ == '__main__':
 
 
-    app.run(host="0.0.0.0",port="8080", debug = True)
+    app.run(host = "0.0.0.0", port = "8080", debug = True)
     #print(platform.system())
 
 
