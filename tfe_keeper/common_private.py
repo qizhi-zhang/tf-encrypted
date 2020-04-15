@@ -93,9 +93,9 @@ class LogisticRegression:
         #m = tf.keras.metrics.FalsePositives(list(np.array(range(1, 100))*0.01))
         y_hat=tf.clip_by_value(y_hat, 0.0, 1.0)
         FP, FP_up= tf.metrics.false_positives_at_thresholds(labels=y, predictions=y_hat,
-    thresholds=list(np.array(range(0, 100))*0.01))
+                                                            thresholds=list(np.array(range(0, 100))*0.01))
         TP, TP_up= tf.metrics.true_positives_at_thresholds(labels=y, predictions=y_hat,
-    thresholds=list(np.array(range(0, 100))*0.01))
+                                                           thresholds=list(np.array(range(0, 100))*0.01))
 
         FPR = FP / (tf.constant(1E-6)+FP[0])
 

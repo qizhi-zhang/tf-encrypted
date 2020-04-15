@@ -124,7 +124,7 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
     with tfe.Session() as sess:
 
         sess.run(tfe.global_variables_initializer(),
-               tag='init')
+                 tag='init')
         start_time=time.time()
 
         print("Loading model...")
