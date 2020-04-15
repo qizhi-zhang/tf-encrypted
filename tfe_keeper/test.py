@@ -83,17 +83,20 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
     # ))
 
     @tfe.local_computation("XOwner")
-    def provide_test_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
+    def provide_test_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
+                            + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
         train_x = get_data_x(64, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
         return train_x
 
     @tfe.local_computation("YOwner")
-    def provide_test_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+    def provide_test_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
+                            + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
         train_y = get_data_y(64, path, matchColNum=matchColNumX, epoch=epoch_num,  skip_row_num=1)
         return train_y
 
     @tfe.local_computation("YOwner")
-    def provide_test_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+    def provide_test_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
+                             + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
         train_x, train_y = get_data_xy(64, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
         return train_x, train_y
 

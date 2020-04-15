@@ -303,8 +303,10 @@ def train():
 
         # train_lr.run(task_id, conf, modelFileMachine, modelFilePath, tf_config_file=tf_config_file)
 
-        p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
-        #p = threading.Thread(target=train_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
+        p = Process(target=train_lr.run, args=(task_id, conf, modelFileMachine,
+                                               modelFilePath, modelFilePlainTextPath, tf_config_file))
+        #p = threading.Thread(target=train_lr.run, args=(task_id, conf,
+        # modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
         p.start()
 
         CommonConfig.http_logger.info("train Process pid:" + str(p.pid))
@@ -371,7 +373,8 @@ def predict():
             tf_config_file =os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
 
-        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file))
+        p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine,
+                                                 modelFilePath, progress_file, tf_config_file))
         p.start()
         CommonConfig.http_logger.info("predict Process pid:" + str(p.pid))
         with open(os.path.join(absolute_path,'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
@@ -438,18 +441,23 @@ def train_and_predict():
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
 
 
-        p = Process(target=train_and_predict_lr.run, args=(task_id, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
+        p = Process(target=train_and_predict_lr.run,
+                    args=(task_id, conf, modelFileMachine, modelFilePath,
+                          modelFilePlainTextPath, tf_config_file))
 
         p.start()
 
-        with open(os.path.join(absolute_path,'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'w') as f:
+        with open(os.path.join(absolute_path,
+                               'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
         status=True
         errorCode=0
         errorMsg=""
-        predict_file = os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=task_id))
-        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
+        predict_file = os.path.join(absolute_path,
+                                    "tfe/{task_id}/predict".format(task_id=task_id))
+        return json.dumps({"status": status, "errorCode": errorCode,
+                           "errorMsg": errorMsg, "predictFile": predict_file})
     except Exception as e:
         #print(e)
         CommonConfig.error_logger.exception(
@@ -616,7 +624,8 @@ def check_progress():
         CommonConfig.http_logger.info("percent:" + str(percent))
         CommonConfig.http_logger.info("status:" + str(status))
         CommonConfig.http_logger.info("executeStatus:" + str(executeStatus))
-        return json.dumps({"status": status, "executeStatus": executeStatus, "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
+        return json.dumps({"status": status, "executeStatus": executeStatus,
+                           "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
     except Exception as e:
         CommonConfig.error_logger.exception(
             'check_progress error , exception msg:{}'.format(str(e)))
@@ -643,7 +652,8 @@ def kill_server():
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
 
-        #with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'r') as f:
+        #with open(os.path.join(absolute_path,'tfe/{task_id}/
+        # server_pid'.format(task_id=task_id)), 'r') as f:
 
 
         with open(os.path.join(absolute_path, 'tfe/server_pid'), 'r') as f:
@@ -687,6 +697,7 @@ if __name__ == '__main__':
 
 
     #print(absolute_path)
-    #status=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677", YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
+    #status=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677",
+    # YOwner_iphost="127.0.0.1:5678", RS_iphost="127.0.0.1:5679", Player="XOwner")
     #print(status)
 

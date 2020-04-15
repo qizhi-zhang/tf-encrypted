@@ -102,17 +102,17 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         # ))
 
         @tfe.local_computation("XOwner")
-        def provide_test_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
+        def provide_test_data_x(path):
             x = get_data_x(batch_size, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=2, clip_by_value=3.0, skip_row_num=1)
             return x
 
         #@tfe.local_computation("YOwner")
-        def provide_test_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+        def provide_test_data_y(path):
             idx, y = get_data_id_with_y(batch_size, path, matchColNum=matchColNumX, epoch=2,  skip_row_num=1)
             return idx, y
 
         #@tfe.local_computation("YOwner")
-        def provide_test_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
+        def provide_test_data_xy(path):
             idx, x, y = get_data_id_with_xy(batch_size, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=2, clip_by_value=3.0, skip_row_num=1)
             return idx, x, y
 #batch_size, data_file,  featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
@@ -178,7 +178,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         record_num_ceil_mod_batch_size = record_num % batch_size
         if record_num_ceil_mod_batch_size == 0:
             record_num_ceil_mod_batch_size = batch_size
-        model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, progress_file,YOwner.device_name, record_num_ceil_mod_batch_size)
+        model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)),
+                      batch_num, idx, progress_file,YOwner.device_name, record_num_ceil_mod_batch_size)
         #model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, predict_progress_file, YOwner.device_name, record_num_ceil_mod_batch_size)
 
         test_time = time.time() - start_time
@@ -204,5 +205,7 @@ if __name__=='__main__':
     conf=json.loads(conf)
     print(conf)
     progress_file = os.path.join("./qqq/train_progress")
-    run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", progress_file=progress_file)
-    run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", progress_file=progress_file, tf_config_file="/app/file/tfe/qqq/config.json")
+    run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
+        modelFilePath="./qqq/model", progress_file=progress_file)
+    run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
+        modelFilePath="./qqq/model", progress_file=progress_file, tf_config_file="/app/file/tfe/qqq/config.json")
