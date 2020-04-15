@@ -55,6 +55,7 @@ python_lint:
       - "*.sh"
       - "*.csv"
       - "*.txt"
+      - "setup.py"
     taskKind: CMD_PYTHON2_FLAKE8
   checkRule:
     - pmd1 = 0 && pmd2 = 0

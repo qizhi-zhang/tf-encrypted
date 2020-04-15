@@ -79,14 +79,14 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         #   # config file was specified
         #   config_file = sys.argv[1]
         if tf_config_file:
-          config = tfe.RemoteConfig.load(tf_config_file)
+            config = tfe.RemoteConfig.load(tf_config_file)
         else:
-          # default to using local config
-          config = tfe.LocalConfig([
+            # default to using local config
+            config = tfe.LocalConfig([
               'XOwner',
               'YOwner',
               'RS'
-          ])
+            ])
         tfe.set_config(config)
         players = ['XOwner', 'YOwner', 'RS']
         prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))

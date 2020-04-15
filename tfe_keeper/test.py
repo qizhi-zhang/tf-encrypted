@@ -58,16 +58,16 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
 
 
     if len(sys.argv) >= 2:
-      # config file was specified
-      config_file = sys.argv[1]
-      config = tfe.RemoteConfig.load(config_file)
+        # config file was specified
+        config_file = sys.argv[1]
+        config = tfe.RemoteConfig.load(config_file)
     else:
-      # default to using local config
-      config = tfe.LocalConfig([
+        # default to using local config
+        config = tfe.LocalConfig([
           'XOwner',
           'YOwner',
           'RS'
-      ])
+        ])
     tfe.set_config(config)
     players = ['XOwner', 'YOwner', 'RS']
     prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
