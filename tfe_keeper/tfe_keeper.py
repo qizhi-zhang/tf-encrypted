@@ -128,20 +128,20 @@ def start_server():
         #     raise MorseException(result_code.PARAM_ERROR, param="other")
 
         RS_iphost = request_params.get('RS')
-        if RS_iphost==None:
+        if RS_iphost is None:
             RS_iphost=request_params.get("thirdOwner")
         print("RS_iphost:",RS_iphost)
-        if RS_iphost==None:
+        if RS_iphost is None:
             status = False
             errorCode = 1
             errorMsg = "nether RS nor thirdOwner are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
         XOwner_iphost = request_params.get('XOwner')
-        if XOwner_iphost==None:
+        if XOwner_iphost is None:
             XOwner_iphost = request_params.get('xOwner')
         print("XOwner_iphost=", XOwner_iphost)
-        if XOwner_iphost==None:
+        if XOwner_iphost is None:
             status = False
             errorCode = 1
             errorMsg = "nether xOwner nor XOwner are given"
@@ -149,7 +149,7 @@ def start_server():
 
 
         YOwner_iphost = request_params.get('YOwner')
-        if YOwner_iphost==None:
+        if YOwner_iphost is None:
             YOwner_iphost = request_params.get('yOwner')
         if YOwner_iphost == None:
             status = False
@@ -161,7 +161,7 @@ def start_server():
 
 
         Player=request_params.get('Player')
-        if Player==None:
+        if Player is None:
             Player=request_params.get('player')
         if YOwner_iphost == None:
             status = False
