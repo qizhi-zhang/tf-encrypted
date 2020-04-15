@@ -50,9 +50,9 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
     learningRate=float(train_predict_Params.get("learningRate"))
     batch_size = int(train_predict_Params.get("batchSize"))
     epoch_num= int(train_predict_Params.get("maxIter"))
-    epsilon = float(train_predict_Params.get("epsilon"))
-    regularizationL1=float(train_predict_Params.get("regularizationL1"))
-    regularizationL2=float(train_predict_Params.get("regularizationL2"))
+    #epsilon = float(train_predict_Params.get("epsilon"))
+    #regularizationL1=float(train_predict_Params.get("regularizationL1"))
+    #regularizationL2=float(train_predict_Params.get("regularizationL2"))
 
 
 
@@ -144,7 +144,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
         players = ['XOwner', 'YOwner', 'RS']
         prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
         tfe.set_protocol(prot)
-        session_target = sys.argv[2] if len(sys.argv) > 2 else None
+        #session_target = sys.argv[2] if len(sys.argv) > 2 else None
 
 
 
@@ -228,7 +228,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
         print("node1_containY:", node_id1.get("isContainY"))
 
-        if (node_id1.get("isContainY") == True):
+        if (node_id1.get("isContainY")):
             # featureNumX = int(node_id2.get("featureNum"))
             # matchColNumX = int(node_id2.get("matchColNum"))
             path_x = node_id2.get("storagePath")
@@ -238,7 +238,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
             # matchColNumY = int(node_id1.get("matchColNum"))
             path_y = node_id1.get("storagePath")
         else:
-            assert node_id2.get("isContainY") == True
+            assert node_id2.get("isContainY")
             # featureNumY = int(node_id2.get("featureNum"))
             # matchColNumY = int(node_id2.get("matchColNum"))
             path_y = node_id2.get("storagePath")

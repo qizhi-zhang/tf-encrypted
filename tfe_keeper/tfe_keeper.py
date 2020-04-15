@@ -151,7 +151,7 @@ def start_server():
         YOwner_iphost = request_params.get('YOwner')
         if YOwner_iphost is None:
             YOwner_iphost = request_params.get('yOwner')
-        if YOwner_iphost == None:
+        if YOwner_iphost is None:
             status = False
             errorCode = 1
             errorMsg = "nether yOwner nor YOwner are given"
@@ -163,7 +163,7 @@ def start_server():
         Player=request_params.get('Player')
         if Player is None:
             Player=request_params.get('player')
-        if YOwner_iphost == None:
+        if YOwner_iphost is None:
             status = False
             errorCode = 1
             errorMsg = "nether Player nor player are given"
@@ -277,7 +277,7 @@ def train():
         CommonConfig.http_logger.info("train request_params:" + str(request_params))
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
-        algorithm = request_params.get('algorithm')
+        #algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
         if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":
             modelFileMachine="XOwner"
@@ -348,7 +348,7 @@ def predict():
         CommonConfig.http_logger.info("predict request_params:" + str(request_params))
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
-        algorithm = request_params.get('algorithm')
+        #algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
         if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":
@@ -411,7 +411,7 @@ def train_and_predict():
         CommonConfig.http_logger.info("predict request_params:" + str(request_params))
         task_id = request_params.get('taskId')
         print("task_id:", task_id)
-        algorithm = request_params.get('algorithm')
+        #algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
         if modelFileMachine=="x_owner" or modelFileMachine=="xOwner":

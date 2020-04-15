@@ -33,9 +33,9 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
     learningRate=float(trainParams.get("learningRate"))
     batch_size = int(trainParams.get("batchSize"))
     epoch_num= int(trainParams.get("maxIter"))
-    epsilon = float(trainParams.get("epsilon"))
-    regularizationL1=float(trainParams.get("regularizationL1"))
-    regularizationL2=float(trainParams.get("regularizationL2"))
+    #epsilon = float(trainParams.get("epsilon"))
+    #regularizationL1=float(trainParams.get("regularizationL1"))
+    #regularizationL2=float(trainParams.get("regularizationL2"))
 
 
 
@@ -127,7 +127,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
         players = ['XOwner', 'YOwner', 'RS']
         prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
         tfe.set_protocol(prot)
-        session_target = sys.argv[2] if len(sys.argv) > 2 else None
+        #session_target = sys.argv[2] if len(sys.argv) > 2 else None
 
 
 
@@ -193,7 +193,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
         save_op = model.save(modelFilePath,modelFileMachine)
         save_as_plaintext_op=model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
-        load_op = model.load(modelFilePath, modelFileMachine)
+        #load_op = model.load(modelFilePath, modelFileMachine)
 
         CommonConfig.http_logger.info("save_op:" + str(save_op))
         #with tfe.Session() as sess:

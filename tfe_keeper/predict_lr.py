@@ -55,12 +55,12 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
             record_num=int(node_id2.get("fileRecord"))
 
             featureNumY = int(node_id1.get("featureNum"))
-            matchColNumY = int(node_id1.get("matchColNum"))
+            #matchColNumY = int(node_id1.get("matchColNum"))
             path_y= node_id1.get("storagePath")
         else:
             assert node_id2.get("isContainY")
             featureNumY = int(node_id2.get("featureNum"))
-            matchColNumY = int(node_id2.get("matchColNum"))
+            #matchColNumY = int(node_id2.get("matchColNum"))
             path_y= node_id2.get("storagePath")
             record_num=int(node_id2.get("fileRecord"))
 
@@ -91,7 +91,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         players = ['XOwner', 'YOwner', 'RS']
         prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
         tfe.set_protocol(prot)
-        session_target = sys.argv[2] if len(sys.argv) > 2 else None
+        #session_target = sys.argv[2] if len(sys.argv) > 2 else None
 
 
 
