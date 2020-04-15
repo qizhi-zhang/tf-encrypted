@@ -32,7 +32,7 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
 
     print("node1_containY:",node_id1.get("isContainY"))
 
-    if (node_id1.get("isContainY")==True):
+    if (node_id1.get("isContainY")):
         featureNumX = int(node_id2.get("featureNum"))
         matchColNumX = int(node_id2.get("matchColNum"))
         path_x= node_id2.get("storagePath")
@@ -42,7 +42,7 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
         matchColNumY = int(node_id1.get("matchColNum"))
         path_y= node_id1.get("storagePath")
     else:
-        assert node_id2.get("isContainY")==True
+        assert node_id2.get("isContainY")
         featureNumY = int(node_id2.get("featureNum"))
         matchColNumY = int(node_id2.get("matchColNum"))
         path_y= node_id2.get("storagePath")

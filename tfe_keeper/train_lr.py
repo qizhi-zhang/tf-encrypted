@@ -65,7 +65,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
     CommonConfig.http_logger.info("node1_containY:" + str(node_id1.get("isContainY")))
 
     try:
-        if (node_id1.get("isContainY")==True):
+        if (node_id1.get("isContainY")):
             featureNumX = int(node_id2.get("featureNum"))
             matchColNumX = int(node_id2.get("matchColNum"))
             path_x= node_id2.get("storagePath")
@@ -76,7 +76,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
             matchColNumY = int(node_id1.get("matchColNum"))
             path_y= node_id1.get("storagePath")
         else:
-            if node_id2.get("isContainY")==False:
+            if not node_id2.get("isContainY"):
                 CommonConfig.error_logger.error("both isContainY are False")
             featureNumY = int(node_id2.get("featureNum"))
             matchColNumY = int(node_id2.get("matchColNum"))
