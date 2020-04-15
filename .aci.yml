@@ -1,0 +1,72 @@
+stages:
+  - buildimage
+  - unittest
+
+environments:
+  DOCKERTAG: ${ACI_COMMIT_SHA}
+
+build_image:
+  stage: buildimage
+  plugin: ANT-BUILD
+  pluginConfig:
+    image: reg.docker.alibaba-inc.com/antb/sofa-build:0.0.2-bki
+    environments:
+      GIT_SUBMODULE_STRATEGY: recursive
+    script:
+      - cd $LINKB_WORKSPACE
+#      - docker login --username=merchant_001@1625602075529161 --password=fuchang.lz registry.cn-hangzhou.aliyuncs.com
+#      - docker build -t reg.docker.alibaba-inc.com/alipay/morse-smodel:${DOCKERTAG} -f ./conf/DockerfileSmodel .
+#      - docker push reg.docker.alibaba-inc.com/alipay/morse-smodel:${DOCKERTAG}
+    inputs:
+      params:
+        - name: DIRECTORY
+          value: .    #注意这里不同项目可能会有路径修改
+        - name: DOCKERFILE
+          value: conf/DockerfileTFE  #这里换成自己的docker 镜像配置文件
+    outputs:
+      - name: morse-tfe  #注意这里
+        type: image
+        repository: reg.docker.alibaba-inc.com
+        namespace: alipay
+        tag: ${DOCKERTAG}
+  allowFailure: true
+
+
+python_lint:
+  stage: buildimage
+  plugin: CMD
+  pluginConfig:
+    encoding: UTF-8
+    excludes:
+      - "**__init__.py**"
+      - "*.sh"
+      - "*.csv"
+      - "*.txt"
+    taskKind: CMD_PYTHON2_FLAKE8
+  checkRule:
+    - pmd1 = 0 && pmd2 = 0
+
+
+unittest:
+  stage: unittest
+  aciTags: DOCKER
+  git:
+    submodule: true
+  agent:
+    docker:
+      image: reg.docker.alibaba-inc.com/alipay/morse-tfe:${DOCKERTAG}
+  script:
+    - git clone http://git-ci-token:56f8c27b7a444e8eae7d838142566a3c@gitlab.alipay-inc.com/ssdatalab/morse-ci.git
+    - chmod a+x morse-ci/sh_script/run_unittest.sh
+    - sh morse-ci/sh_script/run_unittest.sh tfe
+  pluginConfig:
+    markdown: result.md
+  publisher:
+    archiveArtifacts: '$WORKSPACE/,report/TEST-*.xml'
+    junit:
+      testResults: 'report/TEST-*.xml'
+      allowEmptyResults: true
+  coverage: '(?<=MYRESULT\s.{0,100}\d.{0,10}\s.{0,50}\d.{0,10}\s.{0,50})\d+'
+  checkRule:
+    - passRate = 100
+    - diffLineCoverage > 90
