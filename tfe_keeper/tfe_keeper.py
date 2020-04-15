@@ -69,7 +69,7 @@ def detect_idle():
     print("detect_idle start")
     try:
         #print("request:",request)
-        CommonConfig.http_logger.info("detect_idle request:"+str(request))
+        CommonConfig.http_logger.info("detect_idle request:" + str(request))
         request_params = request.json
         CommonConfig.http_logger.info("detect_idle request_params:" + str(request_params))
         #print("request_params:",request_params)
@@ -188,17 +188,17 @@ def start_server():
         CommonConfig.http_logger.info("p.pid" + str(p.pid))
         #print(p.is_alive())
         print("p.exitcode",p.exitcode)
-        CommonConfig.http_logger.info("p.exitcode"+str(p.exitcode))
+        CommonConfig.http_logger.info("p.exitcode" + str(p.exitcode))
         if p.is_alive():
 
 
             #with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
-            with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id=task_id)), 'w') as f:
+            with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id = task_id)), 'w') as f:
                 f.write(str(p.pid))
 
-            status=True
-            errorCode=0
-            errorMsg=""
+            status = True
+            errorCode = 0
+            errorMsg = ""
 
         else:
 
@@ -598,7 +598,7 @@ def check_progress():
                 if percent_predict == "1.00":
                     percent="1.00"
                 else:
-                    percent=str(float(percent_train)*0.95+float(percent_predict)*0.05)
+                    percent=str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
 
 
             except Exception as e:

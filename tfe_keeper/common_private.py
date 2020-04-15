@@ -62,8 +62,8 @@ class LogisticRegression:
       for batch in range(num_batches):
         print("Batch {0: >4d}".format(batch))
         sess.run(fit_batch_op, tag='fit-batch')
-        if(batch%int(num_batches/100)==0):
-          f.write(str(1.0*batch/num_batches)+"\n")
+        if(batch % int(num_batches / 100) == 0):
+          f.write(str(1.0 * batch / num_batches) + "\n")
           f.flush()
 
 
@@ -93,14 +93,14 @@ class LogisticRegression:
         #m = tf.keras.metrics.FalsePositives(list(np.array(range(1, 100))*0.01))
         y_hat=tf.clip_by_value(y_hat, 0.0, 1.0)
         FP, FP_up= tf.metrics.false_positives_at_thresholds(labels=y, predictions=y_hat,
-                                                            thresholds=list(np.array(range(0, 100))*0.01))
+                                                            thresholds=list(np.array(range(0, 100)) * 0.01))
         TP, TP_up= tf.metrics.true_positives_at_thresholds(labels=y, predictions=y_hat,
-                                                           thresholds=list(np.array(range(0, 100))*0.01))
+                                                           thresholds=list(np.array(range(0, 100)) * 0.01))
 
-        FPR = FP / (tf.constant(1E-6)+FP[0])
+        FPR = FP / (tf.constant(1E-6) + FP[0])
 
-        TPR = TP / (tf.constant(1E-6)+TP[0])
-        KS= tf.reduce_max(TPR-FPR)
+        TPR = TP / (tf.constant(1E-6) + TP[0])
+        KS= tf.reduce_max(TPR - FPR)
         print("KS:", KS)
         #m.update_state(y, y_hat)
         print_op=tf.print('KS=', KS )
@@ -175,7 +175,7 @@ class LogisticRegression:
           #y_hat=str(y_hat)
           #print(y_hat)
 
-          if batch==num_batches-1:
+          if batch == num_batches - 1:
 
             records=records[0:record_num_ceil_mod_batch_size]
 
@@ -185,7 +185,7 @@ class LogisticRegression:
           f.write(records+"\n")
 
           #if (batch % 10 == 0):
-          if(batch%(1+int(num_batches/100))==0):
+          if(batch%(1 + int(num_batches / 100)) == 0):
             progress_file.write(str(1.0*batch/num_batches)+"\n")
             progress_file.flush()
 
@@ -206,7 +206,7 @@ class LogisticRegression:
     for i in range(len(self.weights)):
       modelFilePath_i=os.path.join(modelFilePath, "param_{i}".format(i=i))
       save_op=tfe.define_output(modelFileMachine, [self.weights[i], modelFilePath_i], _save)
-      save_ops=save_ops+[save_op]
+      save_ops=save_ops + [save_op]
     save_op=tf.group(*save_ops)
     return save_op
 

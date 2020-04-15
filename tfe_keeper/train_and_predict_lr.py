@@ -113,8 +113,8 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
 
 
-        train_batch_num=epoch_num*record_num//batch_size+1
-        feature_num=featureNumX+featureNumY
+        train_batch_num = epoch_num * record_num // batch_size + 1
+        feature_num = featureNumX + featureNumY
 
 
 
@@ -179,15 +179,15 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
 
             x_train = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
-                                                    arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num*2, 3.0, 1))
+                                                    arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num * 2, 3.0, 1))
             y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_y,
-                                                    arguments=(batch_size, path_y, matchColNumY, epoch_num*2, 1))
+                                                    arguments=(batch_size, path_y, matchColNumY, epoch_num * 2, 1))
 
         else:
             x_train1, y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_xy,
-                                                              arguments=(batch_size, path_y, featureNumY, matchColNumY, epoch_num*2, 3.0, 1))
+                                                              arguments=(batch_size, path_y, featureNumY, matchColNumY, epoch_num * 2, 3.0, 1))
             x_train0 = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
-                                                     arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num*2, 3.0, 1))
+                                                     arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num * 2, 3.0, 1))
             x_train = prot.concat([x_train0, x_train1], axis=1)
 
 
@@ -326,9 +326,9 @@ def run(taskId,conf,modelFileMachine,modelFilePath, modelFilePlainTextPath, tf_c
 
         model.fit(sess, x_train, y_train, train_batch_num, trian_progress_file)
 
-        train_time=time.time()-start_time
+        train_time = time.time() - start_time
         print("train_time=", train_time)
-        CommonConfig.http_logger.info("train_time="+str(train_time))
+        CommonConfig.http_logger.info("train_time=" + str(train_time))
 
         print("Saving model...")
         CommonConfig.http_logger.info("Saving model...")

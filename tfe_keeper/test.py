@@ -50,10 +50,10 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
 
         featureNumX = int(node_id1.get("featureNum"))
         matchColNumX = int(node_id1.get("matchColNum"))
-        path_x= node_id1.get("storagePath")
+        path_x = node_id1.get("storagePath")
 
-    batch_num=record_num//batch_size
-    feature_num=featureNumX+featureNumY
+    batch_num = record_num // batch_size
+    feature_num = featureNumX+featureNumY
 
 
 
@@ -135,7 +135,7 @@ def run(taskId,algorithm,conf,modelFileMachine,modelFilePath):
         #model.fit(sess, x_train, y_train, train_batch_num)
         model.get_KS(sess, x_test,y_test, batch_num)
 
-        test_time=time.time()-start_time
+        test_time = time.time() - start_time
         print("test_time=", test_time)
 
 

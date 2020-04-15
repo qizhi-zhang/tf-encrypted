@@ -69,9 +69,9 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
             path_x= node_id1.get("storagePath")
 
         path_x = os.path.join(absolute_path, path_x)
-        path_y=os.path.join(absolute_path, path_y)
-        batch_num=int(math.ceil(1.0*record_num/batch_size))
-        feature_num=featureNumX+featureNumY
+        path_y =os.path.join(absolute_path, path_y)
+        batch_num = int(math.ceil(1.0 * record_num / batch_size))
+        feature_num = featureNumX + featureNumY
 
         CommonConfig.http_logger.info("progress_file:" + str(progress_file))
 
@@ -181,7 +181,7 @@ def run(taskId,conf,modelFileMachine,modelFilePath, progress_file, tf_config_fil
         model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, progress_file,YOwner.device_name, record_num_ceil_mod_batch_size)
         #model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, predict_progress_file, YOwner.device_name, record_num_ceil_mod_batch_size)
 
-        test_time=time.time()-start_time
+        test_time = time.time() - start_time
         print("predict_time=", test_time)
 
         CommonConfig.http_logger.info("predict_time=:" + str(test_time))
