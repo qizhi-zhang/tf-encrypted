@@ -14,8 +14,6 @@ import platform
 from commonutils.exception_utils.exception_utils import MorseException
 from commonutils.exception_utils.result_code import result_code
 
-
-
 absolute_path = None
 if platform.system() == "Darwin":
     #os.putenv('absolute_path', "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted")
@@ -24,13 +22,7 @@ else:
     #os.putenv('absolute_path', "/app")
     absolute_path = "/app/file"
 
-
 app = Flask(__name__)
-
-
-
-
-
 @app.route('/service/<name>')
 def success(name):
     return 'welcome %s' % name
@@ -44,11 +36,7 @@ def login():
         user = request.args.get('nm')
         return redirect(url_for('success',name = user))
 
-
-
 tfe_keeper = Blueprint('tfe_keeper', __name__)
-
-
 
 @tfe_keeper.route('/grpc_port', methods=['GET', 'POST'])
 def get_grpc_port():
@@ -99,10 +87,6 @@ def _detect_idle(ip_host):
         status = "busy"
     return status
 
-
-
-
-
 @tfe_keeper.route('/start_server', methods=['GET', 'POST'])
 def start_server():
     """
@@ -147,7 +131,6 @@ def start_server():
             errorMsg = "nether xOwner nor XOwner are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
-
         YOwner_iphost = request_params.get('YOwner')
         if YOwner_iphost is None:
             YOwner_iphost = request_params.get('yOwner')
@@ -156,9 +139,6 @@ def start_server():
             errorCode = 1
             errorMsg = "nether yOwner nor YOwner are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
-
-
-
 
         Player = request_params.get('Player')
         if Player is None:
@@ -176,8 +156,6 @@ def start_server():
         if Player == "third_owner" or Player == 'thirdOwner':
             Player = "RS"
 
-
-
         os.makedirs(os.path.join(absolute_path,"tfe/{task_id}".format(task_id=task_id)),exist_ok=True)
         p = Process(target=_start_server, args=(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player))
         #status=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
@@ -190,8 +168,6 @@ def start_server():
         print("p.exitcode",p.exitcode)
         CommonConfig.http_logger.info("p.exitcode" + str(p.exitcode))
         if p.is_alive():
-
-
             #with open(os.path.join(absolute_path,'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
             with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id = task_id)), 'w') as f:
                 f.write(str(p.pid))
@@ -206,10 +182,7 @@ def start_server():
             errorCode = -1
             errorMsg = "start server faild"
         # todo
-
-
         #print("p.exitcode:", p.exitcode)
-
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except MorseException as e:
         status = False
@@ -217,16 +190,12 @@ def start_server():
         errorCode = e.get_code()
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
-
-
         CommonConfig.error_logger.exception(
             'start_server error , exception msg:{}'.format(str(e)))
-
         status = False
         errorCode = result_code.START_SERVER_SYSTEM_ERROR.get_code()
         errorMsg = str(e)
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
-
 
 def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
     try:
@@ -255,9 +224,6 @@ def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
             '_start_server error , exception msg:{}'.format(str(e)))
         #print(e)
 
-
-
-
 @tfe_keeper.route('/train', methods=['GET', 'POST'])
 def train():
     """
@@ -268,8 +234,6 @@ def train():
         errorCode,
         errorMsg
     """
-
-
     print("train")
     try:
         CommonConfig.http_logger.info("train request:" + str(request))
@@ -285,8 +249,6 @@ def train():
             modelFileMachine = "YOwner"
         if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
-
-
 
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join( absolute_path,modelFilePath)
@@ -329,8 +291,6 @@ def train():
             'train error , exception msg:{}'.format(str(e)))
         #return e
 
-
-
 @tfe_keeper.route('/predict', methods=['GET', 'POST'])
 def predict():
     """
@@ -341,8 +301,6 @@ def predict():
         errorCode,
         errorMsg
     """
-
-
     print("predict")
     try:
         CommonConfig.http_logger.info("pridict request:" + str(request))
@@ -372,7 +330,6 @@ def predict():
         else:
             tf_config_file = os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
 
-
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine,
                                                  modelFilePath, progress_file, tf_config_file))
         p.start()
@@ -391,10 +348,6 @@ def predict():
             'predict error , exception msg:{}'.format(str(e)))
         #return e
 
-
-
-
-
 @tfe_keeper.route('/train_and_predict', methods=['GET', 'POST'])
 def train_and_predict():
     """
@@ -405,8 +358,6 @@ def train_and_predict():
         errorCode,
         errorMsg
     """
-
-
     print("predict")
     try:
         CommonConfig.http_logger.info("pridict request:" + str(request))
@@ -437,14 +388,11 @@ def train_and_predict():
             tf_config_file = None
         else:
             tf_config_file = os.path.join(absolute_path,"tfe/{task_id}/config.json".format(task_id=task_id))
-
         #predict_lr.run(task_id, conf, modelFileMachine, modelFilePath, progress_file, tf_config_file)
-
 
         p = Process(target=train_and_predict_lr.run,
                     args=(task_id, conf, modelFileMachine, modelFilePath,
                           modelFilePlainTextPath, tf_config_file))
-
         p.start()
 
         with open(os.path.join(absolute_path,
@@ -463,10 +411,6 @@ def train_and_predict():
         CommonConfig.error_logger.exception(
             'predict error , exception msg:{}'.format(str(e)))
         #return e
-
-
-
-
 
 @tfe_keeper.route('/check_progress', methods=['GET', 'POST'])
 def check_progress():
@@ -512,8 +456,6 @@ def check_progress():
                     percent = f.readlines()[-1]
                     print("percent=",percent)
 
-
-
                 if percent == "1.00":
                     executeStatus = "SUCCESS"
                 elif pid_exists:
@@ -522,14 +464,11 @@ def check_progress():
                 else:
                     executeStatus = "FAILED"
 
-
-
             except Exception as e:
                 #print(e)
                 CommonConfig.error_logger.exception(
                     'check_progress error , exception msg:{}'.format(str(e)))
                 executeStatus="FAILED"
-
 
         elif taskType=="predict":
             try:
@@ -549,8 +488,6 @@ def check_progress():
                 else:
                     executeStatus = "FAILED"
 
-
-
             except Exception as e:
                 CommonConfig.error_logger.exception(
                     'check_progress error , exception msg:{}'.format(str(e)))
@@ -566,7 +503,6 @@ def check_progress():
                 print("pid=",pid)
 
                 pid_exists = check_pid(pid)
-
                 # --------------train progress----------------------------------------
                 trian_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/train_progress")
                 if not os.path.exists(trian_progress_file):
@@ -578,9 +514,6 @@ def check_progress():
                     CommonConfig.http_logger.info(
                         "percent_train=" + str(percent_train))
                     percent_train = percent_train[-1]
-
-
-
                 #--------------predict progress---------------------------------
 
                 predict_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/predict_progress")
@@ -593,7 +526,6 @@ def check_progress():
                     CommonConfig.http_logger.info(
                         "percent_predict=" + str(percent_predict))
                     percent_predict = percent_predict[-1]
-
 
                 if percent_predict == "1.00":
                     executeStatus = "SUCCESS"
@@ -608,14 +540,10 @@ def check_progress():
                 else:
                     percent = str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
 
-
             except Exception as e:
                 CommonConfig.error_logger.exception(
                     'check_progress error , exception msg:{}'.format(str(e)))
                 executeStatus = "FAILED"
-
-
-
 
         percent = int(float(percent)*100)
         status = True
@@ -631,19 +559,15 @@ def check_progress():
             'check_progress error , exception msg:{}'.format(str(e)))
         return e
 
-
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])
 def kill_server():
     """
     iuput: taskId
-
-
     :return:
     status,
     errorCode,
     errorMsg
     """
-
     print("kill_server")
     try:
         CommonConfig.http_logger.info("kill_server request:" + str(request))
@@ -654,25 +578,14 @@ def kill_server():
 
         #with open(os.path.join(absolute_path,'tfe/{task_id}/
         # server_pid'.format(task_id=task_id)), 'r') as f:
-
-
         with open(os.path.join(absolute_path, 'tfe/server_pid'), 'r') as f:
             pid = f.readline()
-
-
         pid = int(pid)
         os.kill(pid,9)
         errorMsg = "killed {pid}".format(pid=pid)
 
-
-
-
         status = True
         errorCode = 0
-
-
-
-
         #print("p.exitcode:", p.exitcode)
 
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
@@ -685,16 +598,11 @@ def kill_server():
         errorMsg = "server is not running"
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
-
 app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
 
-
 if __name__ == '__main__':
-
-
     app.run(host = "0.0.0.0", port = "8080", debug = True)
     #print(platform.system())
-
 
     #print(absolute_path)
     #status=_start_server(task_id="qqq", XOwner_iphost="127.0.0.1:5677",
