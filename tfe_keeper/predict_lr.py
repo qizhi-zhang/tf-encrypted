@@ -4,16 +4,17 @@ by qizhi.zqz """
 import tf_encrypted as tfe
 import tensorflow as tf
 import json
-from tf_encrypted.keras import backend as KE
-# from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
-from common_private import LogisticRegression
-from read_data_tf import  get_data_x, get_data_id_with_y, get_data_id_with_xy
-# mport sys
 import time
 import math
 import os
 import platform
 from commonutils.common_config import CommonConfig
+from tf_encrypted.keras import backend as KE
+from common_private import LogisticRegression
+from read_data_tf import  get_data_x, get_data_id_with_y, get_data_id_with_xy
+# import sys
+# from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
+
 
 if platform.system() == "Darwin":
     absolute_path = "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"

@@ -3,13 +3,13 @@ logistic regression"""
 import tensorflow as tf
 import tf_encrypted as tfe
 import os
-
+from commonutils.common_config import CommonConfig
 """
 from read_data_tf import get_10w1k5col_x, get_10w1k5col_y, get_embed_op_5w_x, 
 get_embed_op_5w_y, get_gaode3w_x, get_gaode3w_y
 """
 # import numpy as np
-from commonutils.common_config import CommonConfig
+
 
 
 class LogisticRegression:
