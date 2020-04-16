@@ -50,6 +50,7 @@ python_lint:
       - "test/*"
       - "tfe/*"
       - "tools/*"
+      - "tfe_keeper/common_private.py"
       - "unittest/*"
       - "**__init__.py**"
       - "*.sh"
