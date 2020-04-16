@@ -99,12 +99,12 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         if tf_config_file:
             config = tfe.RemoteConfig.load(tf_config_file)
         else:
-              # default to using local config
-              config = tfe.LocalConfig([
-                  'XOwner', 
-                  'YOwner', 
-                  'RS'
-              ])
+            # default to using local config
+            config = tfe.LocalConfig([
+              'XOwner',
+              'YOwner',
+              'RS'
+            ])
 
         CommonConfig.http_logger.info("train_lr/run:  config:" + str(config))
         tfe.set_config(config)
