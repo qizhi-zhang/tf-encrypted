@@ -6,7 +6,7 @@ from common_private import  LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y
 from tf_encrypted.keras import backend as KE
 import tensorflow as tf
-import sys
+#import sys
 import time
 import platform
 import os

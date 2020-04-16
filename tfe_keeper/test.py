@@ -1,13 +1,13 @@
 """Private training on combined data from several data owners"""
 import tf_encrypted as tfe
-import tensorflow as tf
+#import tensorflow as tf
 import json
 #from common_private import  ModelOwner,  LogisticRegression,  XOwner,  YOwner
 from common_private import  LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y
-from sklearn.utils import shuffle
-from sklearn.preprocessing import OneHotEncoder
-import argparse
+#from sklearn.utils import shuffle
+#from sklearn.preprocessing import OneHotEncoder
+#import argparse
 import sys
 import time
 

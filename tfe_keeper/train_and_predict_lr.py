@@ -7,7 +7,7 @@ from read_data_tf import get_data_xy, get_data_x, get_data_y, get_data_id_with_y
 from tf_encrypted.keras import backend as KE
 import tensorflow as tf
 import  math
-import sys
+#import sys
 import time
 import platform
 import os

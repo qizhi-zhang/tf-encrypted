@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
-from commonutils.common_config import CommonConfig
+#from commonutils.common_config import CommonConfig
 # read_line=tf.TextLineReader(skip_header_lines=1)
 # filename_queue = tf.train.string_input_producer(["./data/10w1k5col_x.csv"])
 # recodes=read_line.read(filename_queue)
