@@ -79,11 +79,11 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
             matchColNumX = int(node_id2.get("matchColNum"))
             path_x = node_id2.get("storagePath")
 
-            record_num=int(node_id2.get("fileRecord"))
+            record_num = int(node_id2.get("fileRecord"))
 
             featureNumY = int(node_id1.get("featureNum"))
             matchColNumY = int(node_id1.get("matchColNum"))
-            path_y= node_id1.get("storagePath")
+            path_y = node_id1.get("storagePath")
         else:
             if not node_id2.get("isContainY"):
                 CommonConfig.error_logger.error("both isContainY are False")
