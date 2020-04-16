@@ -60,8 +60,7 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
         config = tfe.LocalConfig([
             'XOwner',
             'YOwner',
-            'RS'
-            ])
+            'RS'])
     tfe.set_config(config)
     players = ['XOwner', 'YOwner', 'RS']
     prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))

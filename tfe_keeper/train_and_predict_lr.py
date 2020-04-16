@@ -120,8 +120,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
             config = tfe.LocalConfig([
                 'XOwner',
                 'YOwner',
-                'RS'
-                ])
+                'RS'])
 
         CommonConfig.http_logger.info("train_lr/run:  config:" + str(config))
         tfe.set_config(config)
