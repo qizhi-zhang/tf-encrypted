@@ -169,7 +169,7 @@ def start_server():
         CommonConfig.http_logger.info("p.exitcode" + str(p.exitcode))
         if p.is_alive():
             #with open(os.path.join(absolute_path, 'tfe/{task_id}/server_pid'.format(task_id=task_id)),  'w') as f:
-            with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id = task_id)), 'w') as f:
+            with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id=task_id)), 'w') as f:
                 f.write(str(p.pid))
 
             status = True

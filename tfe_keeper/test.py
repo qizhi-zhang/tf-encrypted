@@ -73,23 +73,23 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     # ))
 
     @tfe.local_computation("XOwner")
-    def provide_test_data_x(path = "/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
+    def provide_test_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
                             + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
-        train_x = get_data_x(64, path, featureNum = featureNumX,
-                             matchColNum = matchColNumX, epoch = epoch_num, clip_by_value = 3.0, skip_row_num = 1)
+        train_x = get_data_x(64, path, featureNum=featureNumX,
+                             matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
         return train_x
 
     @tfe.local_computation("YOwner")
-    def provide_test_data_y(path = "/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
+    def provide_test_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
                             + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
-        train_y = get_data_y(64, path, matchColNum = matchColNumX, epoch = epoch_num, skip_row_num = 1)
+        train_y = get_data_y(64, path, matchColNum=matchColNumX, epoch=epoch_num, skip_row_num=1)
         return train_y
 
     @tfe.local_computation("YOwner")
-    def provide_test_data_xy(path = "/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
+    def provide_test_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
                              + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
-        train_x, train_y = get_data_xy(64, path, featureNum = featureNumY,
-                                       matchColNum = matchColNumX, epoch = epoch_num, clip_by_value = 3.0, skip_row_num = 1)
+        train_x, train_y = get_data_xy(64, path, featureNum=featureNumY,
+                                       matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
         return train_x, train_y
 
     if (featureNumY == 0):
@@ -98,18 +98,18 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     else:
         x_test1, y_test = provide_test_data_xy(path_y)
         x_test0 = provide_test_data_x(path_x)
-        x_test = prot.concat([x_test0, x_test1], axis = 1)
+        x_test = prot.concat([x_test0, x_test1], axis=1)
 
     print("x_train:", x_test)
     print("y_train:", y_test)
-    model = LogisticRegression(feature_num, learning_rate = learningRate)
+    model = LogisticRegression(feature_num, learning_rate=learningRate)
 
     load_op = model.load(modelFilePath, modelFileMachine)
 
     with tfe.Session() as sess:
 
         sess.run(tfe.global_variables_initializer(), 
-                 tag = 'init')
+                 tag='init')
         start_time = time.time()
 
         print("Loading model...")
@@ -130,4 +130,4 @@ if __name__ == '__main__':
     conf = json.loads(conf)
     print(conf)
 
-    run(taskId = "qqq", algorithm = "tfe_lr", conf = conf, modelFileMachine = "YOwner", modelFilePath = "./qqq/model")
+    run(taskId="qqq", algorithm="tfe_lr", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model")
