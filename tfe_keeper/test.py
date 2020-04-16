@@ -49,7 +49,7 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
         path_x = node_id1.get("storagePath")
 
     batch_num = record_num // batch_size
-    feature_num = featureNumX+featureNumY
+    feature_num = featureNumX + featureNumY
 
     if len(sys.argv) >= 2:
         # config file was specified

@@ -17,6 +17,7 @@ if platform.system() == "Darwin":
 else:
     absolute_path = "/app/file"
 
+
 def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file=None):
 
     progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/train_progress")
@@ -196,4 +197,6 @@ if __name__ == '__main__':
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
         modelFilePath="./qqq/model",
         modelFilePlainTextPath="./qqq/model/plaintext_model")
-    # run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model", tf_config_file="/app/file/tfe/qqq/config.json")
+    # run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
+    # modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model",
+    # tf_config_file="/app/file/tfe/qqq/config.json")

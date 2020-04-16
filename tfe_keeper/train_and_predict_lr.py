@@ -18,6 +18,7 @@ if platform.system() == "Darwin":
 else:
     absolute_path = "/app/file"
 
+
 def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file=None):
 
     trian_progress_file = os.path.join(absolute_path, "tfe/" + taskId + "/train_progress")
@@ -309,7 +310,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         start_time = time.time()
         CommonConfig.http_logger.info("predict start_time:" + str(start_time))
 
-        record_num_ceil_mod_batch_size = record_num%batch_size
+        record_num_ceil_mod_batch_size = record_num % batch_size
         if record_num_ceil_mod_batch_size == 0:
             record_num_ceil_mod_batch_size = batch_size
         model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), 

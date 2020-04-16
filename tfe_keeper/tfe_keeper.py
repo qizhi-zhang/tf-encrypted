@@ -257,7 +257,7 @@ def train():
             modelFileMachine = "RS"
 
         modelFilePath = request_params.get('modelFilePath')
-        modelFilePath = os.path.join( absolute_path, modelFilePath)
+        modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
         modelFilePlainTextPath = os.path.join(modelFilePath, modelName)
         conf = request_params.get('conf')
@@ -558,7 +558,7 @@ def check_progress():
                     'check_progress error, exception msg:{}'.format(str(e)))
                 executeStatus = "FAILED"
 
-        percent = int(float(percent)*100)
+        percent = int(float(percent) * 100)
         status = True
         errorCode = 0
         errorMsg = ""
