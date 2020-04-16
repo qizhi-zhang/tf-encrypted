@@ -98,7 +98,6 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         CommonConfig.http_logger.info("path_x:" + str(path_x))
         CommonConfig.http_logger.info("path_y:" + str(path_y))
 
-
         path_x = os.path.join(absolute_path, path_x)
         path_y = os.path.join(absolute_path, path_y)
 
@@ -340,7 +339,6 @@ if __name__ == '__main__':
     # print(input)
     conf = json.loads(conf)
     print(conf)
-
 
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner", 
         modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model")

@@ -11,7 +11,6 @@ get_embed_op_5w_y, get_gaode3w_x, get_gaode3w_y
 # import numpy as np
 
 
-
 class LogisticRegression:
     """Contains methods to build and train logistic regression."""
 

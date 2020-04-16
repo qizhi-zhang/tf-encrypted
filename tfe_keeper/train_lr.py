@@ -113,7 +113,6 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         tfe.set_protocol(prot)
         # session_target = sys.argv[2] if len(sys.argv) > 2 else None
 
-
         if (featureNumY == 0):
 
             x_train = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
@@ -183,6 +182,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         CommonConfig.error_logger.exception(
             'train.run() error, exception msg:{}'.format(str(e)))
 
+
 if __name__ == '__main__':
 
     with open('./qqq/conf', 'r') as f:
@@ -192,7 +192,6 @@ if __name__ == '__main__':
     # print(input)
     conf = json.loads(conf)
     print(conf)
-
 
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
         modelFilePath="./qqq/model",
