@@ -135,4 +135,3 @@ if __name__ == '__main__':
     q = get_data_x(64, file,
                    291, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1)
     print(q)
-
