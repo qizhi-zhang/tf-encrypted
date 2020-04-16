@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #nosetests
-#nosetests smodel/test/*_test.py  --cover-package=smodel --with-xunit --all-modules --traverse-namespace --with-coverage
+#nosetests tf_encrypted/test/*_test.py  --cover-package=tfe --with-xunit --all-modules --traverse-namespace --with-coverage
 python -m coverage run -p unittest/runMain.py test
 
 coverage combine
