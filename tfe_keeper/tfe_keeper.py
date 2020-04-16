@@ -28,14 +28,14 @@ def success(name):
     return 'welcome %s' % name
 
 
-@app.route('/login', methods = ['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         user = request.form['nm']
-        return redirect(url_for('success', name = user))
+        return redirect(url_for('success', name=user))
     else:
         user = request.args.get('nm')
-        return redirect(url_for('success', name = user))
+        return redirect(url_for('success', name=user))
 
 tfe_keeper = Blueprint('tfe_keeper', __name__)
 
@@ -614,7 +614,7 @@ def kill_server():
 app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
 
 if __name__ == '__main__':
-    app.run(host = "0.0.0.0", port = "8080", debug = True)
+    app.run(host="0.0.0.0", port="8080", debug=True)
     # print(platform.system())
 
     # print(absolute_path)
