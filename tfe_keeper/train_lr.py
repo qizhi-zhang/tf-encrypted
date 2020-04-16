@@ -117,14 +117,18 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         if (featureNumY == 0):
 
             x_train = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
-                                                    arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num * 2, 3.0, 1))
+                                                    arguments=(batch_size, path_x, featureNumX,
+                                                               matchColNumX, epoch_num * 2, 3.0, 1))
             y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_y, 
-                                                    arguments=(batch_size, path_y, matchColNumY, epoch_num * 2, 1))
+                                                    arguments=(batch_size, path_y, matchColNumY,
+                                                               epoch_num * 2, 1))
         else:
             x_train1, y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_xy,
-                                                              arguments=(batch_size, path_y, featureNumY, matchColNumY, epoch_num * 2, 3.0, 1))
+                                                              arguments=(batch_size, path_y, featureNumY,
+                                                                         matchColNumY, epoch_num * 2, 3.0, 1))
             x_train0 = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
-                                                     arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num * 2, 3.0, 1))
+                                                     arguments=(batch_size, path_x, featureNumX, matchColNumX,
+                                                                epoch_num * 2, 3.0, 1))
             x_train = prot.concat([x_train0, x_train1], axis=1)
 
         # print("x_train:", x_train)
@@ -190,6 +194,7 @@ if __name__ == '__main__':
     print(conf)
 
 
-    run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model",
+    run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
+        modelFilePath="./qqq/model",
         modelFilePlainTextPath="./qqq/model/plaintext_model")
     # run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model", tf_config_file="/app/file/tfe/qqq/config.json")
