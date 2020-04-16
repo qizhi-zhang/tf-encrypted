@@ -58,10 +58,10 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     else:
         # default to using local config
         config = tfe.LocalConfig([
-          'XOwner', 
-          'YOwner', 
-          'RS'
-        ])
+            'XOwner',
+            'YOwner',
+            'RS'
+            ])
     tfe.set_config(config)
     players = ['XOwner', 'YOwner', 'RS']
     prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
