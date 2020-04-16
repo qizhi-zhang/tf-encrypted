@@ -137,31 +137,31 @@ class LogisticRegression:
     # def get_KS(self, sess, x, y, batch_num):
     #   def print_KS(y_hat, y) -> tf.Operation:
     #     with tf.name_scope("print-KS"):
-    #       #m = tf.keras.metrics.FalsePositives(list(np.array(range(1, 100))*0.01))
+    #       # m = tf.keras.metrics.FalsePositives(list(np.array(range(1, 100))*0.01))
     #       y_hat=tf.clip_by_value(y_hat, 0.0, 1.0)
     #       FP, FP_up= tf.metrics.false_positives_at_thresholds(labels=y, predictions=y_hat, 
     #                                                           thresholds=list(np.array(range(0, 100)) * 0.01))
     #       TP, TP_up= tf.metrics.true_positives_at_thresholds(labels=y, predictions=y_hat, 
     #                                                          thresholds=list(np.array(range(0, 100)) * 0.01))
-    #
+    # 
     #       FPR = FP / (tf.constant(1E-6) + FP[0])
-    #
+    # 
     #       TPR = TP / (tf.constant(1E-6) + TP[0])
     #       KS= tf.reduce_max(TPR - FPR)
     #       print("KS:", KS)
-    #       #m.update_state(y, y_hat)
+    #       # m.update_state(y, y_hat)
     #       print_op=tf.print('KS=', KS )
     #       return print_op, FP_up, TP_up
-    #
+    # 
     #   with tf.name_scope("get_KS"):
     #     y_hat = self.forward(x)
-    #
+    # 
     #     print_KS_op = tfe.define_output("YOwner", [y_hat, y], print_KS)
     #     print("print_KS_op:", print_KS_op)
     #   sess.run(tf.local_variables_initializer())
     #   for _ in range(batch_num):
     #     sess.run(print_KS_op, tag='evaluate_KS')
-    #
+    # 
 
     def predict_batch(self, x):
         """
