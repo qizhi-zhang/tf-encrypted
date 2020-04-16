@@ -1,13 +1,13 @@
 """Private training on combined data from several data owners"""
 import tf_encrypted as tfe
-#import tensorflow as tf
+# import tensorflow as tf
 import json
-#from common_private import  ModelOwner,  LogisticRegression,  XOwner,  YOwner
+# from common_private import  ModelOwner,  LogisticRegression,  XOwner,  YOwner
 from common_private import  LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y
-#from sklearn.utils import shuffle
-#from sklearn.preprocessing import OneHotEncoder
-#import argparse
+# from sklearn.utils import shuffle
+# from sklearn.preprocessing import OneHotEncoder
+# import argparse
 import sys
 import time
 
@@ -17,9 +17,9 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     learningRate = float(trainParams.get("learningRate"))
     batch_size = int(trainParams.get("batchSize"))
     epoch_num = int(trainParams.get("maxIter"))
-    #epsilon = float(trainParams.get("epsilon"))
-    #regularizationL1 = float(trainParams.get("regularizationL1"))
-    #regularizationL2 = float(trainParams.get("regularizationL2"))
+    # epsilon = float(trainParams.get("epsilon"))
+    # regularizationL1 = float(trainParams.get("regularizationL1"))
+    # regularizationL2 = float(trainParams.get("regularizationL2"))
 
     dataSet = conf.get("dataSet")
     node_id1 = dataSet.get("node_id1")
@@ -34,12 +34,12 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
         record_num = int(node_id2.get("fileRecord"))
 
         featureNumY = int(node_id1.get("featureNum"))
-        #matchColNumY = int(node_id1.get("matchColNum"))
+        # matchColNumY = int(node_id1.get("matchColNum"))
         path_y = node_id1.get("storagePath")
     else:
         assert node_id2.get("isContainY")
         featureNumY = int(node_id2.get("featureNum"))
-        #matchColNumY = int(node_id2.get("matchColNum"))
+        # matchColNumY = int(node_id2.get("matchColNum"))
         path_y = node_id2.get("storagePath")
         record_num = int(node_id2.get("fileRecord"))
 
@@ -65,11 +65,11 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     players = ['XOwner', 'YOwner', 'RS']
     prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
     tfe.set_protocol(prot)
-    #session_target = sys.argv[2] if len(sys.argv) > 2 else None
+    # session_target = sys.argv[2] if len(sys.argv) > 2 else None
 
     # tfe.set_protocol(tfe.protocol.Pond(
-    #     tfe.get_config().get_player(data_owner_0.player_name), 
-    #     tfe.get_config().get_player(data_owner_1.player_name)
+    # tfe.get_config().get_player(data_owner_0.player_name), 
+    # tfe.get_config().get_player(data_owner_1.player_name)
     # ))
 
     @tfe.local_computation("XOwner")
@@ -115,7 +115,7 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
         print("Loading model...")
         sess.run(load_op)
         print("Load OK.")
-        #model.fit(sess,  x_train,  y_train,  train_batch_num)
+        # model.fit(sess,  x_train,  y_train,  train_batch_num)
         model.get_KS(sess, x_test, y_test, batch_num)
 
         test_time = time.time() - start_time
@@ -126,7 +126,7 @@ if __name__ == '__main__':
         conf = f.read()
         print(conf)
     conf = conf.replace("True", "true").replace("False", "false")
-    #print(input)
+    # print(input)
     conf = json.loads(conf)
     print(conf)
 

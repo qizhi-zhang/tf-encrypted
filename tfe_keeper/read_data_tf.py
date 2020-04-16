@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import tensorflow as tf
-#from commonutils.common_config import CommonConfig
+# from commonutils.common_config import CommonConfig
 # read_line=tf.TextLineReader(skip_header_lines=1)
 # filename_queue = tf.train.string_input_producer(["./data/10w1k5col_x.csv"])
 # recodes=read_line.read(filename_queue)
-#
+# 
 # recodes=tf.decode_csv(recodes, [[0.2]]*290, field_delim=", ")
 
 def get_data_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
@@ -40,9 +40,9 @@ def get_data_id_with_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_r
         line_split)  # .shuffle(buffer_size=50000, seed=10086)
 
     batch_data_iter = data.map(lambda *r: r[matchColNum]).repeat(epoch).batch(
-        batch_size)#.make_one_shot_iterator()
+        batch_size)# .make_one_shot_iterator()
     print("batch_data_iter:", batch_data_iter)
-    #batch_data = batch_data_iter.get_next()
+    # batch_data = batch_data_iter.get_next()
     batch_data = tf.compat.v1.data.make_one_shot_iterator(batch_data_iter).get_next()
     batch_data = tf.reshape(batch_data, shape=[batch_size, 1])
     print("batch_data:", batch_data)
@@ -107,11 +107,11 @@ def get_data_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_row_num=1
         line_split)  # .shuffle(buffer_size=50000, seed=10086)
 
     batch_data_iter = data.map(lambda *r: r[matchColNum]).repeat(epoch).batch(
-        batch_size)#.make_one_shot_iterator()
+        batch_size)# .make_one_shot_iterator()
 
     print("batch_data_iter:", batch_data_iter)
 
-    #batch_data = batch_data_iter.get_next()
+    # batch_data = batch_data_iter.get_next()
     batch_data = tf.compat.v1.data.make_one_shot_iterator(batch_data_iter).get_next()
     print("batch_data:", batch_data)
 
