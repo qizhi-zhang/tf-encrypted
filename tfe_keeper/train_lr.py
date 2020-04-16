@@ -1,7 +1,7 @@
 """Private training on combined data from several data owners"""
 import tf_encrypted as tfe
 import json
-# from common_private import  ModelOwner,  LogisticRegression,  XOwner,  YOwner
+# from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
 from common_private import  LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y
 from tf_encrypted.keras import backend as KE
@@ -118,7 +118,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
 
             x_train = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
                                                     arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num * 2, 3.0, 1))
-            y_train = prot.define_local_computation(player='YOwner',  computation_fn=get_data_y, 
+            y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_y, 
                                                     arguments=(batch_size, path_y, matchColNumY, epoch_num * 2, 1))
         else:
             x_train1, y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_xy,
@@ -127,8 +127,8 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
                                                      arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num * 2, 3.0, 1))
             x_train = prot.concat([x_train0, x_train1], axis=1)
 
-        # print("x_train:",  x_train)
-        # print("y_train:",  y_train)
+        # print("x_train:", x_train)
+        # print("y_train:", y_train)
         CommonConfig.http_logger.info("x_train:" + str(x_train))
         CommonConfig.http_logger.info("y_train:" + str(y_train))
 
@@ -140,13 +140,13 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
 
         save_op = model.save(modelFilePath, modelFileMachine)
         save_as_plaintext_op = model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
-        # load_op = model.load(modelFilePath,  modelFileMachine)
+        # load_op = model.load(modelFilePath, modelFileMachine)
 
         CommonConfig.http_logger.info("save_op:" + str(save_op))
         # with tfe.Session() as sess:
         try:
             sess = KE.get_session()
-            # sess.run(tfe.global_variables_initializer(),  tag='init')
+            # sess.run(tfe.global_variables_initializer(), tag='init')
             sess.run(tf.global_variables_initializer())
             # sess.run(tf.local_variables_initializer())
         except Exception as e:
@@ -192,4 +192,4 @@ if __name__ == '__main__':
 
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model",
         modelFilePlainTextPath="./qqq/model/plaintext_model")
-    # run(taskId="qqq",  conf=conf,  modelFileMachine="YOwner",  modelFilePath="./qqq/model",  modelFilePlainTextPath="./qqq/model/plaintext_model", tf_config_file="/app/file/tfe/qqq/config.json")
+    # run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model", tf_config_file="/app/file/tfe/qqq/config.json")
