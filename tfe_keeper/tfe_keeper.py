@@ -43,10 +43,18 @@ tfe_keeper = Blueprint('tfe_keeper', __name__)
 
 @tfe_keeper.route('/grpc_port', methods=['GET', 'POST'])
 def get_grpc_port():
-    grpc_port = os.environ.get("grpc_port") or '80'
-    status = True
-    errorCode = 0
-    errorMsg = ""
+    try:
+        grpc_port = os.environ.get("grpc_port") or '80'
+        status = True
+        errorCode = 0
+        errorMsg = ""
+    except Exception as e:
+        grpc_port=0
+        status = False
+        errorCode = result_code.GET_GRPC_PORT_ERROR.get_code()
+        errorMsg = "get grpc code error"
+        CommonConfig.error_logger.exception(
+            'get_grpc_port error, exception msg:{}'.format(str(request.json), str(e)))
     return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "grpcPort": grpc_port})
 
 
@@ -70,9 +78,12 @@ def detect_idle():
         print("status:", status)
         return json.dumps({"status": status})
     except Exception as e:
+        status=False
         CommonConfig.error_logger.exception(
             'detelt_idle error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
-        return e
+        errorCode = result_code.DETECT_IDLE_ERROR.get_code()
+        errorMsg = "detect_idle error"
+    return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
 
 def _detect_idle(ip_host):
@@ -121,7 +132,7 @@ def start_server():
         print("RS_iphost:", RS_iphost)
         if RS_iphost is None:
             status = False
-            errorCode = 1
+            errorCode = result_code.START_SERVER_ERROR.get_code()
             errorMsg = "nether RS nor thirdOwner are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
@@ -131,7 +142,7 @@ def start_server():
         print("XOwner_iphost=", XOwner_iphost)
         if XOwner_iphost is None:
             status = False
-            errorCode = 1
+            errorCode = result_code.START_SERVER_ERROR.get_code()
             errorMsg = "nether xOwner nor XOwner are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
@@ -140,7 +151,7 @@ def start_server():
             YOwner_iphost = request_params.get('yOwner')
         if YOwner_iphost is None:
             status = False
-            errorCode = 1
+            errorCode = result_code.START_SERVER_ERROR.get_code()
             errorMsg = "nether yOwner nor YOwner are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
@@ -149,7 +160,7 @@ def start_server():
             Player = request_params.get('player')
         if YOwner_iphost is None:
             status = False
-            errorCode = 1
+            errorCode = result_code.START_SERVER_ERROR.get_code()
             errorMsg = "nether Player nor player are given"
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
@@ -183,21 +194,21 @@ def start_server():
         else:
 
             status = False
-            errorCode = -1
+            errorCode = result_code.START_SERVER_ERROR.get_code()
             errorMsg = "start server faild"
         # todo
         # print("p.exitcode:", p.exitcode)
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
-    except MorseException as e:
-        status = False
-        errorMsg = e.get_message()
-        errorCode = e.get_code()
-        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+    # except MorseException as e:
+    #     status = False
+    #     errorMsg = e.get_message()
+    #     errorCode = e.get_code()
+    #     return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
         CommonConfig.error_logger.exception(
             'start_server error, exception msg:{}'.format(str(e)))
         status = False
-        errorCode = result_code.START_SERVER_SYSTEM_ERROR.get_code()
+        errorCode = result_code.START_SERVER_ERROR.get_code()
         errorMsg = str(e)
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
@@ -295,7 +306,10 @@ def train():
         # print(e)
         CommonConfig.error_logger.exception(
             'train error , exception msg:{}'.format(str(e)))
-        # return e
+        status = False
+        errorCode = result_code.TRAIN_ERROR.get_code()
+        errorMsg = str(e)
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
 
 @tfe_keeper.route('/predict', methods=['GET', 'POST'])
@@ -353,8 +367,11 @@ def predict():
         # print(e)
         CommonConfig.error_logger.exception(
             'predict error , exception msg:{}'.format(str(e)))
-        # return e
-
+        status = False
+        errorCode = result_code.PREDICT_ERROR.get_code()
+        errorMsg = str(e)
+        predict_file = ""
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
 
 @tfe_keeper.route('/train_and_predict', methods=['GET', 'POST'])
 def train_and_predict():
@@ -418,7 +435,12 @@ def train_and_predict():
         # print(e)
         CommonConfig.error_logger.exception(
             'predict error, exception msg:{}'.format(str(e)))
-        # return e
+        status = False
+        errorCode = result_code.TRAIN_AND_PREDICT_ERROR.get_code()
+        errorMsg = str(e)
+        predict_file = ""
+        return json.dumps({"status": status, "errorCode": errorCode,
+                           "errorMsg": errorMsg, "predictFile": predict_file})
 
 
 @tfe_keeper.route('/check_progress', methods=['GET', 'POST'])
@@ -570,7 +592,13 @@ def check_progress():
     except Exception as e:
         CommonConfig.error_logger.exception(
             'check_progress error, exception msg:{}'.format(str(e)))
-        return e
+        status = False
+        executeStatus = "FAILED"
+        errorCode = result_code.CHECK_PROGRESS_ERROR.get_code()
+        errorMsg = str(e)
+        return json.dumps({"status": status, "executeStatus": executeStatus,
+                           "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
+
 
 
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])

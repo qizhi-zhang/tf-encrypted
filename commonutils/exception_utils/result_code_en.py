@@ -25,6 +25,7 @@ PREDICT_ERROR = ResultCode("ME151TFEE1004", "predict error")
 TRAIN_AND_PREDICT_ERROR = ResultCode("ME151TFEE1005", "train_and_predict error")
 CHECK_PROGRESS_ERROR = ResultCode("ME151TFEE1006", "check progress error")
 KILL_SERVER_ERROR = ResultCode("ME151TFEE1007", "kill server error")
+GET_GRPC_PORT_ERROR = ResultCode("ME151TFEE1008", "get grpc port error")
 
 
 
