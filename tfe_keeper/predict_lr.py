@@ -1,11 +1,11 @@
-"""Private predict,  submit from YOwner.
+"""Private predict, submit from YOwner.
 by qizhi.zqz """
 
 import tf_encrypted as tfe
 import tensorflow as tf
 import json
 from tf_encrypted.keras import backend as KE
-# from common_private import  ModelOwner,  LogisticRegression,  XOwner,  YOwner
+# from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
 from common_private import LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y, get_data_id_with_y, get_data_id_with_xy
 import sys
@@ -119,7 +119,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, progress_file, tf_config_
                                             clip_by_value=3.0, skip_row_num=1)
             return idx, x, y
 
-        # batch_size,  data_file,   featureNum,  matchColNum=2,  epoch=100,  clip_by_value=3.0,  skip_row_num=1):
+        # batch_size, data_file, featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
 
         YOwner = config.get_player("YOwner")
 
@@ -153,12 +153,12 @@ def run(taskId, conf, modelFileMachine, modelFilePath, progress_file, tf_config_
 
         try:
             sess = KE.get_session()
-            # sess.run(tfe.global_variables_initializer(),  tag='init')
+            # sess.run(tfe.global_variables_initializer(), tag='init')
             sess.run(tf.global_variables_initializer())
             # sess.run(tf.local_variables_initializer())
         except Exception as e:
             CommonConfig.error_logger.exception(
-                'global_variables_initializer error ,  exception msg:{}'.format(str(e)))
+                'global_variables_initializer error , exception msg:{}'.format(str(e)))
         start_time = time.time()
         CommonConfig.http_logger.info("start_time:" + str(start_time))
 
@@ -168,8 +168,8 @@ def run(taskId, conf, modelFileMachine, modelFilePath, progress_file, tf_config_
 
         CommonConfig.http_logger.info("Load OK.")
 
-        # model.fit(sess,  x_train,  y_train,  train_batch_num)
-        # model.get_KS(sess,  x_test, y_test,  batch_num)
+        # model.fit(sess, x_train, y_train, train_batch_num)
+        # model.get_KS(sess, x_test, y_test, batch_num)
 
         # progress_file = "./" + taskId + "/predict_progress"
 
@@ -178,7 +178,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, progress_file, tf_config_
             record_num_ceil_mod_batch_size = batch_size
         model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)),
                       batch_num, idx, progress_file, YOwner.device_name, record_num_ceil_mod_batch_size)
-        # model.predict(sess,  x_test,  os.path.join(absolute_path,  "tfe/{task_id}/predict".format(task_id=taskId)),  batch_num,  idx,  predict_progress_file,  YOwner.device_name,  record_num_ceil_mod_batch_size)
+        # model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), batch_num, idx, predict_progress_file, YOwner.device_name, record_num_ceil_mod_batch_size)
 
         test_time = time.time() - start_time
         print("predict_time=", test_time)

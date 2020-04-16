@@ -4,7 +4,7 @@ import tensorflow as tf
 import json
 #from common_private import  ModelOwner,  LogisticRegression,  XOwner,  YOwner
 from common_private import  LogisticRegression
-from read_data_tf import get_data_xy,  get_data_x,  get_data_y
+from read_data_tf import get_data_xy, get_data_x, get_data_y
 from sklearn.utils import shuffle
 from sklearn.preprocessing import OneHotEncoder
 import argparse
@@ -69,7 +69,7 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
           'RS'
         ])
     tfe.set_config(config)
-    players = ['XOwner',  'YOwner',  'RS']
+    players = ['XOwner', 'YOwner', 'RS']
     prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
     tfe.set_protocol(prot)
     #session_target = sys.argv[2] if len(sys.argv) > 2 else None
@@ -85,34 +85,36 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     @tfe.local_computation("XOwner")
     def provide_test_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
                             + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
-        train_x = get_data_x(64,  path,  featureNum=featureNumX,  matchColNum=matchColNumX,  epoch=epoch_num,  clip_by_value=3.0,  skip_row_num=1)
+        train_x = get_data_x(64, path, featureNum=featureNumX,
+                             matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
         return train_x
 
     @tfe.local_computation("YOwner")
     def provide_test_data_y(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
                             + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
-        train_y = get_data_y(64,  path,  matchColNum=matchColNumX,  epoch=epoch_num,   skip_row_num=1)
+        train_y = get_data_y(64, path, matchColNum=matchColNumX, epoch=epoch_num, skip_row_num=1)
         return train_y
 
     @tfe.local_computation("YOwner")
     def provide_test_data_xy(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/"
                              + "examples/test_on_morse_datas/data/embed_op_fea_5w_format_y.csv"):
-        train_x,  train_y = get_data_xy(64,  path,  featureNum=featureNumY,  matchColNum=matchColNumX,  epoch=epoch_num,  clip_by_value=3.0,  skip_row_num=1)
-        return train_x,  train_y
+        train_x, train_y = get_data_xy(64, path, featureNum=featureNumY,
+                                       matchColNum=matchColNumX, epoch=epoch_num, clip_by_value=3.0, skip_row_num=1)
+        return train_x, train_y
 
     if (featureNumY==0):
         x_test = provide_test_data_x(path_x)
         y_test = provide_test_data_y(path_y)
     else:
-        x_test1,  y_test=provide_test_data_xy(path_y)
-        x_test0=provide_test_data_x(path_x)
-        x_test=prot.concat([x_test0,  x_test1], axis=1)
+        x_test1, y_test = provide_test_data_xy(path_y)
+        x_test0 = provide_test_data_x(path_x)
+        x_test = prot.concat([x_test0, x_test1], axis=1)
 
 
 
 
-    print("x_train:",  x_test)
-    print("y_train:",  y_test)
+    print("x_train:", x_test)
+    print("y_train:", y_test)
 
 
 
@@ -136,7 +138,7 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
 
 
         #model.fit(sess,  x_train,  y_train,  train_batch_num)
-        model.get_KS(sess,  x_test, y_test,  batch_num)
+        model.get_KS(sess, x_test, y_test, batch_num)
 
         test_time = time.time() - start_time
         print("test_time=",  test_time)
@@ -147,7 +149,7 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
 
 if __name__=='__main__':
 
-    with open('./qqq/conf',  'r') as f:
+    with open('./qqq/conf', 'r') as f:
         conf=f.read()
         print(conf)
     conf=conf.replace("True", "true").replace("False", "false")
@@ -155,4 +157,4 @@ if __name__=='__main__':
     conf=json.loads(conf)
     print(conf)
 
-    run(taskId="qqq",  algorithm="tfe_lr",  conf=conf,  modelFileMachine="YOwner",  modelFilePath="./qqq/model")
+    run(taskId="qqq", algorithm="tfe_lr", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model")

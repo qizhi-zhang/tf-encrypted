@@ -5,8 +5,8 @@ import tf_encrypted as tfe
 import os
 
 """
-from read_data_tf import get_10w1k5col_x,  get_10w1k5col_y,  get_embed_op_5w_x,  
-get_embed_op_5w_y,  get_gaode3w_x,  get_gaode3w_y
+from read_data_tf import get_10w1k5col_x, get_10w1k5col_y, get_embed_op_5w_x, 
+get_embed_op_5w_y, get_gaode3w_x, get_gaode3w_y
 """
 # import numpy as np
 from commonutils.common_config import CommonConfig
@@ -134,33 +134,33 @@ class LogisticRegression:
 
         sess.run(print_accuracy_op, tag='evaluate')
 
-    # def get_KS(self,  sess,  x, y,  batch_num):
-    #   def print_KS(y_hat,  y) -> tf.Operation:
+    # def get_KS(self, sess, x, y, batch_num):
+    #   def print_KS(y_hat, y) -> tf.Operation:
     #     with tf.name_scope("print-KS"):
-    #       #m = tf.keras.metrics.FalsePositives(list(np.array(range(1,  100))*0.01))
-    #       y_hat=tf.clip_by_value(y_hat,  0.0,  1.0)
-    #       FP,  FP_up= tf.metrics.false_positives_at_thresholds(labels=y,  predictions=y_hat, 
-    #                                                           thresholds=list(np.array(range(0,  100)) * 0.01))
-    #       TP,  TP_up= tf.metrics.true_positives_at_thresholds(labels=y,  predictions=y_hat, 
-    #                                                          thresholds=list(np.array(range(0,  100)) * 0.01))
+    #       #m = tf.keras.metrics.FalsePositives(list(np.array(range(1, 100))*0.01))
+    #       y_hat=tf.clip_by_value(y_hat, 0.0, 1.0)
+    #       FP, FP_up= tf.metrics.false_positives_at_thresholds(labels=y, predictions=y_hat, 
+    #                                                           thresholds=list(np.array(range(0, 100)) * 0.01))
+    #       TP, TP_up= tf.metrics.true_positives_at_thresholds(labels=y, predictions=y_hat, 
+    #                                                          thresholds=list(np.array(range(0, 100)) * 0.01))
     #
     #       FPR = FP / (tf.constant(1E-6) + FP[0])
     #
     #       TPR = TP / (tf.constant(1E-6) + TP[0])
     #       KS= tf.reduce_max(TPR - FPR)
-    #       print("KS:",  KS)
-    #       #m.update_state(y,  y_hat)
-    #       print_op=tf.print('KS=',  KS )
-    #       return print_op,  FP_up,  TP_up
+    #       print("KS:", KS)
+    #       #m.update_state(y, y_hat)
+    #       print_op=tf.print('KS=', KS )
+    #       return print_op, FP_up, TP_up
     #
     #   with tf.name_scope("get_KS"):
     #     y_hat = self.forward(x)
     #
-    #     print_KS_op = tfe.define_output("YOwner",  [y_hat,  y],  print_KS)
-    #     print("print_KS_op:",  print_KS_op)
+    #     print_KS_op = tfe.define_output("YOwner", [y_hat, y], print_KS)
+    #     print("print_KS_op:", print_KS_op)
     #   sess.run(tf.local_variables_initializer())
     #   for _ in range(batch_num):
-    #     sess.run(print_KS_op,  tag='evaluate_KS')
+    #     sess.run(print_KS_op, tag='evaluate_KS')
     #
 
     def predict_batch(self, x):
@@ -198,8 +198,8 @@ class LogisticRegression:
             print("idx:", idx)
             CommonConfig.http_logger.info("idx:" + str(idx))
             predict_batch = tf.concat([idx, predict_batch], axis=1)
-            predict_batch = tf.reduce_join(predict_batch, axis=1, separator=",  ")
-            # predict_batch=tf.reduce_join(predict_batch,  separator="\n")
+            predict_batch = tf.reduce_join(predict_batch, axis=1, separator=", ")
+            # predict_batch=tf.reduce_join(predict_batch, separator="\n")
 
             CommonConfig.http_logger.info("predict_batch:" + str(predict_batch))
 
@@ -215,7 +215,7 @@ class LogisticRegression:
                     if batch == num_batches - 1:
                         records = records[0:record_num_ceil_mod_batch_size]
 
-                    # records = str(records,  encoding="utf8")
+                    # records = str(records, encoding="utf8")
                     records = "\n".join(records.astype('str'))
 
                     f.write(records + "\n")
