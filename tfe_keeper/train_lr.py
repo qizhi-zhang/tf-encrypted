@@ -12,10 +12,10 @@ import platform
 import os
 from commonutils.common_config import CommonConfig
 
-if platform.system()=="Darwin":
-    absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
+if platform.system() == "Darwin":
+    absolute_path = "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
 else:
-    absolute_path="/app/file"
+    absolute_path = "/app/file"
 
 def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file=None):
 
@@ -26,13 +26,13 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         f.flush()
 
 
-    trainParams=conf.get("trainParams")
+    trainParams = conf.get("trainParams")
 
     CommonConfig.http_logger.info("train_lr/run:  trainParams:" + str(trainParams))
 
-    learningRate=float(trainParams.get("learningRate"))
+    learningRate = float(trainParams.get("learningRate"))
     batch_size = int(trainParams.get("batchSize"))
-    epoch_num= int(trainParams.get("maxIter"))
+    epoch_num = int(trainParams.get("maxIter"))
     #epsilon = float(trainParams.get("epsilon"))
     #regularizationL1=float(trainParams.get("regularizationL1"))
     #regularizationL2=float(trainParams.get("regularizationL2"))
@@ -68,24 +68,24 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         if (node_id1.get("isContainY")):
             featureNumX = int(node_id2.get("featureNum"))
             matchColNumX = int(node_id2.get("matchColNum"))
-            path_x= node_id2.get("storagePath")
+            path_x = node_id2.get("storagePath")
 
-            record_num=int(node_id2.get("fileRecord"))
+            record_num = int(node_id2.get("fileRecord"))
 
             featureNumY = int(node_id1.get("featureNum"))
             matchColNumY = int(node_id1.get("matchColNum"))
-            path_y= node_id1.get("storagePath")
+            path_y = node_id1.get("storagePath")
         else:
             if not node_id2.get("isContainY"):
                 CommonConfig.error_logger.error("both isContainY are False")
             featureNumY = int(node_id2.get("featureNum"))
             matchColNumY = int(node_id2.get("matchColNum"))
-            path_y= node_id2.get("storagePath")
-            record_num=int(node_id2.get("fileRecord"))
+            path_y = node_id2.get("storagePath")
+            record_num = int(node_id2.get("fileRecord"))
 
             featureNumX = int(node_id1.get("featureNum"))
             matchColNumX = int(node_id1.get("matchColNum"))
-            path_x= node_id1.get("storagePath")
+            path_x = node_id1.get("storagePath")
 
         CommonConfig.http_logger.info("path_x:" + str(path_x))
         CommonConfig.http_logger.info("path_y:" + str(path_y))
@@ -192,7 +192,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         CommonConfig.http_logger.info("modelFilePlainTextPath:" + str(modelFilePlainTextPath))
 
         save_op = model.save(modelFilePath, modelFileMachine)
-        save_as_plaintext_op=model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
+        save_as_plaintext_op = model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
         #load_op = model.load(modelFilePath,  modelFileMachine)
 
         CommonConfig.http_logger.info("save_op:" + str(save_op))
@@ -208,7 +208,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
                 'global_variables_initializer error, exception msg:{}'.format(str(e)))
 
         CommonConfig.http_logger.info("start_time:")
-        start_time=time.time()
+        start_time = time.time()
         CommonConfig.http_logger.info("start_time:" + str(start_time))
 
 
@@ -239,14 +239,14 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
 
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
 
     with open('./qqq/conf', 'r') as f:
-        conf=f.read()
+        conf = f.read()
         print(conf)
-    conf=conf.replace("True", "true").replace("False", "false")
+    conf = conf.replace("True", "true").replace("False", "false")
     #print(input)
-    conf=json.loads(conf)
+    conf = json.loads(conf)
     print(conf)
 
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner", modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model")

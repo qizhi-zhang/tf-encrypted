@@ -13,10 +13,10 @@ import platform
 import os
 from commonutils.common_config import CommonConfig
 
-if platform.system()=="Darwin":
-    absolute_path="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
+if platform.system() == "Darwin":
+    absolute_path = "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted"
 else:
-    absolute_path="/app/file"
+    absolute_path = "/app/file"
 
 def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file=None):
 
@@ -43,13 +43,13 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
 
 
 
-    train_predict_Params=conf.get("trainParams")
+    train_predict_Params = conf.get("trainParams")
 
     CommonConfig.http_logger.info("train_predict_lr/run:  train_predict_Params:" + str(train_predict_Params))
 
-    learningRate=float(train_predict_Params.get("learningRate"))
+    learningRate = float(train_predict_Params.get("learningRate"))
     batch_size = int(train_predict_Params.get("batchSize"))
-    epoch_num= int(train_predict_Params.get("maxIter"))
+    epoch_num = int(train_predict_Params.get("maxIter"))
     #epsilon = float(train_predict_Params.get("epsilon"))
     #regularizationL1=float(train_predict_Params.get("regularizationL1"))
     #regularizationL2=float(train_predict_Params.get("regularizationL2"))
@@ -85,7 +85,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         if (node_id1.get("isContainY")):
             featureNumX = int(node_id2.get("featureNum"))
             matchColNumX = int(node_id2.get("matchColNum"))
-            path_x= node_id2.get("storagePath")
+            path_x = node_id2.get("storagePath")
 
             record_num=int(node_id2.get("fileRecord"))
 
@@ -97,19 +97,19 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
                 CommonConfig.error_logger.error("both isContainY are False")
             featureNumY = int(node_id2.get("featureNum"))
             matchColNumY = int(node_id2.get("matchColNum"))
-            path_y= node_id2.get("storagePath")
-            record_num=int(node_id2.get("fileRecord"))
+            path_y = node_id2.get("storagePath")
+            record_num = int(node_id2.get("fileRecord"))
 
             featureNumX = int(node_id1.get("featureNum"))
             matchColNumX = int(node_id1.get("matchColNum"))
-            path_x= node_id1.get("storagePath")
+            path_x = node_id1.get("storagePath")
 
         CommonConfig.http_logger.info("path_x:" + str(path_x))
         CommonConfig.http_logger.info("path_y:" + str(path_y))
 
 
         path_x = os.path.join(absolute_path, path_x)
-        path_y=os.path.join(absolute_path, path_y)
+        path_y = os.path.join(absolute_path, path_y)
 
 
 
@@ -218,7 +218,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         CommonConfig.http_logger.info("modelFilePlainTextPath:" + str(modelFilePlainTextPath))
 
         save_op = model.save(modelFilePath, modelFileMachine)
-        save_as_plaintext_op=model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
+        save_as_plaintext_op = model.save_as_plaintext(modelFilePlainTextPath, modelFileMachine)
         #load_op = model.load(modelFilePath, modelFileMachine)
 
         CommonConfig.http_logger.info("save_op:" + str(save_op))
@@ -322,7 +322,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
                 'global_variables_initializer error , exception msg:{}'.format(str(e)))
 
         CommonConfig.http_logger.info("start_time:")
-        start_time=time.time()
+        start_time = time.time()
         CommonConfig.http_logger.info("start_time:" + str(start_time))
 
 
@@ -356,7 +356,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         start_time = time.time()
         CommonConfig.http_logger.info("predict start_time:" + str(start_time))
 
-        record_num_ceil_mod_batch_size=record_num%batch_size
+        record_num_ceil_mod_batch_size = record_num%batch_size
         if record_num_ceil_mod_batch_size == 0:
             record_num_ceil_mod_batch_size = batch_size
         model.predict(sess, x_test, os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=taskId)), 
@@ -378,14 +378,14 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
 
 
 
-if __name__=='__main__':
+if __name__ == '__main__':
 
     with open('./qqq/conf', 'r') as f:
-        conf=f.read()
+        conf = f.read()
         print(conf)
-    conf=conf.replace("True", "true").replace("False", "false")
+    conf = conf.replace("True", "true").replace("False", "false")
     #print(input)
-    conf=json.loads(conf)
+    conf = json.loads(conf)
     print(conf)
 
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner", 

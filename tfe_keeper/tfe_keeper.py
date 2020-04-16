@@ -468,9 +468,9 @@ def check_progress():
                 #print(e)
                 CommonConfig.error_logger.exception(
                     'check_progress error,  exception msg:{}'.format(str(e)))
-                executeStatus="FAILED"
+                executeStatus = "FAILED"
 
-        elif taskType=="predict":
+        elif taskType == "predict":
             try:
                 with open(os.path.join(absolute_path, 'tfe/{task_id}/predict_pid'.format(task_id=task_id)),  'r') as f:
                     pid = f.readline()
