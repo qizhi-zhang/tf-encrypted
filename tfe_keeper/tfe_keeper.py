@@ -49,7 +49,7 @@ def get_grpc_port():
         errorCode = 0
         errorMsg = ""
     except Exception as e:
-        grpc_port=0
+        grpc_port = 0
         status = False
         errorCode = result_code.GET_GRPC_PORT_ERROR.get_code()
         errorMsg = "get grpc code error"
@@ -78,7 +78,7 @@ def detect_idle():
         print("status:", status)
         return json.dumps({"status": status})
     except Exception as e:
-        status=False
+        status = False
         CommonConfig.error_logger.exception(
             'detelt_idle error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
         errorCode = result_code.DETECT_IDLE_ERROR.get_code()
@@ -373,6 +373,7 @@ def predict():
         predict_file = ""
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
 
+
 @tfe_keeper.route('/train_and_predict', methods=['GET', 'POST'])
 def train_and_predict():
     """
@@ -598,7 +599,6 @@ def check_progress():
         errorMsg = str(e)
         return json.dumps({"status": status, "executeStatus": executeStatus,
                            "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
-
 
 
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])
