@@ -40,10 +40,12 @@ def get_data_id_with_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_r
         return tf.decode_csv(r, [["a"]] * matchColNum + [[0.9]], field_delim=", ")
 
     data = tf.data.TextLineDataset(data_y_file).skip(skip_row_num).map(
-        line_split)  # .shuffle(buffer_size=50000, seed=10086)
+        line_split)
+    # .shuffle(buffer_size=50000, seed=10086)
 
     batch_data_iter = data.map(lambda *r: r[matchColNum]).repeat(epoch).batch(
-        batch_size)#  .make_one_shot_iterator()
+        batch_size)
+    #  .make_one_shot_iterator()
     print("batch_data_iter:", batch_data_iter)
     # batch_data = batch_data_iter.get_next()
     batch_data = tf.compat.v1.data.make_one_shot_iterator(batch_data_iter).get_next()
