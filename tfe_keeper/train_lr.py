@@ -25,7 +25,6 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         f.write(str(0.0) + "\n")
         f.flush()
 
-
     trainParams = conf.get("trainParams")
 
     CommonConfig.http_logger.info("train_lr/run:  trainParams:" + str(trainParams))
@@ -37,14 +36,9 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
     #regularizationL1=float(trainParams.get("regularizationL1"))
     #regularizationL2=float(trainParams.get("regularizationL2"))
 
-
-
-
     dataSet = conf.get("dataSet")
 
     CommonConfig.http_logger.info("dataSet:" + str(dataSet))
-
-
 
     try:
         node_list = list(dataSet.keys())
@@ -56,7 +50,6 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
     except Exception as e:
         CommonConfig.error_logger.exception(
             'get node from dataSet {} error, exception msg:{}'.format(str(dataSet), str(e)))
-
 
     # node_id1=dataSet.get("node_id1")
     # node_id2=dataSet.get("node_id2")
@@ -90,25 +83,16 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         CommonConfig.http_logger.info("path_x:" + str(path_x))
         CommonConfig.http_logger.info("path_y:" + str(path_y))
 
-
         path_x = os.path.join(absolute_path, path_x)
         path_y = os.path.join(absolute_path, path_y)
 
-
-
         train_batch_num = epoch_num * record_num // batch_size + 1
         feature_num = featureNumX + featureNumY
-
-
-
 
         CommonConfig.http_logger.info("path_x:" + str(path_x))
         CommonConfig.http_logger.info("path_y:" + str(path_y))
         CommonConfig.http_logger.info("train_batch_num:" + str(train_batch_num))
         CommonConfig.http_logger.info("feature_num:" + str(feature_num))
-
-
-
         # if len(sys.argv) >= 2:
         #   # config file was specified
         #   config_file = sys.argv[1]
@@ -128,9 +112,6 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
         tfe.set_protocol(prot)
         #session_target = sys.argv[2] if len(sys.argv) > 2 else None
-
-
-
 
         # @tfe.local_computation("XOwner")
         # def provide_training_data_x(path="/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv"):
@@ -156,16 +137,12 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         #     x_train0=provide_training_data_x(path_x)
         #     x_train=prot.concat([x_train0,  x_train1], axis=1)
 
-
-
         if (featureNumY == 0):
-
 
             x_train = prot.define_local_computation(player='XOwner', computation_fn=get_data_x,
                                                     arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num * 2, 3.0, 1))
             y_train = prot.define_local_computation(player='YOwner',  computation_fn=get_data_y, 
                                                     arguments=(batch_size, path_y, matchColNumY, epoch_num * 2, 1))
-
         else:
             x_train1, y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_xy,
                                                               arguments=(batch_size, path_y, featureNumY, matchColNumY, epoch_num * 2, 3.0, 1))
@@ -173,17 +150,10 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
                                                      arguments=(batch_size, path_x, featureNumX, matchColNumX, epoch_num * 2, 3.0, 1))
             x_train = prot.concat([x_train0, x_train1], axis=1)
 
-
-
-
         #print("x_train:",  x_train)
         #print("y_train:",  y_train)
         CommonConfig.http_logger.info("x_train:" + str(x_train))
         CommonConfig.http_logger.info("y_train:" + str(y_train))
-
-
-
-
 
         model = LogisticRegression(feature_num, learning_rate=learningRate)
 
@@ -197,7 +167,6 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
 
         CommonConfig.http_logger.info("save_op:" + str(save_op))
         #with tfe.Session() as sess:
-
         try:
             sess = KE.get_session()
             #sess.run(tfe.global_variables_initializer(),  tag='init')
@@ -211,13 +180,9 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         start_time = time.time()
         CommonConfig.http_logger.info("start_time:" + str(start_time))
 
-
-
         CommonConfig.http_logger.info("train_lr/run: x_train:" + str(x_train))
         CommonConfig.http_logger.info("train_lr/run: y_train:" + str(y_train))
         CommonConfig.http_logger.info("train_lr/run: train_batch_num:" + str(train_batch_num))
-
-
 
         model.fit(sess, x_train, y_train, train_batch_num, progress_file)
 
@@ -236,8 +201,6 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
     except Exception as e:
         CommonConfig.error_logger.exception(
             'train.run() error, exception msg:{}'.format(str(e)))
-
-
 
 if __name__ == '__main__':
 

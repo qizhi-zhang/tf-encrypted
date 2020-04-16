@@ -11,8 +11,6 @@ import argparse
 import sys
 import time
 
-
-
 def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     trainParams = conf.get("trainParams")
 
@@ -22,9 +20,6 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     #epsilon = float(trainParams.get("epsilon"))
     #regularizationL1 = float(trainParams.get("regularizationL1"))
     #regularizationL2 = float(trainParams.get("regularizationL2"))
-
-
-
 
     dataSet = conf.get("dataSet")
     node_id1 = dataSet.get("node_id1")
@@ -55,8 +50,6 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     batch_num = record_num // batch_size
     feature_num = featureNumX+featureNumY
 
-
-
     if len(sys.argv) >= 2:
         # config file was specified
         config_file = sys.argv[1]
@@ -73,9 +66,6 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
     tfe.set_protocol(prot)
     #session_target = sys.argv[2] if len(sys.argv) > 2 else None
-
-
-
 
     # tfe.set_protocol(tfe.protocol.Pond(
     #     tfe.get_config().get_player(data_owner_0.player_name), 
@@ -110,19 +100,9 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
         x_test0 = provide_test_data_x(path_x)
         x_test = prot.concat([x_test0, x_test1], axis = 1)
 
-
-
-
     print("x_train:", x_test)
     print("y_train:", y_test)
-
-
-
-
-
     model = LogisticRegression(feature_num, learning_rate = learningRate)
-
-
 
     load_op = model.load(modelFilePath, modelFileMachine)
 
@@ -135,18 +115,11 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
         print("Loading model...")
         sess.run(load_op)
         print("Load OK.")
-
-
         #model.fit(sess,  x_train,  y_train,  train_batch_num)
         model.get_KS(sess, x_test, y_test, batch_num)
 
         test_time = time.time() - start_time
         print("test_time = ",  test_time)
-
-
-
-
-
 if __name__ == '__main__':
 
     with open('./qqq/conf', 'r') as f:
