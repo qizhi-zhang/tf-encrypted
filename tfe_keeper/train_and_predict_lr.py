@@ -2,11 +2,11 @@
 import tf_encrypted as tfe
 import json
 # from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
-from common_private import  LogisticRegression
+from common_private import LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y, get_data_id_with_y, get_data_id_with_xy
 from tf_encrypted.keras import backend as KE
 import tensorflow as tf
-import  math
+import math
 # import sys
 import time
 import platform
@@ -329,6 +329,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
     except Exception as e:
         CommonConfig.error_logger.exception(
             'train_and_predict.run() error , exception msg:{}'.format(str(e)))
+
 
 if __name__ == '__main__':
 

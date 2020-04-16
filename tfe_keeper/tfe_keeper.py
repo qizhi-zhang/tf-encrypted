@@ -37,6 +37,7 @@ def login():
         user = request.args.get('nm')
         return redirect(url_for('success', name=user))
 
+
 tfe_keeper = Blueprint('tfe_keeper', __name__)
 
 
@@ -610,6 +611,7 @@ def kill_server():
         errorCode = 0
         errorMsg = "server is not running"
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+
 
 app.register_blueprint(tfe_keeper, url_prefix='/tfe_keeper')
 

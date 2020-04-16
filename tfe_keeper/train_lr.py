@@ -2,7 +2,7 @@
 import tf_encrypted as tfe
 import json
 # from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
-from common_private import  LogisticRegression
+from common_private import LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y
 from tf_encrypted.keras import backend as KE
 import tensorflow as tf

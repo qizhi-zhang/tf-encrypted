@@ -3,7 +3,7 @@ import tf_encrypted as tfe
 # import tensorflow as tf
 import json
 # from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
-from common_private import  LogisticRegression
+from common_private import LogisticRegression
 from read_data_tf import get_data_xy, get_data_x, get_data_y
 # from sklearn.utils import shuffle
 # from sklearn.preprocessing import OneHotEncoder
@@ -121,6 +121,8 @@ def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
 
         test_time = time.time() - start_time
         print("test_time = ", test_time)
+
+
 if __name__ == '__main__':
 
     with open('./qqq/conf', 'r') as f:
