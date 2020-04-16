@@ -452,7 +452,8 @@ def check_progress():
 
                 pid_exists = check_pid(pid)
 
-                with open(os.path.join(absolute_path, 'tfe/{task_id}/train_progress'.format(task_id=task_id)),  "r") as f:
+                with open(os.path.join(absolute_path,
+                                       'tfe/{task_id}/train_progress'.format(task_id=task_id)),  "r") as f:
                     percent = f.readlines()[-1]
                     print("percent=", percent)
 
@@ -472,12 +473,14 @@ def check_progress():
 
         elif taskType == "predict":
             try:
-                with open(os.path.join(absolute_path, 'tfe/{task_id}/predict_pid'.format(task_id=task_id)),  'r') as f:
+                with open(os.path.join(absolute_path,
+                                       'tfe/{task_id}/predict_pid'.format(task_id=task_id)),  'r') as f:
                     pid = f.readline()
                 pid = int(pid)
                 pid_exists = check_pid(pid)
 
-                with open(os.path.join(absolute_path, "tfe/{task_id}/predict_progress".format(task_id=task_id)),  "r") as f:
+                with open(os.path.join(absolute_path,
+                                       "tfe/{task_id}/predict_progress".format(task_id=task_id)),  "r") as f:
                     percent = f.readlines()[-1]
 
                 if percent == "1.00":
@@ -497,7 +500,8 @@ def check_progress():
             assert taskType == "train_and_predict"
             try:
 
-                with open(os.path.join(absolute_path, 'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)),  'r') as f:
+                with open(os.path.join(absolute_path,
+                                       'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)),  'r') as f:
                     pid = f.readline()
                 pid = int(pid)
                 print("pid=", pid)

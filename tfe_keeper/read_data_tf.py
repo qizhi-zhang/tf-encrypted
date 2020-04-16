@@ -118,7 +118,8 @@ def get_data_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_row_num=1
     return tf.reshape(batch_data, shape=[batch_size, 1])
 
 if __name__ == '__main__':
-    q = get_data_x(64, "/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv", 291, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1)
+    q = get_data_x(64, "/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/embed_op_fea_5w_format_x.csv",
+                   291, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1)
     print(q)
 
 
