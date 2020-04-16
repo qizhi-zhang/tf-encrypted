@@ -27,6 +27,7 @@ app = Flask(__name__)
 def success(name):
     return 'welcome %s' % name
 
+
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
     if request.method == 'POST':
@@ -37,6 +38,7 @@ def login():
         return redirect(url_for('success', name = user))
 
 tfe_keeper = Blueprint('tfe_keeper', __name__)
+
 
 @tfe_keeper.route('/grpc_port', methods=['GET', 'POST'])
 def get_grpc_port():
@@ -86,6 +88,7 @@ def _detect_idle(ip_host):
             '_detelt_idle error on input: {}, exception msg:{}'.format(str(ip_host),  str(e)))
         status = "busy"
     return status
+
 
 @tfe_keeper.route('/start_server', methods=['GET', 'POST'])
 def start_server():
@@ -197,6 +200,7 @@ def start_server():
         errorMsg = str(e)
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
+
 def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
     try:
         config = """
@@ -223,6 +227,7 @@ def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
         CommonConfig.error_logger.exception(
             '_start_server error ,  exception msg:{}'.format(str(e)))
         # print(e)
+
 
 @tfe_keeper.route('/train', methods=['GET', 'POST'])
 def train():
@@ -291,6 +296,7 @@ def train():
             'train error ,  exception msg:{}'.format(str(e)))
         # return e
 
+
 @tfe_keeper.route('/predict', methods=['GET', 'POST'])
 def predict():
     """
@@ -347,6 +353,7 @@ def predict():
         CommonConfig.error_logger.exception(
             'predict error ,  exception msg:{}'.format(str(e)))
         # return e
+
 
 @tfe_keeper.route('/train_and_predict', methods=['GET', 'POST'])
 def train_and_predict():
@@ -411,6 +418,7 @@ def train_and_predict():
         CommonConfig.error_logger.exception(
             'predict error,  exception msg:{}'.format(str(e)))
         # return e
+
 
 @tfe_keeper.route('/check_progress', methods=['GET', 'POST'])
 def check_progress():
@@ -562,6 +570,7 @@ def check_progress():
         CommonConfig.error_logger.exception(
             'check_progress error, exception msg:{}'.format(str(e)))
         return e
+
 
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])
 def kill_server():

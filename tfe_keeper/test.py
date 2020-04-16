@@ -11,6 +11,7 @@ from read_data_tf import get_data_xy, get_data_x, get_data_y
 import sys
 import time
 
+
 def run(taskId, algorithm, conf, modelFileMachine, modelFilePath):
     trainParams = conf.get("trainParams")
 

@@ -8,6 +8,7 @@ import tensorflow as tf
 # 
 # recodes=tf.decode_csv(recodes, [[0.2]]*290, field_delim=", ")
 
+
 def get_data_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
     def line_split(r):
         return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum + [[1]] , field_delim=", ")
@@ -31,6 +32,7 @@ def get_data_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=100, cli
 
     return (batch_data_x, batch_data_y)
 
+
 def get_data_id_with_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_row_num=1):
 
     def line_split(r):
@@ -53,6 +55,7 @@ def get_data_id_with_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_r
     batch_idx = tf.reshape(batch_idx, shape=[batch_size, matchColNum])
     print("batch_idx:", batch_idx)
     return (batch_idx, batch_data)
+
 
 def get_data_id_with_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
     def line_split(r):
@@ -82,6 +85,7 @@ def get_data_id_with_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=
 
     return (batch_idx, batch_data_x, batch_data_y)
 
+
 def get_data_x(batch_size, data_x_file, featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
     def line_split(r):
         return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum, field_delim=", ")
@@ -97,6 +101,7 @@ def get_data_x(batch_size, data_x_file, featureNum, matchColNum=2, epoch=100, cl
 
     batch_data = batch_data_iter.get_next()
     return tf.reshape(batch_data, shape=[batch_size, featureNum])
+
 
 def get_data_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_row_num=1):
 
