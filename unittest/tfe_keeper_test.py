@@ -57,7 +57,7 @@ class TestBinning(TestCase):
 
     def test_train(self):
         # test train
-        with open('./qqq/conf', 'r') as f:
+        with open('unittest/qqq/conf', 'r') as f:
             conf=f.read()
             print(conf)
         conf=conf.replace("True","true").replace("False","false")
@@ -72,7 +72,7 @@ class TestBinning(TestCase):
 
     def test_train_and_predict_inner(self):
         # test train_and_predict
-        with open('./qqq/conf', 'r') as f:
+        with open('unittest/qqq/conf', 'r') as f:
             conf = f.read()
             print(conf)
         conf = conf.replace("True","true").replace("False","false")
@@ -88,7 +88,7 @@ class TestBinning(TestCase):
 
     def test_train_and_predict_outer(self):
         # 公网 devU, devV, researchJ
-        with open('./qqq/conf', 'r') as f:
+        with open('unittest/qqq/conf', 'r') as f:
             conf = f.read()
             print(conf)
         conf = conf.replace("True","true").replace("False","false")
@@ -109,7 +109,7 @@ class TestBinning(TestCase):
 
     def test_predict(self):
         # predict
-        with open('./qqq/conf', 'r') as f:
+        with open('unittest/qqq/conf', 'r') as f:
             conf = f.read()
             print(conf)
         conf = conf.replace("True","true").replace("False","false")
