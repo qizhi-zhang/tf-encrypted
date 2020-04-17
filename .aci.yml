@@ -74,7 +74,7 @@ unittest:
   script:
     - git clone http://git-ci-token:56f8c27b7a444e8eae7d838142566a3c@gitlab.alipay-inc.com/ssdatalab/morse-ci.git
     - chmod a+x morse-ci/sh_script/run_unittest.sh
-    - sh morse-ci/sh_script/run_unittest.sh tfe
+    - sh morse-ci/sh_script/run_unittest.sh unittest
   pluginConfig:
     markdown: result.md
   publisher:
