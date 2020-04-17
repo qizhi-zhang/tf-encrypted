@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<testsuite errors="0" failures="0" name="unittest.test.testmock.testhelpers.AnyTest-20200417190725" tests="4" time="0.001">
+	<testcase classname="unittest.test.testmock.testhelpers.AnyTest" name="test_any" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testhelpers.AnyTest" name="test_any_and_datetime" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testhelpers.AnyTest" name="test_any_mock_calls_comparison_order" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testhelpers.AnyTest" name="test_repr" time="0.000"/>
+	<system-out>
+<![CDATA[]]>	</system-out>
+	<system-err>
+<![CDATA[]]>	</system-err>
+</testsuite>

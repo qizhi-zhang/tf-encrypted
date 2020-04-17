@@ -15,7 +15,8 @@ from xmlrunner import xmlrunner
 if __name__ == '__main__':
     suite = unittest.TestSuite()
     # 找到目录下所有的以_test结尾的py文件
-    all_cases = unittest.defaultTestLoader.discover('.', '*_test.py')
+    # all_cases = unittest.defaultTestLoader.discover('.', '*_test.py')
+    all_cases = unittest.defaultTestLoader.discover('unittest', '*_test.py')
     for case in all_cases:
         print(case)
         # 把所有的测试用例添加进来

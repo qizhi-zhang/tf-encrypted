@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<testsuite errors="0" failures="0" name="unittest.test.testmock.testwith.WithTest-20200417190725" tests="11" time="0.005">
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="testContextManagerMocking" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_context_manager_with_magic_mock" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_dict_context_manager" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_patch_object_with_statement" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_with_statement" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_with_statement_as" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_with_statement_exception" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_with_statement_imbricated" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_with_statement_nested" time="0.002"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_with_statement_same_attribute" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testwith.WithTest" name="test_with_statement_specified" time="0.000"/>
+	<system-out>
+<![CDATA[]]>	</system-out>
+	<system-err>
+<![CDATA[]]>	</system-err>
+</testsuite>

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf/DockerfileTFE" beforeDir="false" afterPath="$PROJECT_DIR$/conf/DockerfileTFE" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -65,8 +64,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in tfe_keeper_test.py">
-    <configuration name="train_and_predict_lr" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.runMain">
+    <configuration name="runMain" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="tf-encrypted" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -74,11 +73,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tfe_keeper" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/unittest" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tfe_keeper/train_and_predict_lr.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/unittest/runMain.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -145,11 +144,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.runMain" />
         <item itemvalue="Python tests.Unittests in tfe_keeper_test.py" />
         <item itemvalue="Python tests.Unittests for tfe_keeper_test.TestBinning.test_predict" />
         <item itemvalue="Python tests.Unittests for tfe_keeper_test.TestBinning" />
         <item itemvalue="Python tests.Unittests for tfe_keeper_test.TestBinning.test_kill_server" />
-        <item itemvalue="Python.train_and_predict_lr" />
       </list>
     </recent_temporary>
   </component>
