@@ -1,6 +1,7 @@
 # base image
 # FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsebase:vsmodel1
-FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v2.4
+#FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v2.4
+FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:3.16
 #FROM continuumio/miniconda3
 
 
@@ -18,6 +19,8 @@ RUN mkdir -p /app/conf/parser
 
 # requirements
 #RUN pip install -r /app/conf/requirements.txt
+RUN pip install coverage
+RUN pip install curl
 
 # nginx
 RUN mkdir -p /app/conf
