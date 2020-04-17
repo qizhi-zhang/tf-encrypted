@@ -69,8 +69,8 @@ unittest:
     submodule: true
   agent:
     docker:
-      #image: reg.docker.alibaba-inc.com/alipay/morse-tfe:${DOCKERTAG}
-      registry:cn-hangzhou:aliyuncs:com/dtunion/morsetfe:${DOCKERTAG}
+      image: reg.docker.alibaba-inc.com/alipay/morse-tfe:${DOCKERTAG}
+      #registry:cn-hangzhou:aliyuncs:com/dtunion/morsetfe:${DOCKERTAG}
   script:
     - git clone http://git-ci-token:56f8c27b7a444e8eae7d838142566a3c@gitlab.alipay-inc.com/ssdatalab/morse-ci.git
     - chmod a+x morse-ci/sh_script/run_unittest.sh
