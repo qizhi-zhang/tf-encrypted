@@ -20,7 +20,9 @@ RUN mkdir -p /app/conf/parser
 # requirements
 #RUN pip install -r /app/conf/requirements.txt
 RUN pip install coverage
+RUN pip install xmlrunner
 RUN apt-get install curl -y
+
 
 
 # nginx
