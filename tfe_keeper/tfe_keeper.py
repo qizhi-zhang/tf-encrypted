@@ -41,6 +41,10 @@ def login():
 tfe_keeper = Blueprint('tfe_keeper', __name__)
 
 
+# todo
+# 所有的print全部改为 CommonConfig.logger OK
+# default_logger 不要用default_logger OK
+# 加MOrseException 统一抛异常即可
 @tfe_keeper.route('/grpc_port', methods=['GET', 'POST'])
 def get_grpc_port():
     try:
@@ -52,7 +56,7 @@ def get_grpc_port():
         grpc_port = 0
         status = False
         errorCode = result_code.GET_GRPC_PORT_ERROR.get_code()
-        errorMsg = "get grpc code error"
+        errorMsg = result_code.GET_GRPC_PORT_ERROR.get_message()
         CommonConfig.error_logger.exception(
             'get_grpc_port error, exception msg:{}'.format(str(request.json), str(e)))
     return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "grpcPort": grpc_port})
@@ -68,30 +72,31 @@ def detect_idle():
     print("detect_idle start")
     try:
         # print("request:", request)
-        CommonConfig.http_logger.info("detect_idle request:" + str(request))
+        CommonConfig.default_logger.info("detect_idle request:" + str(request))
         request_params = request.json
-        CommonConfig.http_logger.info("detect_idle request_params:" + str(request_params))
+        CommonConfig.default_logger.info("detect_idle request_params:" + str(request_params))
         # print("request_params:", request_params)
         ip_host = request_params.get('ipHost')
-        print("ip_host:", ip_host)
+        CommonConfig.default_logger.info("ip_host:"+str(ip_host))
         status = _detect_idle(ip_host)
-        print("status:", status)
+        CommonConfig.default_logger.info("status:"+str(status))
         return json.dumps({"status": status})
     except Exception as e:
         status = False
         CommonConfig.error_logger.exception(
             'detelt_idle error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
         errorCode = result_code.DETECT_IDLE_ERROR.get_code()
-        errorMsg = "detect_idle error"
+        # errorMsg = "detect_idle error"  # todo  下同
+        errorMsg = result_code.DETECT_IDLE_ERROR.get_message()
     return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
 
 def _detect_idle(ip_host):
     try:
         cluster = tf.train.ClusterSpec({"detect": [ip_host]})
-        print("cluster:", cluster)
+        CommonConfig.default_logger.info("cluster:" + str(cluster))
         server = tf.train.Server(cluster)
-        print("server:", server)
+        CommonConfig.default_logger.info("server:" + str(server))
         status = "idle"
         # server.join()
     except Exception as e:
@@ -113,13 +118,13 @@ def start_server():
      errorMsg:
 
     """
-    print("start_server")
+    #print("start_server")
     try:
-        CommonConfig.http_logger.info("start_server request:" + str(request))
+        CommonConfig.default_logger.info("start_server request:" + str(request))
         request_params = request.json
-        CommonConfig.http_logger.info("start_server request_params:" + str(request_params))
+        CommonConfig.default_logger.info("start_server request_params:" + str(request_params))
         task_id = request_params.get('taskId')
-        print("task_id:", task_id)
+        CommonConfig.default_logger.info("task_id:" + str(task_id))
 
         if task_id is None:
             raise MorseException(result_code.PARAM_ERROR, param="taskId")
@@ -129,40 +134,47 @@ def start_server():
         RS_iphost = request_params.get('RS')
         if RS_iphost is None:
             RS_iphost = request_params.get("thirdOwner")
-        print("RS_iphost:", RS_iphost)
+        CommonConfig.default_logger.info("RS_iphost:" + str(RS_iphost))
         if RS_iphost is None:
-            status = False
-            errorCode = result_code.START_SERVER_ERROR.get_code()
-            errorMsg = "nether RS nor thirdOwner are given"
-            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+            raise MorseException(result_code.PARAM_ERROR, param="RS or thirdOwner")
+            # status = False
+            # errorCode = result_code.START_SERVER_ERROR.get_code()
+            # errorMsg = "nether RS nor thirdOwner are given"
+            # return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
         XOwner_iphost = request_params.get('XOwner')
         if XOwner_iphost is None:
             XOwner_iphost = request_params.get('xOwner')
-        print("XOwner_iphost=", XOwner_iphost)
+        CommonConfig.default_logger.info("XOwner_iphost=" + str(XOwner_iphost))
         if XOwner_iphost is None:
-            status = False
-            errorCode = result_code.START_SERVER_ERROR.get_code()
-            errorMsg = "nether xOwner nor XOwner are given"
-            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+            raise MorseException(result_code.PARAM_ERROR, param="xOwner or XOwner")
+            # status = False
+            # errorCode = result_code.START_SERVER_ERROR.get_code()
+            # errorMsg = "nether xOwner nor XOwner are given"
+            # return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
         YOwner_iphost = request_params.get('YOwner')
         if YOwner_iphost is None:
             YOwner_iphost = request_params.get('yOwner')
         if YOwner_iphost is None:
-            status = False
-            errorCode = result_code.START_SERVER_ERROR.get_code()
-            errorMsg = "nether yOwner nor YOwner are given"
-            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+            raise MorseException(result_code.START_SERVER_ERROR, server="yOwner or YOwner")  # todo
+            # status = False
+            # errorCode = result_code.START_SERVER_ERROR.get_code()
+            # errorMsg = "nether yOwner nor YOwner are given"
+            # return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
         Player = request_params.get('Player')
         if Player is None:
             Player = request_params.get('player')
-        if YOwner_iphost is None:
-            status = False
-            errorCode = result_code.START_SERVER_ERROR.get_code()
-            errorMsg = "nether Player nor player are given"
-            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+        if Player is None:
+            raise MorseException(result_code.PARAM_ERROR, param="Player or player")
+
+        #if YOwner_iphost is None:  # todo
+
+            # status = False
+            # errorCode = result_code.START_SERVER_ERROR.get_code()
+            # errorMsg = "nether Player nor player are given"
+            # return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
         if Player == "x_owner" or Player == "xOwner":
             Player = "XOwner"
@@ -176,12 +188,9 @@ def start_server():
         # status=_start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player)
         p.start()
         p.join(timeout=1)
-        print("p.pid:")
-        print(p.pid)
-        CommonConfig.http_logger.info("p.pid" + str(p.pid))
+        CommonConfig.default_logger.info("p.pid" + str(p.pid))
         # print(p.is_alive())
-        print("p.exitcode", p.exitcode)
-        CommonConfig.http_logger.info("p.exitcode" + str(p.exitcode))
+        CommonConfig.default_logger.info("p.exitcode" + str(p.exitcode))
         if p.is_alive():
             # with open(os.path.join(absolute_path, 'tfe/{task_id}/server_pid'.format(task_id=task_id)), 'w') as f:
             with open(os.path.join(absolute_path, 'tfe/server_pid'.format(task_id=task_id)), 'w') as f:
@@ -190,20 +199,19 @@ def start_server():
             status = True
             errorCode = 0
             errorMsg = ""
-
         else:
-
-            status = False
-            errorCode = result_code.START_SERVER_ERROR.get_code()
-            errorMsg = "start server faild"
+            raise MorseException(result_code.START_SERVER_ERROR)
+            # status = False
+            # errorCode = result_code.START_SERVER_ERROR.get_code()
+            # errorMsg = "start server faild"
         # todo
         # print("p.exitcode:", p.exitcode)
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
-    # except MorseException as e:
-    #     status = False
-    #     errorMsg = e.get_message()
-    #     errorCode = e.get_code()
-    #     return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+    except MorseException as e:
+        status = False
+        errorMsg = e.get_message()
+        errorCode = e.get_code()
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
         CommonConfig.error_logger.exception(
             'start_server error, exception msg:{}'.format(str(e)))
@@ -222,15 +230,19 @@ def _start_server(task_id, XOwner_iphost, YOwner_iphost, RS_iphost, Player):
     "RS": "{RS_iphost}"
 {r}
         """.format(l="{", r="}", XOwner_iphost=XOwner_iphost, YOwner_iphost=YOwner_iphost, RS_iphost=RS_iphost)
-        print("config:", config)
+        CommonConfig.default_logger.info("config:" + str(config))
         os.system("pwd")
-        print("absolute_path:", absolute_path)
-        print("1. tfe config.json:", os.path.join(absolute_path, 'tfe/{task_id}/config.json'.format(task_id=task_id)))
+        CommonConfig.default_logger.info("absolute_path:" + str(absolute_path))
+        CommonConfig.default_logger.info("1. tfe config.json: " +
+                                         os.path.join(absolute_path,
+                                                      'tfe/{task_id}/config.json'.format(task_id=task_id)))
 
         with open(os.path.join(absolute_path, 'tfe/{task_id}/config.json'.format(task_id=task_id)), 'w') as f:
             f.write(config)
 
-        print("2. tfe config.json:", os.path.join(absolute_path, 'tfe/{task_id}/config.json'.format(task_id=task_id)))
+        CommonConfig.default_logger.info("2. tfe config.json:" +
+                                         os.path.join(absolute_path,
+                                                      'tfe/{task_id}/config.json'.format(task_id=task_id)))
 
         config = RemoteConfig.load(os.path.join(absolute_path, 'tfe/{task_id}/config.json'.format(task_id=task_id)))
         server = config.server(Player, start=True)
@@ -251,13 +263,13 @@ def train():
         errorCode, 
         errorMsg
     """
-    print("train")
+    CommonConfig.default_logger.info("train")
     try:
-        CommonConfig.http_logger.info("train request:" + str(request))
+        CommonConfig.default_logger.info("train request:" + str(request))
         request_params = request.json
-        CommonConfig.http_logger.info("train request_params:" + str(request_params))
+        CommonConfig.default_logger.info("train request_params:" + str(request_params))
         task_id = request_params.get('taskId')
-        print("task_id:", task_id)
+        CommonConfig.default_logger.info("task_id:" + str(task_id))
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
@@ -288,12 +300,12 @@ def train():
         # modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
         p.start()
 
-        CommonConfig.http_logger.info("train Process pid:" + str(p.pid))
+        CommonConfig.default_logger.info("train Process pid:" + str(p.pid))
 
         with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
-        # CommonConfig.http_logger.info("train Process pid:" + str(p.name))
+        # CommonConfig.default_logger.info("train Process pid:" + str(p.name))
         # 
         # with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'w') as f:
         #   f.write(str(p.name))
@@ -322,13 +334,13 @@ def predict():
         errorCode, 
         errorMsg
     """
-    print("predict")
+    #print("predict")
     try:
-        CommonConfig.http_logger.info("pridict request:" + str(request))
+        CommonConfig.default_logger.info("pridict request:" + str(request))
         request_params = request.json
-        CommonConfig.http_logger.info("predict request_params:" + str(request_params))
+        CommonConfig.default_logger.info("predict request_params:" + str(request_params))
         task_id = request_params.get('taskId')
-        print("task_id:", task_id)
+        CommonConfig.default_logger.info("task_id:" + str(task_id))
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
@@ -354,7 +366,7 @@ def predict():
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine,
                                                  modelFilePath, progress_file, tf_config_file))
         p.start()
-        CommonConfig.http_logger.info("predict Process pid:" + str(p.pid))
+        CommonConfig.default_logger.info("predict Process pid:" + str(p.pid))
         with open(os.path.join(absolute_path, 'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
 
@@ -384,13 +396,13 @@ def train_and_predict():
         errorCode, 
         errorMsg
     """
-    print("predict")
+    CommonConfig.default_logger.info("predict")
     try:
-        CommonConfig.http_logger.info("pridict request:" + str(request))
+        CommonConfig.default_logger.info("pridict request:" + str(request))
         request_params = request.json
-        CommonConfig.http_logger.info("predict request_params:" + str(request_params))
+        CommonConfig.default_logger.info("predict request_params:" + str(request_params))
         task_id = request_params.get('taskId')
-        print("task_id:", task_id)
+        CommonConfig.default_logger.info("task_id:" + str(task_id))
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
@@ -464,143 +476,179 @@ def check_progress():
         else:
             return True
 
-    print("check_progress")
+    CommonConfig.default_logger.info("check_progress")
     try:
-        CommonConfig.http_logger.info("check_progress request:" + str(request))
+        CommonConfig.default_logger.info("check_progress request:" + str(request))
         request_params = request.json
-        CommonConfig.http_logger.info("check_progress request_params:" + str(request_params))
+        CommonConfig.default_logger.info("check_progress request_params:" + str(request_params))
         task_id = request_params.get('taskId')
-        print("task_id:", task_id)
+        CommonConfig.default_logger.info("task_id:" + str(task_id))
         taskType = request_params.get('taskType')
-        print("taskType:", taskType)
+        CommonConfig.default_logger.info("taskType:" + str(taskType))
 
         percent = "0.00"
         if taskType == "train":
-            try:
-                with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
-                    pid = f.readline()
-                pid = int(pid)
-                print("pid=", pid)
 
-                pid_exists = check_pid(pid)
+            with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
+                pid = f.readline()
+            if pid is None or pid == "":
+                raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
+                                     filename='tfe/{task_id}/train_pid'.format(task_id=task_id))
+            pid = int(pid)
+            CommonConfig.default_logger.info("pid=" + str(pid))
 
-                with open(os.path.join(absolute_path,
-                                       'tfe/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
-                    percent = f.readlines()[-1]
-                    print("percent=", percent)
+            pid_exists = check_pid(pid)
 
-                if percent == "1.00":
-                    executeStatus = "SUCCESS"
-                elif pid_exists:
-                    executeStatus = "RUNNING"
+            with open(os.path.join(absolute_path,
+                                   'tfe/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
+                lines = f.readlines()
+            if lines is None or lines == "":
+                raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
+                                     filename="tfe/{task_id}/train_progress".format(task_id=task_id))
+            percent = lines[-1]
+            CommonConfig.default_logger.info("percent=" + str(percent))
 
-                else:
-                    executeStatus = "FAILED"
-
-            except Exception as e:
-                # print(e)
-                CommonConfig.error_logger.exception(
-                    'check_progress error, exception msg:{}'.format(str(e)))
-                executeStatus = "FAILED"
+            if percent == "1.00":
+                status = True
+                executeStatus = "SUCCESS"
+                errorCode = 0
+                errorMsg = ""
+            elif pid_exists:
+                status = True
+                executeStatus = "RUNNING"
+                errorCode =0
+                errorMsg = ""
+            else:
+                raise MorseException(result_code.CHECK_PROGRESS_ERROR)
 
         elif taskType == "predict":
-            try:
-                with open(os.path.join(absolute_path,
-                                       'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
-                    pid = f.readline()
-                pid = int(pid)
-                pid_exists = check_pid(pid)
 
-                with open(os.path.join(absolute_path,
-                                       "tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
-                    percent = f.readlines()[-1]
+            with open(os.path.join(absolute_path,
+                                   'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
+                pid = f.readline()
+            if pid is None or pid == "":
+                raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
+                                     filename='tfe/{task_id}/predict_pid'.format(task_id=task_id))
+            pid = int(pid)
+            pid_exists = check_pid(pid)
 
-                if percent == "1.00":
-                    executeStatus = "SUCCESS"
-                elif pid_exists:
-                    executeStatus = "RUNNING"
+            with open(os.path.join(absolute_path,
+                                   "tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
+                lines=f.readlines()
+            if lines is None or lines == "":
+                raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
+                                     filename="tfe/{task_id}/predict_progress".format(task_id=task_id))
+            percent = lines[-1]
 
-                else:
-                    executeStatus = "FAILED"
-
-            except Exception as e:
-                CommonConfig.error_logger.exception(
-                    'check_progress error, exception msg:{}'.format(str(e)))
-                executeStatus = "FAILED"
+            if percent == "1.00":
+                status = True
+                executeStatus = "SUCCESS"
+                errorCode = 0
+                errorMsg = ""
+            elif pid_exists:
+                status = True
+                executeStatus = "RUNNING"
+                errorCode = 0
+                errorMsg = ""
+            else:
+                raise MorseException(result_code.CHECK_PROGRESS_ERROR)
 
         else:
-            assert taskType == "train_and_predict"
-            try:
+            # assert taskType == "train_and_predict"
+            assert taskType == "train_and_predict", "error taskType:{}".format(taskType)  # todo
 
-                with open(os.path.join(absolute_path,
-                                       'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'r') as f:
-                    pid = f.readline()
-                pid = int(pid)
-                print("pid=", pid)
 
-                pid_exists = check_pid(pid)
-                # --------------train progress----------------------------------------
-                trian_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/train_progress")
-                if not os.path.exists(trian_progress_file):
-                    CommonConfig.error_logger.exception(
-                        'trian_progress_file {} does not exists'.format(trian_progress_file))
-                with open(trian_progress_file, "r") as f:
-                    percent_train = f.readlines()
-                    print("percent_train=", percent_train)
-                    CommonConfig.http_logger.info(
-                        "percent_train=" + str(percent_train))
-                    percent_train = percent_train[-1]
-                # --------------predict progress---------------------------------
+            with open(os.path.join(absolute_path,
+                                   'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'r') as f:
+                pid = f.readline()
+            if pid is None or pid == "":
+                raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
+                                     filename='tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id))
+            pid = int(pid)
+            CommonConfig.default_logger.info("pid=" + str(pid))
 
-                predict_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/predict_progress")
-                if not os.path.exists(predict_progress_file):
-                    CommonConfig.error_logger.exception(
-                        'predict_progress_file {} does not exists'.format(predict_progress_file))
-                with open(predict_progress_file, "r") as f:
-                    percent_predict = f.readlines()
-                    print("percent_predict=", percent_predict)
-                    CommonConfig.http_logger.info(
-                        "percent_predict=" + str(percent_predict))
-                    percent_predict = percent_predict[-1]
-
-                if percent_predict == "1.00":
-                    executeStatus = "SUCCESS"
-                elif pid_exists:
-                    executeStatus = "RUNNING"
-
-                else:
-                    executeStatus = "FAILED"
-
-                if percent_predict == "1.00":
-                    percent = "1.00"
-                else:
-                    percent = str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
-
-            except Exception as e:
+            pid_exists = check_pid(pid)
+            # --------------train progress----------------------------------------
+            trian_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/train_progress")
+            if not os.path.exists(trian_progress_file):
                 CommonConfig.error_logger.exception(
-                    'check_progress error, exception msg:{}'.format(str(e)))
-                executeStatus = "FAILED"
+                    'trian_progress_file {} does not exists'.format(trian_progress_file))
+                raise MorseException(result_code.FILE_NOT_EXIST_ERROR, filename=trian_progress_file)
+            with open(trian_progress_file, "r") as f:
+                lines = f.readlines()
+            if lines is None or lines == "":
+                raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
+                                     filename=trian_progress_file)
+            percent_train = lines[-1]
 
-        percent = int(float(percent) * 100)
-        status = True
-        errorCode = 0
-        errorMsg = ""
-        CommonConfig.http_logger.info("percent:" + str(percent))
-        CommonConfig.http_logger.info("status:" + str(status))
-        CommonConfig.http_logger.info("executeStatus:" + str(executeStatus))
-        return json.dumps({"status": status, "executeStatus": executeStatus,
-                           "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
-    except Exception as e:
-        CommonConfig.error_logger.exception(
-            'check_progress error, exception msg:{}'.format(str(e)))
+            CommonConfig.default_logger.info(
+                "percent_train=" + str(percent_train))
+
+            # --------------predict progress---------------------------------
+
+            predict_progress_file = os.path.join(absolute_path, "tfe/" + task_id + "/predict_progress")
+            if not os.path.exists(predict_progress_file):
+                CommonConfig.error_logger.exception(
+                    'predict_progress_file {} does not exists'.format(predict_progress_file))
+                raise MorseException(result_code.FILE_NOT_EXIST_ERROR, filename=predict_progress_file)
+            with open(predict_progress_file, "r") as f:
+                percent_predict = f.readlines()
+            if percent_predict is None or percent_predict == "":
+                raise MorseException(result_code.FILE_IS_EMPTY_ERROR, filename=predict_progress_file)
+            CommonConfig.default_logger.info(
+                "percent_predict=" + str(percent_predict))
+            percent_predict = percent_predict[-1]
+
+            if percent_predict == "1.00":
+                status = True
+                executeStatus = "SUCCESS"
+                errorCode = 0
+                errorMsg = ""
+            elif pid_exists:
+                status = True
+                executeStatus = "RUNNING"
+                errorCode = 0
+                errorMsg = ""
+
+            else:
+                raise MorseException(result_code.CHECK_PROGRESS_ERROR)
+
+            if percent_predict == "1.00":
+                percent = "1.00"
+            else:
+                percent = str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
+
+
+    except MorseException as e:
+
         status = False
+
+        errorMsg = e.get_message()
+
+        errorCode = e.get_code()
+
         executeStatus = "FAILED"
+
+
+    except Exception as e:
+
+        status = False
+
+        errorMsg = result_code.CHECK_PROGRESS_ERROR.get_message()
+
         errorCode = result_code.CHECK_PROGRESS_ERROR.get_code()
-        errorMsg = str(e)
-        return json.dumps({"status": status, "executeStatus": executeStatus,
-                           "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
 
+        executeStatus = "FAILED"
 
+        CommonConfig.error_logger.exception(
+
+            'check_progress error, exception msg:{}'.format(str(e)))
+
+    return json.dumps({"status": status, "executeStatus": executeStatus,
+
+                       "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
+
+#koko
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])
 def kill_server():
     """
@@ -610,34 +658,39 @@ def kill_server():
     errorCode, 
     errorMsg
     """
-    print("kill_server")
+    # print("kill_server")
     try:
-        CommonConfig.http_logger.info("kill_server request:" + str(request))
+        CommonConfig.default_logger.info("kill_server request:" + str(request))
         request_params = request.json
-        CommonConfig.http_logger.info("kill_server request_params:" + str(request_params))
+        CommonConfig.default_logger.info("kill_server request_params:" + str(request_params))
         task_id = request_params.get('taskId')
-        print("task_id:", task_id)
+        CommonConfig.default_logger.info("task_id:" + str(task_id))
 
         # with open(os.path.join(absolute_path, 'tfe/{task_id}/
         # server_pid'.format(task_id=task_id)), 'r') as f:
+        # todo 如果一开始没有pid？
         with open(os.path.join(absolute_path, 'tfe/server_pid'), 'r') as f:
             pid = f.readline()
+        if pid is None:
+            CommonConfig.default_logger.info("no need kill pid")
+            return json.dumps({"status": True, "errorCode": 0, "errorMsg": ""})
         pid = int(pid)
         os.kill(pid, 9)
-        errorMsg = "killed {pid}".format(pid=pid)
+        # errorMsg = "killed {pid}".format(pid=pid)
+        CommonConfig.default_logger.info("kill pid:{}".format(pid))
 
         status = True
         errorCode = 0
         # print("p.exitcode:", p.exitcode)
 
-        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": ""})
     except Exception as e:
         CommonConfig.error_logger.exception(
             'kill_server error, exception msg:{}'.format(str(e)))
 
-        status = True
-        errorCode = 0
-        errorMsg = "server is not running"
+        status = False  # todo
+        errorCode = result_code.KILL_SERVER_ERROR.get_code()  # todo 定义一下
+        errorMsg = str(e)
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
 

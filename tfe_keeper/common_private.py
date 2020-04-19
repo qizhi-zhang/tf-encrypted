@@ -183,7 +183,7 @@ class LogisticRegression:
         :param num_batches:
         :param idx:
         :param progress_file:
-        :param device_name:
+        :param device_name: output device
         :param record_num_ceil_mod_batch_size:
         """
         # sess.run(tf.local_variables_initializer())
