@@ -1,0 +1,23 @@
+# base image
+# FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsebase:vsmodel1
+FROM reg.docker.alibaba-inc.com/morse/morsebase:v42
+#FROM reg.docker.alibaba-inc.com/morse/morsebase:gs01
+
+# add appliction code
+ADD . /app
+
+RUN mkdir -p /app/logs
+RUN mkdir -p /app/var
+RUN mkdir -p /app/tmp
+RUN mkdir -p /app/file
+RUN mkdir -p /app/conf
+RUN mkdir -p /app/conf/parser
+
+# nginx
+RUN mkdir -p /app/conf
+# ADD ./conf/dataleaguelocal_nginx.conf /app/conf
+ADD ./conf/docker-entry-smodel.sh  /app/
+ADD ./conf/tfe_uwsgi.ini  /app/conf
+
+ENTRYPOINT ["/app/docker-entry-smodel.sh"]
+

@@ -1,0 +1,22 @@
+tfe:
+    #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsesmodel:2.20.0.20200210_release
+    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:v2.5
+    volumes:
+    - ./conf:/app/conf/parser
+    #- ./logs/model:/app/logs
+    - ./logs/tfe:/app/logs
+    - ./file:/app/file
+    #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    ports:
+    - 8080:8080  # keeper
+    - 5678:5678    # tfe
+    - 8216:8216  # devU tfe
+    #- 40216:40216 # devU keeper
+    - 8217:8217 # devV tfe
+    #- 40217:40217 #devV keeper
+    - 8218:8218 # researchJ tfe
+    #- 40218:40218 # researchJ keeper
+#    - 5678:5678
+#    - 5679:5679
+    environment:
+    - grpc_port=5216   # =docker port=outer port
