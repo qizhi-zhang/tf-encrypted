@@ -77,9 +77,9 @@ def detect_idle():
         CommonConfig.default_logger.info("detect_idle request_params:" + str(request_params))
         # print("request_params:", request_params)
         ip_host = request_params.get('ipHost')
-        CommonConfig.default_logger.info("ip_host:"+str(ip_host))
+        CommonConfig.default_logger.info("ip_host:" + str(ip_host))
         status = _detect_idle(ip_host)
-        CommonConfig.default_logger.info("status:"+str(status))
+        CommonConfig.default_logger.info("status:" + str(status))
         return json.dumps({"status": status})
     except Exception as e:
         status = False
@@ -118,7 +118,7 @@ def start_server():
      errorMsg:
 
     """
-    #print("start_server")
+    # print("start_server")
     try:
         CommonConfig.default_logger.info("start_server request:" + str(request))
         request_params = request.json
@@ -169,7 +169,7 @@ def start_server():
         if Player is None:
             raise MorseException(result_code.PARAM_ERROR, param="Player or player")
 
-        #if YOwner_iphost is None:  # todo
+        # if YOwner_iphost is None:  # todo
 
             # status = False
             # errorCode = result_code.START_SERVER_ERROR.get_code()
@@ -334,7 +334,7 @@ def predict():
         errorCode, 
         errorMsg
     """
-    #print("predict")
+    # print("predict")
     try:
         CommonConfig.default_logger.info("pridict request:" + str(request))
         request_params = request.json
@@ -516,7 +516,7 @@ def check_progress():
             elif pid_exists:
                 status = True
                 executeStatus = "RUNNING"
-                errorCode =0
+                errorCode = 0
                 errorMsg = ""
             else:
                 raise MorseException(result_code.CHECK_PROGRESS_ERROR)
@@ -534,7 +534,7 @@ def check_progress():
 
             with open(os.path.join(absolute_path,
                                    "tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
-                lines=f.readlines()
+                lines = f.readlines()
             if lines is None or lines == "":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename="tfe/{task_id}/predict_progress".format(task_id=task_id))
@@ -556,7 +556,6 @@ def check_progress():
         else:
             # assert taskType == "train_and_predict"
             assert taskType == "train_and_predict", "error taskType:{}".format(taskType)  # todo
-
 
             with open(os.path.join(absolute_path,
                                    'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'r') as f:
@@ -618,7 +617,6 @@ def check_progress():
             else:
                 percent = str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
 
-
     except MorseException as e:
 
         status = False
@@ -628,7 +626,6 @@ def check_progress():
         errorCode = e.get_code()
 
         executeStatus = "FAILED"
-
 
     except Exception as e:
 
@@ -648,7 +645,7 @@ def check_progress():
 
                        "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
 
-#koko
+
 @tfe_keeper.route('/kill_server', methods=['GET', 'POST'])
 def kill_server():
     """
