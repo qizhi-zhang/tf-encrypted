@@ -269,9 +269,9 @@ def train():
         modelFileMachine = request_params.get('modelFileMachine')
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
-        if modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
             modelFileMachine = "YOwner"
-        if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
@@ -346,9 +346,9 @@ def predict():
         # todo 如果抛错是MorseException 记得加上MorseException  OK
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
-        if modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
             modelFileMachine = "YOwner"
-        if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
@@ -410,9 +410,9 @@ def train_and_predict():
 
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
-        if modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
             modelFileMachine = "YOwner"
-        if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
