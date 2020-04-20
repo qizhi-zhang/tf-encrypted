@@ -152,8 +152,8 @@ def start_server():
         if YOwner_iphost is None:
             YOwner_iphost = request_params.get('yOwner')
         if YOwner_iphost is None:
-            # 134 145 156 166 为啥code不一样 todo, 我理解其中有的是同一类型判断吧
-            raise MorseException(result_code.START_SERVER_ERROR, server="yOwner or YOwner")
+            # 134 145 156 166 为啥code不一样 todo, 我理解其中有的是同一类型判断吧 OK
+            raise MorseException(result_code.PARAM_ERROR, param="yOwner or YOwner")
             # status = False
             # errorCode = result_code.START_SERVER_ERROR.get_code()
             # errorMsg = "nether yOwner nor YOwner are given"
@@ -196,7 +196,7 @@ def start_server():
             errorCode = 0
             errorMsg = ""
         else:
-            raise MorseException(result_code.START_SERVER_ERROR)  # todo 这里没填参数 会报错的， server=***
+            raise MorseException(result_code.START_SERVER_ERROR, server=Player)  # todo 这里没填参数 会报错的， server=*** OK
             # status = False
             # errorCode = result_code.START_SERVER_ERROR.get_code()
             # errorMsg = "start server faild"
@@ -273,8 +273,10 @@ def train():
             modelFileMachine = "YOwner"
         if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
+        else:
+            raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
         # todo 这里是不是可以做个参数校验，如果modelFileMachine不等于上述任何字段，就直接抛错，不要等到运行时
-        # todo 如果抛错是MorseException 记得加上MorseException
+        # todo 如果抛错是MorseException 记得加上MorseException  OK
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
@@ -339,14 +341,17 @@ def predict():
         CommonConfig.default_logger.info("task_id:" + str(task_id))
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
+
         # todo 这里是不是可以做个参数校验，如果modelFileMachine不等于上述任何字段，就直接抛错，不要等到运行时
-        # todo 如果抛错是MorseException 记得加上MorseException
+        # todo 如果抛错是MorseException 记得加上MorseException  OK
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
         if modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
             modelFileMachine = "YOwner"
         if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
+        else:
+            raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
 
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
@@ -409,7 +414,9 @@ def train_and_predict():
             modelFileMachine = "YOwner"
         if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
-        # todo 同理 必要参数做校验
+        else:
+            raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
+        # todo 同理 必要参数做校验 OK
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
@@ -474,6 +481,7 @@ def check_progress():
             return True
 
     CommonConfig.default_logger.info("check_progress")
+    percent = 0.0
     try:
         CommonConfig.default_logger.info("check_progress request:" + str(request))
         request_params = request.json
@@ -483,7 +491,7 @@ def check_progress():
         taskType = request_params.get('taskType')
         CommonConfig.default_logger.info("taskType:" + str(taskType))
         # todo 没必要每个字段打一行日志，其实是可以合起来的，自己看起来也会方便，这个优先级不高，自己判断即可（上面也有这个情况）
-        percent = "0.00"
+
         if taskType == "train":
 
             with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
@@ -550,9 +558,10 @@ def check_progress():
             else:
                 raise MorseException(result_code.CHECK_PROGRESS_ERROR)
 
-        else:
+        #else:
             # assert taskType == "train_and_predict"
-            # todo 为啥上面一行不写成   elif taskType == "train_and_predict":  上述else这里有assert，完全可以合一起
+        elif taskType == "train_and_predict":
+            # todo 为啥上面一行不写成   elif taskType == "train_and_predict":  上述else这里有assert，完全可以合一起 OK
             assert taskType == "train_and_predict", "error taskType:{}".format(taskType)
 
             with open(os.path.join(absolute_path,
@@ -615,6 +624,9 @@ def check_progress():
             else:
                 percent = str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
 
+        else:
+            raise MorseException(result_code.PARAM_ERROR, param="taskType")
+
     except MorseException as e:
 
         status = False
@@ -629,7 +641,6 @@ def check_progress():
         errorCode = result_code.CHECK_PROGRESS_ERROR.get_code()
         executeStatus = "FAILED"
         CommonConfig.error_logger.exception(
-
             'check_progress error, exception msg:{}'.format(str(e)))
 
     return json.dumps({"status": status, "executeStatus": executeStatus,
