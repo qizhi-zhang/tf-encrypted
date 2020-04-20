@@ -6,12 +6,12 @@ import tensorflow as tf
 # filename_queue = tf.train.string_input_producer(["./data/10w1k5col_x.csv"])
 # recodes=read_line.read(filename_queue)
 # 
-# recodes=tf.decode_csv(recodes, [[0.2]]*290, field_delim=", ")
+# recodes=tf.decode_csv(recodes, [[0.2]]*290, field_delim=",")
 
 
 def get_data_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
     def line_split(r):
-        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum + [[1]], field_delim=", ")
+        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum + [[1]], field_delim=",")
 
     def norm(x):
         x = tf.cast(x, tf.float32)
@@ -37,7 +37,7 @@ def get_data_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=100, cli
 def get_data_id_with_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_row_num=1):
 
     def line_split(r):
-        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.9]], field_delim=", ")
+        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.9]], field_delim=",")
 
     data = tf.data.TextLineDataset(data_y_file).skip(skip_row_num).map(
         line_split)
@@ -62,7 +62,7 @@ def get_data_id_with_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_r
 
 def get_data_id_with_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
     def line_split(r):
-        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum + [[1]], field_delim=", ")
+        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum + [[1]], field_delim=",")
 
     def norm(x):
         x = tf.cast(x, tf.float32)
@@ -92,7 +92,7 @@ def get_data_id_with_xy(batch_size, data_file, featureNum, matchColNum=2, epoch=
 
 def get_data_x(batch_size, data_x_file, featureNum, matchColNum=2, epoch=100, clip_by_value=3.0, skip_row_num=1):
     def line_split(r):
-        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum, field_delim=", ")
+        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.2]] * featureNum, field_delim=",")
 
     def norm(x):
         x = tf.cast(x, tf.float32)
@@ -111,7 +111,7 @@ def get_data_x(batch_size, data_x_file, featureNum, matchColNum=2, epoch=100, cl
 def get_data_y(batch_size, data_y_file, matchColNum=2, epoch=100, skip_row_num=1):
 
     def line_split(r):
-        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.9]], field_delim=", ")
+        return tf.decode_csv(r, [["a"]] * matchColNum + [[0.9]], field_delim=",")
 
     data = tf.data.TextLineDataset(data_y_file).skip(skip_row_num)\
         .map(line_split)
