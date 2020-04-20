@@ -650,7 +650,7 @@ def check_progress():
         CommonConfig.error_logger.exception(
             'check_progress error, exception msg:{}'.format(str(e)))
 
-    percent=int(float(percent)*100)
+    percent = int(float(percent)*100)
     return json.dumps({"status": status, "executeStatus": executeStatus,
 
                        "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
