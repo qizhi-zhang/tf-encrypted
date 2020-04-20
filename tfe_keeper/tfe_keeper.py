@@ -266,6 +266,7 @@ def train():
         CommonConfig.default_logger.info("task_id:" + str(task_id))
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
+        CommonConfig.default_logger.info("modelFileMachine:" + str(modelFileMachine))
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
         elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
@@ -274,9 +275,7 @@ def train():
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
-        # todo 这个地方你要判断下，需不需要把具体的modelFileMachine值给打印出来，方便排查问题
 
-        # todo 如果抛错是MorseException 记得加上MorseException  OK 你这个地方貌似没加，我在313行帮你加上了
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
@@ -347,7 +346,6 @@ def predict():
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
-        # todo 如果抛错是MorseException 记得加上MorseException  OK 还没加上
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
         elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
@@ -380,7 +378,13 @@ def predict():
         errorCode = 0
         errorMsg = ""
         predict_file = os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=task_id))
-        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
+
+    except MorseException as e:
+        status = False
+        errorMsg = e.get_message()
+        errorCode = e.get_code()
+        predict_file = os.path.join(absolute_path, "tfe/{task_id}/predict".format(task_id=task_id))
+
     except Exception as e:
         # print(e)
         CommonConfig.error_logger.exception(
@@ -389,7 +393,7 @@ def predict():
         errorCode = result_code.PREDICT_ERROR.get_code()
         errorMsg = str(e)
         predict_file = ""
-        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
+    return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg, "predictFile": predict_file})
 
 
 @tfe_keeper.route('/train_and_predict', methods=['GET', 'POST'])
@@ -411,6 +415,7 @@ def train_and_predict():
         CommonConfig.default_logger.info("task_id:" + str(task_id))
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
+        CommonConfig.default_logger.info("modelFileMachine:" + str(modelFileMachine))
 
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
@@ -494,7 +499,6 @@ def check_progress():
         CommonConfig.default_logger.info("task_id:" + str(task_id))
         taskType = request_params.get('taskType')
         CommonConfig.default_logger.info("taskType:" + str(taskType))
-        # todo 没必要每个字段打一行日志，其实是可以合起来的，自己看起来也会方便，这个优先级不高，自己判断即可（上面也有这个情况）
 
         if taskType == "train":
 
@@ -629,8 +633,7 @@ def check_progress():
 
         else:
             raise MorseException(result_code.PARAM_ERROR, param='taskType')
-            # todo 这个地方你要判断下，需不需要把具体的taskType值给打印出来，方便排查问题
-            # 修改完成后，把本py文件的所有 todo 去掉即可
+
     except MorseException as e:
 
         status = False
@@ -647,6 +650,7 @@ def check_progress():
         CommonConfig.error_logger.exception(
             'check_progress error, exception msg:{}'.format(str(e)))
 
+    percent=int(float(percent)*100)
     return json.dumps({"status": status, "executeStatus": executeStatus,
 
                        "errorCode": errorCode, "errorMsg": errorMsg, "percent": percent})
