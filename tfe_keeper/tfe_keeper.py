@@ -152,7 +152,6 @@ def start_server():
         if YOwner_iphost is None:
             YOwner_iphost = request_params.get('yOwner')
         if YOwner_iphost is None:
-            # 134 145 156 166 为啥code不一样 todo, 我理解其中有的是同一类型判断吧 OK
             raise MorseException(result_code.PARAM_ERROR, param="yOwner or YOwner")
             # status = False
             # errorCode = result_code.START_SERVER_ERROR.get_code()
@@ -196,7 +195,7 @@ def start_server():
             errorCode = 0
             errorMsg = ""
         else:
-            raise MorseException(result_code.START_SERVER_ERROR, server=Player)  # todo 这里没填参数 会报错的， server=*** OK
+            raise MorseException(result_code.START_SERVER_ERROR, server=Player)
             # status = False
             # errorCode = result_code.START_SERVER_ERROR.get_code()
             # errorMsg = "start server faild"
@@ -275,8 +274,9 @@ def train():
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
-        # todo 这里是不是可以做个参数校验，如果modelFileMachine不等于上述任何字段，就直接抛错，不要等到运行时
-        # todo 如果抛错是MorseException 记得加上MorseException  OK
+        # todo 这个地方你要判断下，需不需要把具体的modelFileMachine值给打印出来，方便排查问题
+
+        # todo 如果抛错是MorseException 记得加上MorseException  OK 你这个地方貌似没加，我在313行帮你加上了
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
@@ -312,6 +312,11 @@ def train():
         errorCode = 0
         errorMsg = ""
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
+    except MorseException as e:
+        status = False
+        errorMsg = e.get_message()
+        errorCode = e.get_code()
+        return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except Exception as e:
         # print(e)
         CommonConfig.error_logger.exception(
@@ -342,8 +347,7 @@ def predict():
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
-        # todo 这里是不是可以做个参数校验，如果modelFileMachine不等于上述任何字段，就直接抛错，不要等到运行时
-        # todo 如果抛错是MorseException 记得加上MorseException  OK
+        # todo 如果抛错是MorseException 记得加上MorseException  OK 还没加上
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
         elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
@@ -416,7 +420,7 @@ def train_and_predict():
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
-        # todo 同理 必要参数做校验 OK
+
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
@@ -561,7 +565,6 @@ def check_progress():
         # else:
             # assert taskType == "train_and_predict"
         elif taskType == "train_and_predict":
-            # todo 为啥上面一行不写成   elif taskType == "train_and_predict":  上述else这里有assert，完全可以合一起 OK
             assert taskType == "train_and_predict", "error taskType:{}".format(taskType)
 
             with open(os.path.join(absolute_path,
@@ -625,8 +628,9 @@ def check_progress():
                 percent = str(float(percent_train) * 0.95 + float(percent_predict) * 0.05)
 
         else:
-            raise MorseException(result_code.PARAM_ERROR, param="taskType")
-
+            raise MorseException(result_code.PARAM_ERROR, param='taskType')
+            # todo 这个地方你要判断下，需不需要把具体的taskType值给打印出来，方便排查问题
+            # 修改完成后，把本py文件的所有 todo 去掉即可
     except MorseException as e:
 
         status = False
