@@ -685,7 +685,7 @@ def kill_server():
             os.kill(pid, 9)
             # errorMsg = "killed {pid}".format(pid=pid)
             CommonConfig.default_logger.info("kill pid:{}".format(pid))
-        except ProcessLookupError as e:
+        except Exception as e:
             CommonConfig.default_logger.info("pid:{} is not alive".format(pid))
         status = True
         errorCode = 0
