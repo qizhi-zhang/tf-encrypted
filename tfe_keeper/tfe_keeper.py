@@ -41,10 +41,6 @@ def login():
 tfe_keeper = Blueprint('tfe_keeper', __name__)
 
 
-# todo
-# 所有的print全部改为 CommonConfig.logger OK
-# default_logger 不要用default_logger OK
-# 加MOrseException 统一抛异常即可
 @tfe_keeper.route('/grpc_port', methods=['GET', 'POST'])
 def get_grpc_port():
     try:
@@ -86,7 +82,6 @@ def detect_idle():
         CommonConfig.error_logger.exception(
             'detelt_idle error on input: {}, exception msg:{}'.format(str(request.json), str(e)))
         errorCode = result_code.DETECT_IDLE_ERROR.get_code()
-        # errorMsg = "detect_idle error"  # todo  下同
         errorMsg = result_code.DETECT_IDLE_ERROR.get_message()
     return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
@@ -157,7 +152,8 @@ def start_server():
         if YOwner_iphost is None:
             YOwner_iphost = request_params.get('yOwner')
         if YOwner_iphost is None:
-            raise MorseException(result_code.START_SERVER_ERROR, server="yOwner or YOwner")  # todo
+            # 134 145 156 166 为啥code不一样 todo, 我理解其中有的是同一类型判断吧
+            raise MorseException(result_code.START_SERVER_ERROR, server="yOwner or YOwner")
             # status = False
             # errorCode = result_code.START_SERVER_ERROR.get_code()
             # errorMsg = "nether yOwner nor YOwner are given"
@@ -169,7 +165,7 @@ def start_server():
         if Player is None:
             raise MorseException(result_code.PARAM_ERROR, param="Player or player")
 
-        # if YOwner_iphost is None:  # todo
+        # if YOwner_iphost is None:
 
             # status = False
             # errorCode = result_code.START_SERVER_ERROR.get_code()
@@ -200,11 +196,10 @@ def start_server():
             errorCode = 0
             errorMsg = ""
         else:
-            raise MorseException(result_code.START_SERVER_ERROR)
+            raise MorseException(result_code.START_SERVER_ERROR)  # todo 这里没填参数 会报错的， server=***
             # status = False
             # errorCode = result_code.START_SERVER_ERROR.get_code()
             # errorMsg = "start server faild"
-        # todo
         # print("p.exitcode:", p.exitcode)
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
     except MorseException as e:
@@ -278,7 +273,8 @@ def train():
             modelFileMachine = "YOwner"
         if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
-
+        # todo 这里是不是可以做个参数校验，如果modelFileMachine不等于上述任何字段，就直接抛错，不要等到运行时
+        # todo 如果抛错是MorseException 记得加上MorseException
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
@@ -343,7 +339,8 @@ def predict():
         CommonConfig.default_logger.info("task_id:" + str(task_id))
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
-
+        # todo 这里是不是可以做个参数校验，如果modelFileMachine不等于上述任何字段，就直接抛错，不要等到运行时
+        # todo 如果抛错是MorseException 记得加上MorseException
         if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
             modelFileMachine = "XOwner"
         if modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
@@ -412,7 +409,7 @@ def train_and_predict():
             modelFileMachine = "YOwner"
         if modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
             modelFileMachine = "RS"
-
+        # todo 同理 必要参数做校验
         modelFilePath = request_params.get('modelFilePath')
         modelFilePath = os.path.join(absolute_path, modelFilePath)
         modelName = request_params.get('modelName')
@@ -485,7 +482,7 @@ def check_progress():
         CommonConfig.default_logger.info("task_id:" + str(task_id))
         taskType = request_params.get('taskType')
         CommonConfig.default_logger.info("taskType:" + str(taskType))
-
+        # todo 没必要每个字段打一行日志，其实是可以合起来的，自己看起来也会方便，这个优先级不高，自己判断即可（上面也有这个情况）
         percent = "0.00"
         if taskType == "train":
 
@@ -555,7 +552,8 @@ def check_progress():
 
         else:
             # assert taskType == "train_and_predict"
-            assert taskType == "train_and_predict", "error taskType:{}".format(taskType)  # todo
+            # todo 为啥上面一行不写成   elif taskType == "train_and_predict":  上述else这里有assert，完全可以合一起
+            assert taskType == "train_and_predict", "error taskType:{}".format(taskType)
 
             with open(os.path.join(absolute_path,
                                    'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'r') as f:
@@ -620,23 +618,16 @@ def check_progress():
     except MorseException as e:
 
         status = False
-
         errorMsg = e.get_message()
-
         errorCode = e.get_code()
-
         executeStatus = "FAILED"
 
     except Exception as e:
 
         status = False
-
         errorMsg = result_code.CHECK_PROGRESS_ERROR.get_message()
-
         errorCode = result_code.CHECK_PROGRESS_ERROR.get_code()
-
         executeStatus = "FAILED"
-
         CommonConfig.error_logger.exception(
 
             'check_progress error, exception msg:{}'.format(str(e)))
@@ -665,7 +656,6 @@ def kill_server():
 
         # with open(os.path.join(absolute_path, 'tfe/{task_id}/
         # server_pid'.format(task_id=task_id)), 'r') as f:
-        # todo 如果一开始没有pid？
         with open(os.path.join(absolute_path, 'tfe/server_pid'), 'r') as f:
             pid = f.readline()
         if pid is None:
@@ -685,8 +675,8 @@ def kill_server():
         CommonConfig.error_logger.exception(
             'kill_server error, exception msg:{}'.format(str(e)))
 
-        status = False  # todo
-        errorCode = result_code.KILL_SERVER_ERROR.get_code()  # todo 定义一下
+        status = False
+        errorCode = result_code.KILL_SERVER_ERROR.get_code()
         errorMsg = str(e)
         return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": errorMsg})
 
