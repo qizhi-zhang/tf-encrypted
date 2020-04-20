@@ -558,7 +558,7 @@ def check_progress():
             else:
                 raise MorseException(result_code.CHECK_PROGRESS_ERROR)
 
-        #else:
+        # else:
             # assert taskType == "train_and_predict"
         elif taskType == "train_and_predict":
             # todo 为啥上面一行不写成   elif taskType == "train_and_predict":  上述else这里有assert，完全可以合一起 OK
