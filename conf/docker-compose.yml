@@ -8,15 +8,15 @@ tfe:
     - ./file:/app/file
     #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     ports:
-    - 8080:8080  # keeper
-    - 5678:5678    # tfe
-    - 8216:8216  # devU tfe
+    - 8081:8081  # keeper
+    #- 5678:5678    # tfe
+    #- 8216:8216  # devU tfe
     #- 40216:40216 # devU keeper
-    - 8217:8217 # devV tfe
+    #- 8217:8217 # devV tfe
     #- 40217:40217 #devV keeper
-    - 8218:8218 # researchJ tfe
+    #- 8218:8218 # researchJ tfe
     #- 40218:40218 # researchJ keeper
-#    - 5678:5678
-#    - 5679:5679
+    - 8080:8080 #grpc outer
     environment:
-    - grpc_port=5216   # =docker port=outer port
+    #- grpc_port=5216   # =docker port=outer port lsb
+    - grpc_port=8080   # =docker port=outer port
