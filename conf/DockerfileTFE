@@ -14,6 +14,7 @@ RUN mkdir -p /app/tmp
 RUN mkdir -p /app/file
 RUN mkdir -p /app/conf
 RUN mkdir -p /app/conf/parser
+RUN rm -rf /app/tfe_keeper/tfe_keeper.py
 
 
 

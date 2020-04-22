@@ -17,7 +17,7 @@ import requests
 from unittest import TestCase, main
 # from commonutils.common_config import CommonConfig
 from commonutils.http_util import HttpUtil
-from tfe_keeper.tfe_keeper import app
+from tfe_keeper.tfe_keeper_main import app
 requests.packages.urllib3.disable_warnings()
 
 class TestBinning(TestCase):
