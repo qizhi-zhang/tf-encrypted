@@ -675,6 +675,11 @@ def kill_server():
 
         # with open(os.path.join(absolute_path, 'tfe/{task_id}/
         # server_pid'.format(task_id=task_id)), 'r') as f:
+        if not os.path.exists(os.path.join(absolute_path, 'tfe/server_pid')):
+            status = True
+            errorCode = 0
+            CommonConfig.default_logger.info("no need kill pid")
+            return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": ""})
         with open(os.path.join(absolute_path, 'tfe/server_pid'), 'r') as f:
             pid = f.readline()
         if pid is None:
