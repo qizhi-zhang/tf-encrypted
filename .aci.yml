@@ -55,6 +55,7 @@ python_lint:
       - "**__init__.py**"
       - "*.sh"
       - "*.csv"
+      - "*.md"
       - "*.txt"
       - "setup.py"
     taskKind: CMD_PYTHON2_FLAKE8
