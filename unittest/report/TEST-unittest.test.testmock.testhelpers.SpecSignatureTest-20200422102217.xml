@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<testsuite errors="0" failures="0" name="unittest.test.testmock.testhelpers.SpecSignatureTest-20200422102217" tests="29" time="0.123">
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_attributes" time="0.010"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_autospec_data_descriptor" time="0.005"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_autospec_functions_with_self_in_odd_place" time="0.003"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_autospec_on_bound_builtin_function" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_autospec_reset_mock" time="0.002"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_basic" time="0.009"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_builtin_functions_types" time="0.007"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_builtins" time="0.013"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_class_with_no_init" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_create_autospec_keyword_arguments" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_create_autospec_keyword_only_arguments" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_create_autospec_none" time="0.002"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_create_autospec_return_value" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_create_autospec_unbound_methods" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_descriptors" time="0.015"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_function" time="0.002"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_function_as_instance_attribute" time="0.002"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_inherit" time="0.004"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_magic_methods" time="0.003"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_method_calls" time="0.005"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_mocking_unbound_methods" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_recursive" time="0.006"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_signature_callable" time="0.002"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_signature_class" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_signature_noncallable" time="0.002"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_skip_attributeerrors" time="0.003"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_spec_as_list" time="0.005"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_spec_inheritance_for_classes" time="0.006"/>
+	<testcase classname="unittest.test.testmock.testhelpers.SpecSignatureTest" name="test_spec_set" time="0.009"/>
+	<system-out>
+<![CDATA[]]>	</system-out>
+	<system-err>
+<![CDATA[]]>	</system-err>
+</testsuite>

@@ -3,9 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="9b58dc33-2ccd-4721-8f82-2d97a93ebc3c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/DockerfileTFE" beforeDir="false" afterPath="$PROJECT_DIR$/conf/DockerfileTFE" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/conf/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/docker-compose.yml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/conf/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/conf/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/tfe_keeper/tfe_keeper.py" afterDir="false" />
+>>>>>>> 301a872ac81bc208f4fb8324d433760c6315dbcf
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

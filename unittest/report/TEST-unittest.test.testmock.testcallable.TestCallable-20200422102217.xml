@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<testsuite errors="0" failures="0" name="unittest.test.testmock.testcallable.TestCallable-20200422102217" tests="11" time="0.028">
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_attributes" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_create_autospec" time="0.008"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_create_autospec_instance" time="0.003"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_hierarchy" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_non_callable" time="0.000"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_patch_spec" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_patch_spec_callable_class" time="0.011"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_patch_spec_instance" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_patch_spec_set" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_patch_spec_set_instance" time="0.001"/>
+	<testcase classname="unittest.test.testmock.testcallable.TestCallable" name="test_subclasses" time="0.001"/>
+	<system-out>
+<![CDATA[]]>	</system-out>
+	<system-err>
+<![CDATA[]]>	</system-err>
+</testsuite>
