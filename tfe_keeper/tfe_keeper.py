@@ -6,9 +6,7 @@ from tf_encrypted.config import RemoteConfig
 from multiprocessing import Process
 # import threading
 from commonutils.common_config import CommonConfig
-import train_lr
-import predict_lr
-import train_and_predict_lr
+from tfe_keeper import train_lr, predict_lr, train_and_predict_lr
 import os
 import platform
 from commonutils.exception_utils.exception_utils import MorseException
@@ -678,7 +676,7 @@ def kill_server():
         if not os.path.exists(os.path.join(absolute_path, 'tfe/server_pid')):
             status = True
             errorCode = 0
-            CommonConfig.default_logger.info("no need kill pid")
+            CommonConfig.default_logger.info("file server_pid does not exists.")
             return json.dumps({"status": status, "errorCode": errorCode, "errorMsg": ""})
         with open(os.path.join(absolute_path, 'tfe/server_pid'), 'r') as f:
             pid = f.readline()
