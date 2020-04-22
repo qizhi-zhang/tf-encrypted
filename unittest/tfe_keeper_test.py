@@ -122,22 +122,22 @@ class TestBinning(TestCase):
         x = self.client.post("/tfe_keeper/train",data=json.dumps(data), content_type="application/json")
         print(x)
 
-    def test_train_and_predict(self):
-        # test train_and_predict
-        # with open('unittest/qqq/conf', 'r') as f:
-        #     conf = f.read()
-        #     print(conf)
-        conf = self.conf.replace("True","true").replace("False","false")
-        # print(input)
-        conf = json.loads(conf)
-        print(conf)
-
-        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model",
-                "modelName": "model", "test_flag": False}  # 相对路径
-        #
-        # x = self.httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/train_and_predict", json_data=json.dumps(data))
-        x = self.client.post("/tfe_keeper/train_and_predict", data=json.dumps(data), content_type="application/json")
-        print(x)
+    # def test_train_and_predict(self):
+    #     # test train_and_predict
+    #     # with open('unittest/qqq/conf', 'r') as f:
+    #     #     conf = f.read()
+    #     #     print(conf)
+    #     conf = self.conf.replace("True","true").replace("False","false")
+    #     # print(input)
+    #     conf = json.loads(conf)
+    #     print(conf)
+    #
+    #     data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model",
+    #             "modelName": "model", "test_flag": False}  # 相对路径
+    #     #
+    #     # x = self.httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/train_and_predict", json_data=json.dumps(data))
+    #     x = self.client.post("/tfe_keeper/train_and_predict", data=json.dumps(data), content_type="application/json")
+    #     print(x)
 
 
 

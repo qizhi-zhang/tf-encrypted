@@ -10,8 +10,8 @@ import os
 import platform
 from commonutils.common_config import CommonConfig
 from tf_encrypted.keras import backend as KE
-from tfe_keeper.common_private import LogisticRegression
-from tfe_keeper.read_data_tf import get_data_x, get_data_id_with_y, get_data_id_with_xy
+from common_private import LogisticRegression
+from read_data_tf import get_data_x, get_data_id_with_y, get_data_id_with_xy
 # import sys
 # from common_private import  ModelOwner, LogisticRegression, XOwner, YOwner
 

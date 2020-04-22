@@ -6,7 +6,9 @@ from tf_encrypted.config import RemoteConfig
 from multiprocessing import Process
 # import threading
 from commonutils.common_config import CommonConfig
-from tfe_keeper import train_lr, predict_lr, train_and_predict_lr
+import train_lr
+import predict_lr
+import train_and_predict_lr
 import os
 import platform
 from commonutils.exception_utils.exception_utils import MorseException
