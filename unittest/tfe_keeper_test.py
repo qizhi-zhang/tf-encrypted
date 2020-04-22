@@ -144,6 +144,7 @@ class TestBinning(TestCase):
     def test_check_progress(self):
         # # check_progress
         #
+        time.sleep(2)
         data = {"taskId": "qqq", "taskType": "train" }
         # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/check_progress", json_data=json.dumps(data))
         x = self.client.post("/tfe_keeper/check_progress", data=json.dumps(data), content_type="application/json")
@@ -154,10 +155,11 @@ class TestBinning(TestCase):
         # with open('unittest/qqq/conf', 'r') as f:
         #     conf = f.read()
         #     print(conf)
+
         conf = self.conf.replace("True","true").replace("False","false")
         # print(input)
         conf = json.loads(conf)
-        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "./qqq/model", "test_flag": True,  }
+        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "./qqq/model", "test_flag": True}
 
         # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/predict",json_data=json.dumps(data))
         x = self.client.post("/tfe_keeper/predict", data=json.dumps(data), content_type="application/json")
@@ -165,7 +167,7 @@ class TestBinning(TestCase):
 
     def test_check_progress_predict(self):
         # check_progress
-
+        time.sleep(2)
         data = {"taskId": "qqq", "taskType": "predict" }
         # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/check_progress", json_data=json.dumps(data))
         x = self.client.post("/tfe_keeper/check_progress", data=json.dumps(data), content_type="application/json")
