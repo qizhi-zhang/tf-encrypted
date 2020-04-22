@@ -16,6 +16,7 @@ tfe:
     #- 40217:40217 #devV keeper
     #- 8218:8218 # researchJ tfe
     #- 40218:40218 # researchJ keeper
+    #- physical machine port: docker port= outer port
     - 8080:8080 #grpc outer
     environment:
     #- grpc_port=5216   # =docker port=outer port lsb
