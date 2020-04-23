@@ -111,64 +111,64 @@ class TestBinning(TestCase):
         x = self.client.post("/tfe_keeper/start_server", data=json.dumps(data), content_type="application/json")
         print(x)
 
-    # def test_train(self):
-    #     # test train
-    #     # with open('unittest/qqq/conf', 'r') as f:
-    #     #     conf=f.read()
-    #     #     print(conf)
-    #     conf=self.conf.replace("True","true").replace("False","false")
-    #     # print(input)
-    #     conf = json.loads(conf)
-    #     print(conf)
-    #
-    #     data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "file/qqq/model", "modelName": "model_plaintext", "test_flag": True }
-    #
-    #     # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
-    #     x = self.client.post("/tfe_keeper/train",data=json.dumps(data), content_type="application/json")
-    #     print(x)
+    def test_train(self):
+        # test train
+        # with open('unittest/qqq/conf', 'r') as f:
+        #     conf=f.read()
+        #     print(conf)
+        conf=self.conf.replace("True","true").replace("False","false")
+        # print(input)
+        conf = json.loads(conf)
+        print(conf)
 
-    # def test_train_and_predict(self):
-    #     # test train_and_predict
-    #     # with open('unittest/qqq/conf', 'r') as f:
-    #     #     conf = f.read()
-    #     #     print(conf)
-    #     conf = self.conf.replace("True","true").replace("False","false")
-    #     # print(input)
-    #     conf = json.loads(conf)
-    #     print(conf)
-    #
-    #     data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model",
-    #             "modelName": "model", "test_flag": True}  # 相对路径
-    #     #
-    #     # x = self.httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/train_and_predict", json_data=json.dumps(data))
-    #     x = self.client.post("/tfe_keeper/train_and_predict", data=json.dumps(data), content_type="application/json")
-    #     print(x)
-    #
-    #
-    #
-    # def test_check_progress(self):
-    #     # # check_progress
-    #     #
-    #     time.sleep(2)
-    #     data = {"taskId": "qqq", "taskType": "train" }
-    #     # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/check_progress", json_data=json.dumps(data))
-    #     x = self.client.post("/tfe_keeper/check_progress", data=json.dumps(data), content_type="application/json")
-    #     print(x)
-    #
-    # def test_predict(self):
-    #     # predict
-    #     # with open('unittest/qqq/conf', 'r') as f:
-    #     #     conf = f.read()
-    #     #     print(conf)
-    #
-    #     conf = self.conf.replace("True","true").replace("False","false")
-    #     # print(input)
-    #     conf = json.loads(conf)
-    #     data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "file/qqq/model", "test_flag": True}
-    #
-    #     # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/predict",json_data=json.dumps(data))
-    #     x = self.client.post("/tfe_keeper/predict", data=json.dumps(data), content_type="application/json")
-    #     print(x)
+        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "file/qqq/model", "modelName": "model_plaintext", "test_flag": True }
+
+        # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
+        x = self.client.post("/tfe_keeper/train",data=json.dumps(data), content_type="application/json")
+        print(x)
+
+    def test_train_and_predict(self):
+        # test train_and_predict
+        # with open('unittest/qqq/conf', 'r') as f:
+        #     conf = f.read()
+        #     print(conf)
+        conf = self.conf.replace("True","true").replace("False","false")
+        # print(input)
+        conf = json.loads(conf)
+        print(conf)
+
+        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "y_owner", "modelFilePath": "file/qqq/model",
+                "modelName": "model", "test_flag": True}  # 相对路径
+        #
+        # x = self.httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/train_and_predict", json_data=json.dumps(data))
+        x = self.client.post("/tfe_keeper/train_and_predict", data=json.dumps(data), content_type="application/json")
+        print(x)
+
+
+
+    def test_check_progress(self):
+        # # check_progress
+        #
+        time.sleep(2)
+        data = {"taskId": "qqq", "taskType": "train" }
+        # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/check_progress", json_data=json.dumps(data))
+        x = self.client.post("/tfe_keeper/check_progress", data=json.dumps(data), content_type="application/json")
+        print(x)
+
+    def test_predict(self):
+        # predict
+        # with open('unittest/qqq/conf', 'r') as f:
+        #     conf = f.read()
+        #     print(conf)
+
+        conf = self.conf.replace("True","true").replace("False","false")
+        # print(input)
+        conf = json.loads(conf)
+        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "file/qqq/model", "test_flag": True}
+
+        # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/predict",json_data=json.dumps(data))
+        x = self.client.post("/tfe_keeper/predict", data=json.dumps(data), content_type="application/json")
+        print(x)
 
     def test_check_progress_predict(self):
         # check_progress
