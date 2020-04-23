@@ -18,10 +18,12 @@ RUN rm -rf /app/tfe_keeper/tfe_keeper.py
 
 
 
+
 # requirements
 #RUN pip install -r /app/conf/requirements.txt
 RUN pip install coverage -i https://mirrors.aliyun.com/pypi/simple/
 RUN pip install xmlrunner -i https://mirrors.aliyun.com/pypi/simple/
+RUN pip install mock -i https://mirrors.aliyun.com/pypi/simple/
 RUN apt-get install curl -y
 
 
