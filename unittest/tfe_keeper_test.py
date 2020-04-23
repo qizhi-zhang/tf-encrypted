@@ -12,6 +12,7 @@ from commonutils.http_util import HttpUtil
 import numpy as np
 import tensorflow as tf
 from tfe_keeper.tfe_keeper_main import app
+from multiprocessing import Process
 requests.packages.urllib3.disable_warnings()
 
 class TestBinning(TestCase):
@@ -106,9 +107,11 @@ class TestBinning(TestCase):
         x = self.client.post("/tfe_keeper/start_server", data=json.dumps(data), content_type="application/json")
         print(x)
 
-    @mock.patch("tensorflow.Session.run")
-    def test_train(self, run):
-        run.return_value = np.array(["1, 0.1"] * 128)
+    #@mock.patch("tensorflow.Session.run")
+    @mock.patch("multiprocessing.Process.start")
+    def test_train(self, start):
+        #run.return_value = np.array(["1, 0.1"] * 128)
+        start.return_value = True
         # test train
         # with open('unittest/qqq/conf', 'r') as f:
         #     conf=f.read()
@@ -125,9 +128,11 @@ class TestBinning(TestCase):
         x = self.client.post("/tfe_keeper/train",data=json.dumps(data), content_type="application/json")
         print(x)
 
-    @mock.patch("tensorflow.Session.run")
-    def test_train_and_predict(self, run):
-        run.return_value = np.array(["1, 0.1"]*128)
+    # @mock.patch("tensorflow.Session.run")
+    @mock.patch("multiprocessing.Process.start")
+    def test_train_and_predict(self, start):
+        #run.return_value = np.array(["1, 0.1"]*128)
+        start.return_value = True
         # test train_and_predict
         # with open('unittest/qqq/conf', 'r') as f:
         #     conf = f.read()
@@ -155,9 +160,11 @@ class TestBinning(TestCase):
         x = self.client.post("/tfe_keeper/check_progress", data=json.dumps(data), content_type="application/json")
         print(x)
 
-    @mock.patch("tensorflow.Session.run")
-    def test_predict(self, run):
-        run.return_value = np.array(["1, 0.1"] * 128)
+    # @mock.patch("tensorflow.Session.run")
+    @mock.patch("multiprocessing.Process.start")
+    def test_predict(self, start):
+        start.return_value = True
+        #run.return_value = np.array(["1, 0.1"] * 128)
         # predict
         # with open('unittest/qqq/conf', 'r') as f:
         #     conf = f.read()
