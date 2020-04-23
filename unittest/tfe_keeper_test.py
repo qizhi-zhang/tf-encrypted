@@ -57,14 +57,14 @@ class TestBinning(TestCase):
     },
     "dataSet": {
         "node_id1": {
-            "storagePath": "file/qqq/data/embed_op_fea_5w_format_x.csv",
+            "storagePath": "file/qqq/data/embed_op_fea_5w_format_x.csv_",
             "fileRecord": 50038,
             "isContainY": False,
             "matchColNum": 2,
             "featureNum": 291
         },
         "node_id2": {
-            "storagePath": "file/qqq/data/embed_op_fea_5w_format_y.csv",
+            "storagePath": "file/qqq/data/embed_op_fea_5w_format_y.csv_",
             "fileRecord": 50038,
             "isContainY": True,
             "matchColNum": 2,
@@ -73,14 +73,14 @@ class TestBinning(TestCase):
     },
     "dataSetPredict": {
         "node_id1": {
-            "storagePath": "file/qqq/data/embed_op_fea_5w_format_x.csv",
+            "storagePath": "file/qqq/data/embed_op_fea_5w_format_x.csv_",
             "fileRecord": 50038,
             "isContainY": False,
             "matchColNum": 2,
             "featureNum": 291
         },
         "node_id2": {
-            "storagePath": "file/qqq/data/embed_op_fea_5w_format_y.csv",
+            "storagePath": "file/qqq/data/embed_op_fea_5w_format_y.csv_",
             "fileRecord": 50038,
             "isContainY": True,
             "matchColNum": 2,
