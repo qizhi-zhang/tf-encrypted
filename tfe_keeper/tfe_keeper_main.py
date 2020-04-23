@@ -288,7 +288,7 @@ def train():
         conf = request_params.get('conf')
 
         test_flag = request_params.get('test_flag', False)
-
+        unittest_flag = request_params.get('unittest_flag', False)
         if test_flag:
             tf_config_file = None
         else:
@@ -300,7 +300,8 @@ def train():
                                                modelFilePath, modelFilePlainTextPath, tf_config_file))
         # p = threading.Thread(target=train_lr.run, args=(task_id, conf, 
         # modelFileMachine, modelFilePath, modelFilePlainTextPath, tf_config_file))
-        p.start()
+        if not unittest_flag:
+            p.start()
 
         CommonConfig.default_logger.info("train Process pid:" + str(p.pid))
 
@@ -374,7 +375,9 @@ def predict():
 
         p = Process(target=predict_lr.run, args=(task_id, conf, modelFileMachine,
                                                  modelFilePath, progress_file, tf_config_file))
-        p.start()
+        unittest_flag = request_params.get('unittest_flag', False)
+        if not unittest_flag:
+            p.start()
         CommonConfig.default_logger.info("predict Process pid:" + str(p.pid))
         with open(os.path.join(absolute_path, 'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'w') as f:
             f.write(str(p.pid))
@@ -449,7 +452,9 @@ def train_and_predict():
         p = Process(target=train_and_predict_lr.run,
                     args=(task_id, conf, modelFileMachine, modelFilePath,
                           modelFilePlainTextPath, tf_config_file))
-        p.start()
+        unittest_flag = request_params.get('unittest_flag', False)
+        if not unittest_flag:
+            p.start()
 
         with open(os.path.join(absolute_path, 
                                'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'w') as f:
