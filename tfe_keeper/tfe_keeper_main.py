@@ -1,5 +1,5 @@
 # coding=utf-8
-from flask import Flask,request, Blueprint
+from flask import Flask, request, Blueprint
 # from flask import Flask, redirect, url_for, request, Blueprint
 # import os
 import json
