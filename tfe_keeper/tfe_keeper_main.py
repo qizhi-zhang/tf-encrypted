@@ -495,7 +495,7 @@ def check_progress():
         try:
             pid = int(pid)
             os.kill(pid, 0)
-        #except OSError:
+        # except OSError:
         except Exception:
             return False
         else:
@@ -514,19 +514,15 @@ def check_progress():
 
         if taskType == "train":
 
-
-
             with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
                 pid = f.readline()
             if pid is None or pid == "" or pid == "None":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename='tfe/{task_id}/train_pid'.format(task_id=task_id))
-            #pid = int(pid)
+            # pid = int(pid)
             CommonConfig.default_logger.info("pid=" + pid)
 
             pid_exists = check_pid(pid)
-
-
 
             with open(os.path.join(absolute_path,
                                    'tfe/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
@@ -558,7 +554,7 @@ def check_progress():
             if pid is None or pid == "" or pid == "None":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename='tfe/{task_id}/predict_pid'.format(task_id=task_id))
-            #pid = int(pid)
+            # pid = int(pid)
             pid_exists = check_pid(pid)
 
             with open(os.path.join(absolute_path,
@@ -593,7 +589,7 @@ def check_progress():
             if pid is None or pid == "" or pid == "None":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename='tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id))
-            #pid = int(pid)
+            # pid = int(pid)
             CommonConfig.default_logger.info("pid=" + str(pid))
 
             pid_exists = check_pid(pid)
