@@ -1,0 +1,217 @@
+2020-04-22 18:27:49,246 INFO tfe_keeper_main.start_server:121 start_server request:<Request 'http://localhost/tfe_keeper/start_server' [POST]>
+2020-04-22 18:27:49,246 INFO tfe_keeper_main.start_server:123 start_server request_params:{'taskId': 'qqq', 'XOwner': '127.0.0.1:5677', 'YOwner': '127.0.0.1:5678', 'RS': '127.0.0.1:5679', 'Player': 'XOwner'}
+2020-04-22 18:27:49,246 INFO tfe_keeper_main.start_server:125 task_id:qqq
+2020-04-22 18:27:49,246 INFO tfe_keeper_main.start_server:135 RS_iphost:127.0.0.1:5679
+2020-04-22 18:27:49,246 INFO tfe_keeper_main.start_server:146 XOwner_iphost=127.0.0.1:5677
+2020-04-22 18:27:49,256 INFO tfe_keeper_main._start_server:230 config:
+{
+    "XOwner": "127.0.0.1:5677", 
+    "YOwner": "127.0.0.1:5678", 
+    "RS": "127.0.0.1:5679"
+}
+        
+2020-04-22 18:27:49,264 INFO tfe_keeper_main._start_server:232 absolute_path:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted
+2020-04-22 18:27:49,264 INFO tfe_keeper_main._start_server:235 1. tfe config.json: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:27:49,267 INFO tfe_keeper_main._start_server:242 2. tfe config.json:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:27:50,255 INFO tfe_keeper_main.start_server:189 p.pid72988
+2020-04-22 18:27:50,257 INFO tfe_keeper_main.start_server:191 p.exitcodeNone
+2020-04-22 18:27:57,423 INFO tfe_keeper_main.train:263 train
+2020-04-22 18:27:57,426 INFO tfe_keeper_main.train:265 train request:<Request 'http://localhost/tfe_keeper/train' [POST]>
+2020-04-22 18:27:57,428 INFO tfe_keeper_main.train:267 train request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:27:57,428 INFO tfe_keeper_main.train:269 task_id:qqq
+2020-04-22 18:27:57,428 INFO tfe_keeper_main.train:272 modelFileMachine:YOwner
+2020-04-22 18:28:03,884 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 18:28:03,884 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 18:28:03,885 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'train'}
+2020-04-22 18:28:03,885 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 18:28:03,885 INFO tfe_keeper_main.check_progress:504 taskType:train
+2020-04-22 18:28:03,886 INFO tfe_keeper_main.check_progress:514 pid=31477
+2020-04-22 18:28:03,886 INFO tfe_keeper_main.check_progress:525 percent=0.0
+
+2020-04-22 18:28:09,762 INFO tfe_keeper_main.predict:344 pridict request:<Request 'http://localhost/tfe_keeper/predict' [POST]>
+2020-04-22 18:28:09,763 INFO tfe_keeper_main.predict:346 predict request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:28:09,763 INFO tfe_keeper_main.predict:348 task_id:qqq
+2020-04-22 18:28:15,369 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 18:28:15,370 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 18:28:15,371 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'predict'}
+2020-04-22 18:28:15,372 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 18:28:15,372 INFO tfe_keeper_main.check_progress:504 taskType:predict
+2020-04-22 18:28:23,089 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 18:28:23,091 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 18:28:23,092 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'train'}
+2020-04-22 18:28:23,093 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 18:28:23,093 INFO tfe_keeper_main.check_progress:504 taskType:train
+2020-04-22 18:28:23,094 INFO tfe_keeper_main.check_progress:514 pid=31477
+2020-04-22 18:28:23,096 INFO tfe_keeper_main.check_progress:525 percent=0.0
+
+2020-04-22 18:28:23,100 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 18:28:23,101 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 18:28:23,101 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'predict'}
+2020-04-22 18:28:23,101 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 18:28:23,101 INFO tfe_keeper_main.check_progress:504 taskType:predict
+2020-04-22 18:28:23,107 INFO tfe_keeper_main.kill_server:673 kill_server request:<Request 'http://localhost/tfe_keeper/kill_server' [POST]>
+2020-04-22 18:28:23,108 INFO tfe_keeper_main.kill_server:675 kill_server request_params:{'taskId': 'qqq'}
+2020-04-22 18:28:23,108 INFO tfe_keeper_main.kill_server:677 task_id:qqq
+2020-04-22 18:28:23,111 INFO tfe_keeper_main.kill_server:695 kill pid:72988
+2020-04-22 18:28:23,117 INFO tfe_keeper_main.predict:344 pridict request:<Request 'http://localhost/tfe_keeper/predict' [POST]>
+2020-04-22 18:28:23,118 INFO tfe_keeper_main.predict:346 predict request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:28:23,118 INFO tfe_keeper_main.predict:348 task_id:qqq
+2020-04-22 18:28:23,123 INFO tfe_keeper_main.start_server:121 start_server request:<Request 'http://localhost/tfe_keeper/start_server' [POST]>
+2020-04-22 18:28:23,124 INFO tfe_keeper_main.start_server:123 start_server request_params:{'taskId': 'qqq', 'XOwner': '127.0.0.1:5677', 'YOwner': '127.0.0.1:5678', 'RS': '127.0.0.1:5679', 'Player': 'XOwner'}
+2020-04-22 18:28:23,124 INFO tfe_keeper_main.start_server:125 task_id:qqq
+2020-04-22 18:28:23,124 INFO tfe_keeper_main.start_server:135 RS_iphost:127.0.0.1:5679
+2020-04-22 18:28:23,125 INFO tfe_keeper_main.start_server:146 XOwner_iphost=127.0.0.1:5677
+2020-04-22 18:28:23,150 INFO tfe_keeper_main._start_server:230 config:
+{
+    "XOwner": "127.0.0.1:5677", 
+    "YOwner": "127.0.0.1:5678", 
+    "RS": "127.0.0.1:5679"
+}
+        
+2020-04-22 18:28:23,169 INFO tfe_keeper_main._start_server:232 absolute_path:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted
+2020-04-22 18:28:23,171 INFO tfe_keeper_main._start_server:235 1. tfe config.json: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:28:23,175 INFO tfe_keeper_main._start_server:242 2. tfe config.json:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:28:24,141 INFO tfe_keeper_main.start_server:189 p.pid73099
+2020-04-22 18:28:24,142 INFO tfe_keeper_main.start_server:191 p.exitcodeNone
+2020-04-22 18:28:24,147 INFO tfe_keeper_main.train:263 train
+2020-04-22 18:28:24,147 INFO tfe_keeper_main.train:265 train request:<Request 'http://localhost/tfe_keeper/train' [POST]>
+2020-04-22 18:28:24,147 INFO tfe_keeper_main.train:267 train request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:28:24,147 INFO tfe_keeper_main.train:269 task_id:qqq
+2020-04-22 18:28:24,147 INFO tfe_keeper_main.train:272 modelFileMachine:YOwner
+2020-04-22 18:50:46,618 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 18:50:46,618 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 18:50:46,618 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'train'}
+2020-04-22 18:50:46,619 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 18:50:46,619 INFO tfe_keeper_main.check_progress:504 taskType:train
+2020-04-22 18:50:46,619 INFO tfe_keeper_main.check_progress:514 pid=31477
+2020-04-22 18:50:46,621 INFO tfe_keeper_main.check_progress:525 percent=0.0
+
+2020-04-22 18:50:46,623 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 18:50:46,624 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 18:50:46,624 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'predict'}
+2020-04-22 18:50:46,624 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 18:50:46,624 INFO tfe_keeper_main.check_progress:504 taskType:predict
+2020-04-22 18:50:46,630 INFO tfe_keeper_main.kill_server:673 kill_server request:<Request 'http://localhost/tfe_keeper/kill_server' [POST]>
+2020-04-22 18:50:46,631 INFO tfe_keeper_main.kill_server:675 kill_server request_params:{'taskId': 'qqq'}
+2020-04-22 18:50:46,631 INFO tfe_keeper_main.kill_server:677 task_id:qqq
+2020-04-22 18:50:46,632 INFO tfe_keeper_main.kill_server:695 kill pid:73099
+2020-04-22 18:50:46,635 INFO tfe_keeper_main.predict:344 pridict request:<Request 'http://localhost/tfe_keeper/predict' [POST]>
+2020-04-22 18:50:46,635 INFO tfe_keeper_main.predict:346 predict request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:50:46,636 INFO tfe_keeper_main.predict:348 task_id:qqq
+2020-04-22 18:50:46,637 INFO tfe_keeper_main.start_server:121 start_server request:<Request 'http://localhost/tfe_keeper/start_server' [POST]>
+2020-04-22 18:50:46,638 INFO tfe_keeper_main.start_server:123 start_server request_params:{'taskId': 'qqq', 'XOwner': '127.0.0.1:5677', 'YOwner': '127.0.0.1:5678', 'RS': '127.0.0.1:5679', 'Player': 'XOwner'}
+2020-04-22 18:50:46,638 INFO tfe_keeper_main.start_server:125 task_id:qqq
+2020-04-22 18:50:46,639 INFO tfe_keeper_main.start_server:135 RS_iphost:127.0.0.1:5679
+2020-04-22 18:50:46,639 INFO tfe_keeper_main.start_server:146 XOwner_iphost=127.0.0.1:5677
+2020-04-22 18:50:46,650 INFO tfe_keeper_main._start_server:230 config:
+{
+    "XOwner": "127.0.0.1:5677", 
+    "YOwner": "127.0.0.1:5678", 
+    "RS": "127.0.0.1:5679"
+}
+        
+2020-04-22 18:50:46,656 INFO tfe_keeper_main._start_server:232 absolute_path:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted
+2020-04-22 18:50:46,658 INFO tfe_keeper_main._start_server:235 1. tfe config.json: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:50:46,662 INFO tfe_keeper_main._start_server:242 2. tfe config.json:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:50:47,652 INFO tfe_keeper_main.start_server:189 p.pid75056
+2020-04-22 18:50:47,654 INFO tfe_keeper_main.start_server:191 p.exitcodeNone
+2020-04-22 18:50:47,660 INFO tfe_keeper_main.train:263 train
+2020-04-22 18:50:47,661 INFO tfe_keeper_main.train:265 train request:<Request 'http://localhost/tfe_keeper/train' [POST]>
+2020-04-22 18:50:47,661 INFO tfe_keeper_main.train:267 train request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:50:47,661 INFO tfe_keeper_main.train:269 task_id:qqq
+2020-04-22 18:50:47,661 INFO tfe_keeper_main.train:272 modelFileMachine:YOwner
+2020-04-22 18:52:12,020 INFO tfe_keeper_main.start_server:121 start_server request:<Request 'http://localhost/tfe_keeper/start_server' [POST]>
+2020-04-22 18:52:12,020 INFO tfe_keeper_main.start_server:123 start_server request_params:{'taskId': 'qqq', 'XOwner': '127.0.0.1:5677', 'YOwner': '127.0.0.1:5678', 'RS': '127.0.0.1:5679', 'Player': 'XOwner'}
+2020-04-22 18:52:12,021 INFO tfe_keeper_main.start_server:125 task_id:qqq
+2020-04-22 18:52:12,021 INFO tfe_keeper_main.start_server:135 RS_iphost:127.0.0.1:5679
+2020-04-22 18:52:12,021 INFO tfe_keeper_main.start_server:146 XOwner_iphost=127.0.0.1:5677
+2020-04-22 18:52:12,029 INFO tfe_keeper_main._start_server:230 config:
+{
+    "XOwner": "127.0.0.1:5677", 
+    "YOwner": "127.0.0.1:5678", 
+    "RS": "127.0.0.1:5679"
+}
+        
+2020-04-22 18:52:12,034 INFO tfe_keeper_main._start_server:232 absolute_path:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted
+2020-04-22 18:52:12,035 INFO tfe_keeper_main._start_server:235 1. tfe config.json: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:52:12,036 INFO tfe_keeper_main._start_server:242 2. tfe config.json:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:52:13,030 INFO tfe_keeper_main.start_server:189 p.pid75172
+2020-04-22 18:52:13,032 INFO tfe_keeper_main.start_server:191 p.exitcodeNone
+2020-04-22 18:52:35,991 INFO tfe_keeper_main.train:263 train
+2020-04-22 18:52:35,992 INFO tfe_keeper_main.train:265 train request:<Request 'http://localhost/tfe_keeper/train' [POST]>
+2020-04-22 18:52:35,992 INFO tfe_keeper_main.train:267 train request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:52:35,992 INFO tfe_keeper_main.train:269 task_id:qqq
+2020-04-22 18:52:35,992 INFO tfe_keeper_main.train:272 modelFileMachine:YOwner
+2020-04-22 18:53:34,356 INFO tfe_keeper_main.start_server:121 start_server request:<Request 'http://localhost/tfe_keeper/start_server' [POST]>
+2020-04-22 18:53:34,357 INFO tfe_keeper_main.start_server:123 start_server request_params:{'taskId': 'qqq', 'XOwner': '127.0.0.1:5677', 'YOwner': '127.0.0.1:5678', 'RS': '127.0.0.1:5679', 'Player': 'XOwner'}
+2020-04-22 18:53:34,357 INFO tfe_keeper_main.start_server:125 task_id:qqq
+2020-04-22 18:53:34,357 INFO tfe_keeper_main.start_server:135 RS_iphost:127.0.0.1:5679
+2020-04-22 18:53:34,357 INFO tfe_keeper_main.start_server:146 XOwner_iphost=127.0.0.1:5677
+2020-04-22 18:53:34,364 INFO tfe_keeper_main._start_server:230 config:
+{
+    "XOwner": "127.0.0.1:5677", 
+    "YOwner": "127.0.0.1:5678", 
+    "RS": "127.0.0.1:5679"
+}
+        
+2020-04-22 18:53:34,369 INFO tfe_keeper_main._start_server:232 absolute_path:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted
+2020-04-22 18:53:34,370 INFO tfe_keeper_main._start_server:235 1. tfe config.json: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:53:34,371 INFO tfe_keeper_main._start_server:242 2. tfe config.json:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/config.json
+2020-04-22 18:53:34,392 INFO tfe_keeper_main.start_server:189 p.pid75304
+2020-04-22 18:53:34,393 INFO tfe_keeper_main.start_server:191 p.exitcode0
+2020-04-22 18:53:52,232 INFO tfe_keeper_main.train:263 train
+2020-04-22 18:53:52,232 INFO tfe_keeper_main.train:265 train request:<Request 'http://localhost/tfe_keeper/train' [POST]>
+2020-04-22 18:53:52,233 INFO tfe_keeper_main.train:267 train request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:53:52,233 INFO tfe_keeper_main.train:269 task_id:qqq
+2020-04-22 18:53:52,233 INFO tfe_keeper_main.train:272 modelFileMachine:YOwner
+2020-04-22 18:54:00,819 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 18:54:00,820 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 18:54:00,820 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'train'}
+2020-04-22 18:54:00,820 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 18:54:00,820 INFO tfe_keeper_main.check_progress:504 taskType:train
+2020-04-22 18:54:00,820 INFO tfe_keeper_main.check_progress:514 pid=31477
+2020-04-22 18:54:00,820 INFO tfe_keeper_main.check_progress:525 percent=0.0
+
+2020-04-22 18:54:06,163 INFO tfe_keeper_main.predict:344 pridict request:<Request 'http://localhost/tfe_keeper/predict' [POST]>
+2020-04-22 18:54:06,164 INFO tfe_keeper_main.predict:346 predict request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:54:06,164 INFO tfe_keeper_main.predict:348 task_id:qqq
+2020-04-22 18:54:12,844 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 18:54:12,845 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 18:54:12,845 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'predict'}
+2020-04-22 18:54:12,845 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 18:54:12,845 INFO tfe_keeper_main.check_progress:504 taskType:predict
+2020-04-22 18:56:47,358 INFO tfe_keeper_main.train:263 train
+2020-04-22 18:56:47,360 INFO tfe_keeper_main.train:265 train request:<Request 'http://localhost/tfe_keeper/train' [POST]>
+2020-04-22 18:56:47,361 INFO tfe_keeper_main.train:267 train request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:56:47,362 INFO tfe_keeper_main.train:269 task_id:qqq
+2020-04-22 18:56:47,362 INFO tfe_keeper_main.train:272 modelFileMachine:YOwner
+2020-04-22 18:58:15,195 INFO tfe_keeper_main.kill_server:673 kill_server request:<Request 'http://localhost/tfe_keeper/kill_server' [POST]>
+2020-04-22 18:58:15,195 INFO tfe_keeper_main.kill_server:675 kill_server request_params:{'taskId': 'qqq'}
+2020-04-22 18:58:15,195 INFO tfe_keeper_main.kill_server:677 task_id:qqq
+2020-04-22 18:58:15,195 INFO tfe_keeper_main.kill_server:695 kill pid:75172
+2020-04-22 18:58:26,863 INFO tfe_keeper_main.train:263 train
+2020-04-22 18:58:26,864 INFO tfe_keeper_main.train:265 train request:<Request 'http://localhost/tfe_keeper/train' [POST]>
+2020-04-22 18:58:26,864 INFO tfe_keeper_main.train:267 train request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 18:58:26,864 INFO tfe_keeper_main.train:269 task_id:qqq
+2020-04-22 18:58:26,864 INFO tfe_keeper_main.train:272 modelFileMachine:YOwner
+2020-04-22 19:16:02,283 INFO tfe_keeper_main.predict:344 pridict request:<Request 'http://localhost/tfe_keeper/predict' [POST]>
+2020-04-22 19:16:02,284 INFO tfe_keeper_main.predict:346 predict request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 19:16:02,284 INFO tfe_keeper_main.predict:348 task_id:qqq
+2020-04-22 19:29:59,354 INFO tfe_keeper_main.predict:344 pridict request:<Request 'http://localhost/tfe_keeper/predict' [POST]>
+2020-04-22 19:29:59,354 INFO tfe_keeper_main.predict:346 predict request_params:{'taskId': 'qqq', 'conf': {'trainParams': {'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}, 'midMatchField': {'node_id1': ['id1', 'date'], 'node_id2': ['id2', 'date_time']}, 'algorithm': 'LR', 'trainSetRate': 0.8, 'positiveValue': 1, 'nodes': {'node_id1': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}, 'node_id2': {'merchantAddressModular': 'http://127.0.0.1', 'publicKey': 'test_public_key'}}, 'dataSet': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}, 'dataSetPredict': {'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}}, 'modelFileMachine': 'YOwner', 'modelFilePath': './qqq/model', 'test_flag': True}
+2020-04-22 19:29:59,354 INFO tfe_keeper_main.predict:348 task_id:qqq
+2020-04-22 19:30:30,177 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 19:30:30,178 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 19:30:30,179 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'predict'}
+2020-04-22 19:30:30,179 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 19:30:30,179 INFO tfe_keeper_main.check_progress:504 taskType:predict
+2020-04-22 19:31:47,239 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 19:31:47,240 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 19:31:47,240 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'predict'}
+2020-04-22 19:31:47,240 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 19:31:47,240 INFO tfe_keeper_main.check_progress:504 taskType:predict
+2020-04-22 19:32:01,221 INFO tfe_keeper_main.check_progress:495 check_progress
+2020-04-22 19:32:01,237 INFO tfe_keeper_main.check_progress:498 check_progress request:<Request 'http://localhost/tfe_keeper/check_progress' [POST]>
+2020-04-22 19:32:01,238 INFO tfe_keeper_main.check_progress:500 check_progress request_params:{'taskId': 'qqq', 'taskType': 'predict'}
+2020-04-22 19:32:01,238 INFO tfe_keeper_main.check_progress:502 task_id:qqq
+2020-04-22 19:32:01,238 INFO tfe_keeper_main.check_progress:504 taskType:predict

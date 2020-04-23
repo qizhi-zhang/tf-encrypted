@@ -26,19 +26,19 @@ else:
     absolute_path = "/app/file"
 
 app = Flask(__name__)
-@app.route('/service/<name>')
-def success(name):
-    return 'welcome %s' % name
-
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        user = request.form['nm']
-        return redirect(url_for('success', name=user))
-    else:
-        user = request.args.get('nm')
-        return redirect(url_for('success', name=user))
+# @app.route('/service/<name>')
+# def success(name):
+#     return 'welcome %s' % name
+#
+#
+# @app.route('/login', methods=['POST', 'GET'])
+# def login():
+#     if request.method == 'POST':
+#         user = request.form['nm']
+#         return redirect(url_for('success', name=user))
+#     else:
+#         user = request.args.get('nm')
+#         return redirect(url_for('success', name=user))
 
 
 tfe_keeper = Blueprint('tfe_keeper', __name__)
