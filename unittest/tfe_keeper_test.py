@@ -1,14 +1,5 @@
 # coding=utf-8
-"""
-   Alipay.com Inc.
-   Copyright (c) 2004-2018 All Rights Reserved.
-   ------------------------------------------------------
-   File Name : http_util
-   Author : huazhong.whz
-   Email: huazhong.whz@alibaba-inc.com
-   Create Time : 2018/8/6 下午5:10
-   Description : description what the main function of this file
-"""
+
 import os
 #import sys
 import time
