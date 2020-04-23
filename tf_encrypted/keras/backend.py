@@ -4,7 +4,6 @@ borrowed from the tf.keras codebase.
 import threading
 
 from tensorflow.python.framework import ops
-
 import tf_encrypted as tfe
 
 # This is a thread local object that will hold the default internal TFE session

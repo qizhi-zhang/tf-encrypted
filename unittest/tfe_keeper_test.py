@@ -13,10 +13,12 @@ import os
 #import sys
 import time
 import json
+import mock
 import requests
 from unittest import TestCase, main
 # from commonutils.common_config import CommonConfig
 from commonutils.http_util import HttpUtil
+import tensorflow as tf
 from tfe_keeper.tfe_keeper_main import app
 requests.packages.urllib3.disable_warnings()
 
@@ -112,7 +114,9 @@ class TestBinning(TestCase):
         x = self.client.post("/tfe_keeper/start_server", data=json.dumps(data), content_type="application/json")
         print(x)
 
-    def test_train(self):
+    @mock.patch("tensorflow.Session.run")
+    def test_train(self, run):
+        run.return_value = None
         # test train
         # with open('unittest/qqq/conf', 'r') as f:
         #     conf=f.read()
@@ -123,7 +127,7 @@ class TestBinning(TestCase):
         conf = json.loads(conf)
         print(conf)
 
-        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "file/qqq/model", "modelName": "model_plaintext", "test_flag": True, "unittest_flag": True}
+        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "file/qqq/model", "modelName": "model_plaintext", "test_flag": True, "unittest_flag": False}
 
         # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
         x = self.client.post("/tfe_keeper/train",data=json.dumps(data), content_type="application/json")
