@@ -92,14 +92,14 @@ class TestBinning(TestCase):
 
     def test_detect_idle(self):
         data = {"ipHost": "127.0.0.1:80"}
-        x = self.client.post("/tfe_keeper/grpc_port", data=json.dumps(data), content_type="application/json")
+        x = self.client.post("/tfe_keeper/detect_idle", data=json.dumps(data), content_type="application/json")
         print(x)
 
     def test_get_grpc_port(self):
         # get grpc_port
 
         # x = self.httpUtil.post(url="http://172.19.1.218:8080/tfe_keeper/grpc_port", json_data={})
-        x = self.client.post("/tfe_keeper/detect_idle", data={}, content_type="application/json")
+        x = self.client.post("/tfe_keeper/grpc_port", data={}, content_type="application/json")
         print(x)
 
 
@@ -121,7 +121,7 @@ class TestBinning(TestCase):
         conf = json.loads(conf)
         print(conf)
 
-        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "./qqq/model", "modelName": "model_plaintext", "test_flag": True }
+        data = {"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "file/qqq/model", "modelName": "model_plaintext", "test_flag": True }
 
         # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
         x = self.client.post("/tfe_keeper/train",data=json.dumps(data), content_type="application/json")
