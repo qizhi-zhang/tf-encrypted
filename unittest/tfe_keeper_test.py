@@ -90,9 +90,9 @@ class TestBinning(TestCase):
 }
        """
 
-
-    def detect_idle(self):
-        x = self.client.post("/tfe_keeper/grpc_port", data={}, content_type="application/json")
+    def test_detect_idle(self):
+        data = {"ipHost": "127.0.0.1:80"}
+        x = self.client.post("/tfe_keeper/grpc_port", data=json.dumps(data), content_type="application/json")
         print(x)
 
     def test_get_grpc_port(self):

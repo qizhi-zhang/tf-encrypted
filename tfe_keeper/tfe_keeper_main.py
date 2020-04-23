@@ -272,11 +272,11 @@ def train():
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
         CommonConfig.default_logger.info("modelFileMachine:" + str(modelFileMachine))
-        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
+        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner" or modelFileMachine == "XOwner":
             modelFileMachine = "XOwner"
-        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner" or modelFileMachine == "YOwner":
             modelFileMachine = "YOwner"
-        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner" or modelFileMachine == "RS":
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
@@ -351,11 +351,11 @@ def predict():
         # algorithm = request_params.get('algorithm')
         modelFileMachine = request_params.get('modelFileMachine')
 
-        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
+        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner" or modelFileMachine == "XOwner":
             modelFileMachine = "XOwner"
-        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner" or modelFileMachine == "YOwner":
             modelFileMachine = "YOwner"
-        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner" or modelFileMachine == "RS":
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
@@ -422,11 +422,11 @@ def train_and_predict():
         modelFileMachine = request_params.get('modelFileMachine')
         CommonConfig.default_logger.info("modelFileMachine:" + str(modelFileMachine))
 
-        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner":
+        if modelFileMachine == "x_owner" or modelFileMachine == "xOwner" or modelFileMachine == "XOwner":
             modelFileMachine = "XOwner"
-        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner":
+        elif modelFileMachine == "y_owner" or modelFileMachine == "yOwner" or modelFileMachine == "YOwner":
             modelFileMachine = "YOwner"
-        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner":
+        elif modelFileMachine == "third_owner" or modelFileMachine == "thirdOwner" or modelFileMachine == "RS":
             modelFileMachine = "RS"
         else:
             raise MorseException(result_code.PARAM_ERROR, param='modelFileMachine')
