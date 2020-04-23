@@ -189,6 +189,15 @@ class TestBinning(TestCase):
         x = self.client.post("/tfe_keeper/check_progress", data=json.dumps(data), content_type="application/json")
         print(x)
 
+
+    def test_check_progress_train_and_predict(self):
+        # check_progress
+
+        data = {"taskId": "qqq", "taskType": "train_and_predict" }
+        # x = self.httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/check_progress", json_data=json.dumps(data))
+        x = self.client.post("/tfe_keeper/check_progress", data=json.dumps(data), content_type="application/json")
+        print(x)
+
     def test_kill_server(self):
         # test kill server
         data = {"taskId":  "qqq"}
