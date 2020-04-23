@@ -77,7 +77,7 @@ unittest:
     #- chmod a+x morse-ci/sh_script/run_unittest.sh
     #- sh morse-ci/sh_script/run_unittest.sh unittest
     - chmod a+x $WORKSPACE/antCode/run_unittest.sh
-    - ch $WORKSPACE/antCode/run_unittest.sh
+    - sh $WORKSPACE/antCode/run_unittest.sh
   pluginConfig:
     markdown: result.md
   publisher:
