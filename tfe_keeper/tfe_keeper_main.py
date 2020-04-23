@@ -514,7 +514,7 @@ def check_progress():
 
             with open(os.path.join(absolute_path, 'tfe/{task_id}/train_pid'.format(task_id=task_id)), 'r') as f:
                 pid = f.readline()
-            if pid is None or pid == "":
+            if pid is None or pid == "" or pid == "None":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename='tfe/{task_id}/train_pid'.format(task_id=task_id))
             pid = int(pid)
@@ -525,7 +525,7 @@ def check_progress():
             with open(os.path.join(absolute_path,
                                    'tfe/{task_id}/train_progress'.format(task_id=task_id)), "r") as f:
                 lines = f.readlines()
-            if lines is None or lines == "":
+            if lines is None or lines == "" or pid == "None":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename="tfe/{task_id}/train_progress".format(task_id=task_id))
             percent = lines[-1]
@@ -549,7 +549,7 @@ def check_progress():
             with open(os.path.join(absolute_path,
                                    'tfe/{task_id}/predict_pid'.format(task_id=task_id)), 'r') as f:
                 pid = f.readline()
-            if pid is None or pid == "":
+            if pid is None or pid == "" or pid == "None":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename='tfe/{task_id}/predict_pid'.format(task_id=task_id))
             pid = int(pid)
@@ -558,7 +558,7 @@ def check_progress():
             with open(os.path.join(absolute_path,
                                    "tfe/{task_id}/predict_progress".format(task_id=task_id)), "r") as f:
                 lines = f.readlines()
-            if lines is None or lines == "":
+            if lines is None or lines == "" or pid == "None":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename="tfe/{task_id}/predict_progress".format(task_id=task_id))
             percent = lines[-1]
@@ -584,7 +584,7 @@ def check_progress():
             with open(os.path.join(absolute_path,
                                    'tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id)), 'r') as f:
                 pid = f.readline()
-            if pid is None or pid == "":
+            if pid is None or pid == "" or pid == "None":
                 raise MorseException(result_code.FILE_IS_EMPTY_ERROR,
                                      filename='tfe/{task_id}/train_and_predict_pid'.format(task_id=task_id))
             pid = int(pid)
