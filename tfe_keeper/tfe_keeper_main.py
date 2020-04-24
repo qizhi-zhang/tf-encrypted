@@ -28,9 +28,9 @@ else:
     absolute_path = "/app/file"
 
 app = Flask(__name__)
-# @app.route('/service/<name>')
-# def success(name):
-#     return 'welcome %s' % name
+@app.route('/service/<name>')
+def success(name):
+    return 'welcome %s' % name
 #
 #
 # @app.route('/login', methods=['POST', 'GET'])
