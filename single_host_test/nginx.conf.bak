@@ -97,39 +97,48 @@ http {
     #    }
     #}
 
+#    server {
+#        listen       2222;
+#        server_name  localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+
+#        location =/ {
+#            proxy_pass http://www.baidu.com;
+#        }
+
+#    }
+
+
     server {
         listen       2222 http2;
-        server_name  localhost;
+        server_name  morse_tfe_ps;
 
         location / {
             grpc_pass grpc://127.0.0.1:2222;
         }
-
-        location =/baidu7/ {
-            proxy_pass http://www.baidu.com;
-        }
     }
 
-
-    #server {
-    #    listen       2222 http2;
-    #    server_name  morse_tfe;
-
-    #    location / {
-    #        grpc_pass grpc://127.0.0.1:2222;
-    #    }
-
-        #location =/baidu/ {
-        #    proxy_pass http://www.baidu.com;
-        #}
-    #}
-
-
+#    server {
+#        listen       2223;
+#        server_name  localhost;
+#
+#        #charset koi8-r;
+#
+#        #access_log  logs/host.access.log  main;
+#
+#        location =/ {
+#            proxy_pass http://www.baidu.com;
+#        }
+#
+#    }
 
 
     server {
         listen       2223 http2;
-        server_name  morse_tfe;
+        server_name  morse_tfe_worker;
 
         location / {
             grpc_pass grpc://127.0.0.1:2223;
