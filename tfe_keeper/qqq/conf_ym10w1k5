@@ -28,15 +28,15 @@
     },
     "dataSet": {
         "node_id1": {
-            "storagePath": "file/qqq/data/embed_op_fea_5w_format_x.csv",
-            "fileRecord": 50038,
+            "storagePath": "file/qqq/data/10w1k5col_x.csv",
+            "fileRecord": 20000,
             "isContainY": False,
             "matchColNum": 2,
-            "featureNum": 291
+            "featureNum": 1649
         },
         "node_id2": {
-            "storagePath": "file/qqq/data/embed_op_fea_5w_format_y.csv",
-            "fileRecord": 50038,
+            "storagePath": "file/qqq/data/10w1k5col_y.csv",
+            "fileRecord": 20000,
             "isContainY": True,
             "matchColNum": 2,
             "featureNum": 0
@@ -44,15 +44,15 @@
     },
     "dataSetPredict": {
         "node_id1": {
-            "storagePath": "file/qqq/data/embed_op_fea_5w_format_x.csv",
-            "fileRecord": 50038,
+            "storagePath": "file/qqq/data/10w1k5col_x.csv",
+            "fileRecord": 20000,
             "isContainY": False,
             "matchColNum": 2,
-            "featureNum": 291
+            "featureNum": 1649
         },
         "node_id2": {
-            "storagePath": "file/qqq/data/embed_op_fea_5w_format_y.csv",
-            "fileRecord": 50038,
+            "storagePath": "file/qqq/data/10w1k5col_y.csv",
+            "fileRecord": 20000,
             "isContainY": True,
             "matchColNum": 2,
             "featureNum": 0

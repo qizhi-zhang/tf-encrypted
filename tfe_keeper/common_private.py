@@ -8,21 +8,61 @@ from commonutils.common_config import CommonConfig
 from read_data_tf import get_10w1k5col_x, get_10w1k5col_y, get_embed_op_5w_x, 
 get_embed_op_5w_y, get_gaode3w_x, get_gaode3w_y
 """
-# import numpy as np
+import numpy as np
+
+def fake_sigmoid(x, M=16):
+  x=tfe.reveal(x).to_native()
+  #M = 16
+  X = np.linspace(-M, M, 256, endpoint=False)  # -M to+M的256个值
+  Sigmoid = 1 / (1 + np.exp(-X))
+  Sm5 = Sigmoid - 0.5
+
+  Sm5_odd = Sm5 * 1.0
+  Sm5_odd[0] = 0
+  F = np.fft.fft(Sm5_odd)
+  # a1 = F[1].imag
+  # a2 = F[2].imag
+  # a3 = F[3].imag
+  # a4 = F[4].imag
+  # a5 = F[5].imag
+  # print(a1, a2, a3, a4, a5)
+  a=F[0:6].imag
+  print("a=",a)
+
+  #a=[0, 79.01170242947703,  4.373381493344161, 21.67435635245209, 5.884090709554829,10.443694686327152]
+
+
+  fake = -1.0 * (a[1] * tf.sin(2 * np.pi * (x - M) / (2 * M)) + a[2] * tf.sin(2 * 2 * np.pi * (x - M) / (2 * M))
+                 + a[3] * tf.sin(2 * 3 * np.pi * (x - M) / (2 * M)) + a[4] * tf.sin(2 * 4 * np.pi * (x - M) / (2 * M)) + a[5] * tf.sin(
+    2 * 5 * np.pi * (x - M) / (2 * M))) / 128
+  fake=fake*5/6+0.5
+  fake_sigmoid=tfe.define_public_input(player='YOwner', inputter_fn=lambda:  fake)
+  return fake_sigmoid
+
+
+
+def true_sigmoid(x):
+  x=tfe.reveal(x).to_native()
+  sigmoid=tf.sigmoid(x)
+  true_sigmoid=tfe.define_public_input(player='YOwner', inputter_fn=lambda:  sigmoid)
+  return true_sigmoid
 
 
 class LogisticRegression:
     """Contains methods to build and train logistic regression."""
 
-    def __init__(self, num_features, learning_rate=0.01):
+    def __init__(self, num_features, learning_rate=0.01, l2_regularzation=1E-2):
+        # self.w = tfe.define_private_variable(
+        #     tf.random_uniform([num_features, 1], -0.01, 0.01))
+        self.num_features=num_features
         self.w = tfe.define_private_variable(
-            tf.random_uniform([num_features, 1], -0.01, 0.01))
+            tf.random_uniform([num_features, 1], -1.0/np.sqrt(num_features), 1.0/np.sqrt(num_features)))
         print("self.w:", self.w)
         self.w_masked = tfe.mask(self.w)
         self.b = tfe.define_private_variable(tf.zeros([1]))
         self.b_masked = tfe.mask(self.b)
-
         self.learning_rate = learning_rate
+        self.l2_regularzation = l2_regularzation
 
     @property
     def weights(self):
@@ -42,7 +82,9 @@ class LogisticRegression:
         with tf.name_scope("forward"):
             out = tfe.matmul(x, self.w_masked) + self.b_masked
             if with_sigmoid:
-                y = tfe.sigmoid(out)
+                #y = tfe.sigmoid(out)
+                #y = fake_sigmoid(out,M=256)
+                y = true_sigmoid(out)
             else:
                 y = out
             return y
@@ -57,7 +99,7 @@ class LogisticRegression:
         """
         batch_size = x.shape.as_list()[0]
         with tf.name_scope("backward"):
-            dw = tfe.matmul(tfe.transpose(x), dy) / batch_size
+            dw = tfe.matmul(tfe.transpose(x), dy) / batch_size - self.l2_regularzation*self.w
             db = tfe.reduce_sum(dy, axis=0) / batch_size
             assign_ops = [
                 tfe.assign(self.w, self.w - dw * learning_rate),
@@ -171,6 +213,7 @@ class LogisticRegression:
         y_hat = self.forward(x, with_sigmoid=False)
         y_hat = y_hat.reveal()
         y_hat = y_hat.to_native()
+        y_hat = y_hat/tf.cast(x.shape[1],dtype='float64')
         y_hat = tf.sigmoid(y_hat)
         return y_hat
 
@@ -255,7 +298,7 @@ class LogisticRegression:
         :return:
         """
         def _save(weights, modelFilePath) -> tf.Operation:
-            weights = tf.cast(weights, "float32")
+            weights = tf.cast(weights, "float32")/self.num_features
             weights = tf.strings.as_string(weights, precision=6)
             weights = tf.reduce_join(weights, separator=", ")
             save_op = tf.write_file(modelFilePath, weights)

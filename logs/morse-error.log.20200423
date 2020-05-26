@@ -1,0 +1,227 @@
+2020-04-23 13:15:50,112 ERROR train_lr.run:183 train.run() error, exception msg:2 root error(s) found.
+  (0) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/qqq/data/embed_op_fea_5w_format_y.csv; No such file or directory
+	 [[node local-computation_1/IteratorGetNext (defined at Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:127) ]]
+  (1) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/qqq/data/embed_op_fea_5w_format_y.csv; No such file or directory
+	 [[node local-computation_1/IteratorGetNext (defined at Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:127) ]]
+	 [[fit-batch/forward/sigmoid/mask/online/sub_1/_49]]
+1 successful operations.
+0 derived errors ignored.
+
+Original stack trace for 'local-computation_1/IteratorGetNext':
+  File "Applications/PyCharm CE.app/Contents/helpers/pycharm/_jb_unittest_runner.py", line 35, in <module>
+    main(argv=args, module=None, testRunner=unittestpy.TeamcityTestRunner, buffer=not JB_DISABLE_BUFFERING)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/main.py", line 95, in __init__
+    self.runTests()
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/main.py", line 256, in runTests
+    self.result = testRunner.run(self.test)
+  File "Applications/PyCharm CE.app/Contents/helpers/pycharm/teamcity/unittestpy.py", line 308, in run
+    return super(TeamcityTestRunner, self).run(test)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/runner.py", line 176, in run
+    test(result)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/suite.py", line 122, in run
+    test(result)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/suite.py", line 122, in run
+    test(result)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/case.py", line 653, in __call__
+    return self.run(*args, **kwds)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/case.py", line 605, in run
+    testMethod()
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/unittest/tfe_keeper_test.py", line 129, in test_train
+    x = self.client.post("/tfe_keeper/train",data=json.dumps(data), content_type="application/json")
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/werkzeug/test.py", line 1039, in post
+    return self.open(*args, **kw)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/testing.py", line 227, in open
+    follow_redirects=follow_redirects,
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/werkzeug/test.py", line 993, in open
+    response = self.run_wsgi_app(environ.copy(), buffered=buffered)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/werkzeug/test.py", line 884, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/werkzeug/test.py", line 1119, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/tfe_keeper_main.py", line 303, in train
+    p.start()
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/process.py", line 105, in start
+    self._popen = self._Popen(self)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/context.py", line 223, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/popen_fork.py", line 73, in _launch
+    code = process_obj._bootstrap()
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_lr.py", line 123, in run
+    epoch_num * 2, 1))
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tf_encrypted/protocol/pond/pond.py", line 624, in define_local_computation
+    outputs = computation_fn(*inputs)
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py", line 127, in get_data_y
+    batch_data = tf.compat.v1.data.make_one_shot_iterator(batch_data_iter).get_next()
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/data/ops/iterator_ops.py", line 426, in get_next
+    output_shapes=self._structure._flat_shapes, name=name)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/ops/gen_dataset_ops.py", line 1947, in iterator_get_next
+    output_shapes=output_shapes, name=name)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2005, in __init__
+    self._traceback = tf_stack.extract_stack()
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1356, in _do_call
+    return fn(*args)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1341, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1429, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.NotFoundError: 2 root error(s) found.
+  (0) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/qqq/data/embed_op_fea_5w_format_y.csv; No such file or directory
+	 [[{{node local-computation_1/IteratorGetNext}}]]
+  (1) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/qqq/data/embed_op_fea_5w_format_y.csv; No such file or directory
+	 [[{{node local-computation_1/IteratorGetNext}}]]
+	 [[fit-batch/forward/sigmoid/mask/online/sub_1/_49]]
+1 successful operations.
+0 derived errors ignored.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_lr.py", line 167, in run
+    model.fit(sess, x_train, y_train, train_batch_num, progress_file)
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/common_private.py", line 105, in fit
+    sess.run(fit_batch_op, tag='fit-batch')
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tf_encrypted/session.py", line 93, in run
+    feed_dict=feed_dict
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 950, in run
+    run_metadata_ptr)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1173, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1350, in _do_run
+    run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1370, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.NotFoundError: 2 root error(s) found.
+  (0) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/qqq/data/embed_op_fea_5w_format_y.csv; No such file or directory
+	 [[node local-computation_1/IteratorGetNext (defined at Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:127) ]]
+  (1) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/qqq/data/embed_op_fea_5w_format_y.csv; No such file or directory
+	 [[node local-computation_1/IteratorGetNext (defined at Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:127) ]]
+	 [[fit-batch/forward/sigmoid/mask/online/sub_1/_49]]
+1 successful operations.
+0 derived errors ignored.
+
+Original stack trace for 'local-computation_1/IteratorGetNext':
+  File "Applications/PyCharm CE.app/Contents/helpers/pycharm/_jb_unittest_runner.py", line 35, in <module>
+    main(argv=args, module=None, testRunner=unittestpy.TeamcityTestRunner, buffer=not JB_DISABLE_BUFFERING)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/main.py", line 95, in __init__
+    self.runTests()
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/main.py", line 256, in runTests
+    self.result = testRunner.run(self.test)
+  File "Applications/PyCharm CE.app/Contents/helpers/pycharm/teamcity/unittestpy.py", line 308, in run
+    return super(TeamcityTestRunner, self).run(test)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/runner.py", line 176, in run
+    test(result)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/suite.py", line 122, in run
+    test(result)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/suite.py", line 84, in __call__
+    return self.run(*args, **kwds)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/suite.py", line 122, in run
+    test(result)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/case.py", line 653, in __call__
+    return self.run(*args, **kwds)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/unittest/case.py", line 605, in run
+    testMethod()
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/unittest/tfe_keeper_test.py", line 129, in test_train
+    x = self.client.post("/tfe_keeper/train",data=json.dumps(data), content_type="application/json")
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/werkzeug/test.py", line 1039, in post
+    return self.open(*args, **kw)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/testing.py", line 227, in open
+    follow_redirects=follow_redirects,
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/werkzeug/test.py", line 993, in open
+    response = self.run_wsgi_app(environ.copy(), buffered=buffered)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/werkzeug/test.py", line 884, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/werkzeug/test.py", line 1119, in run_wsgi_app
+    app_rv = app(environ, start_response)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/app.py", line 2463, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/app.py", line 2446, in wsgi_app
+    response = self.full_dispatch_request()
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/app.py", line 1949, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/flask/app.py", line 1935, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/tfe_keeper_main.py", line 303, in train
+    p.start()
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/process.py", line 105, in start
+    self._popen = self._Popen(self)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/context.py", line 223, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/context.py", line 277, in _Popen
+    return Popen(process_obj)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/popen_fork.py", line 19, in __init__
+    self._launch(process_obj)
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/popen_fork.py", line 73, in _launch
+    code = process_obj._bootstrap()
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "Users/qizhi.zqz/.pyenv/versions/3.6.9/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_lr.py", line 123, in run
+    epoch_num * 2, 1))
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tf_encrypted/protocol/pond/pond.py", line 624, in define_local_computation
+    outputs = computation_fn(*inputs)
+  File "Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py", line 127, in get_data_y
+    batch_data = tf.compat.v1.data.make_one_shot_iterator(batch_data_iter).get_next()
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/data/ops/iterator_ops.py", line 426, in get_next
+    output_shapes=self._structure._flat_shapes, name=name)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/ops/gen_dataset_ops.py", line 1947, in iterator_get_next
+    output_shapes=output_shapes, name=name)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2005, in __init__
+    self._traceback = tf_stack.extract_stack()
+
+2020-04-23 19:06:47,298 ERROR train_and_predict_lr.run:330 train_and_predict.run() error , exception msg:'NoneType' object has no attribute 'astype'
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 316, in run
+    batch_num, idx, predict_progress_file, YOwner.device_name, record_num_ceil_mod_batch_size)
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/common_private.py", line 218, in predict
+    records = "\n".join(records.astype('str'))
+AttributeError: 'NoneType' object has no attribute 'astype'
+2020-04-23 19:10:01,173 ERROR train_and_predict_lr.run:330 train_and_predict.run() error , exception msg:sequence item 0: expected str instance, numpy.ndarray found
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 316, in run
+    batch_num, idx, predict_progress_file, YOwner.device_name, record_num_ceil_mod_batch_size)
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/common_private.py", line 218, in predict
+    records = "\n".join(records.astype('str'))
+TypeError: sequence item 0: expected str instance, numpy.ndarray found
+2020-04-23 19:10:57,210 ERROR train_and_predict_lr.run:330 train_and_predict.run() error , exception msg:'list' object has no attribute 'astype'
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 316, in run
+    batch_num, idx, predict_progress_file, YOwner.device_name, record_num_ceil_mod_batch_size)
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/common_private.py", line 218, in predict
+    records = "\n".join(records.astype('str'))
+AttributeError: 'list' object has no attribute 'astype'

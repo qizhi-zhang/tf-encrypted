@@ -1,0 +1,218 @@
+2020-05-09 19:15:46,545 ERROR train_and_predict_lr.run:330 train_and_predict.run() error , exception msg:2 root error(s) found.
+  (0) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/10w1k5col.csv; No such file or directory
+	 [[node local-computation/IteratorGetNext (defined at /TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:107) ]]
+  (1) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/10w1k5col.csv; No such file or directory
+	 [[node local-computation/IteratorGetNext (defined at /TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:107) ]]
+	 [[fit-batch/backward/mul_3/truncate-i/ArithmeticOptimizer/AddOpsRewrite_add_1/_83]]
+1 successful operations.
+0 derived errors ignored.
+
+Errors may have originated from an input operation.
+Input Source operations connected to node local-computation/IteratorGetNext:
+ local-computation/OneShotIterator (defined at /TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:105)
+
+Input Source operations connected to node local-computation/IteratorGetNext:
+ local-computation/OneShotIterator (defined at /TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:105)
+
+Original stack trace for 'local-computation/IteratorGetNext':
+  File "/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 344, in <module>
+    modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model")
+  File "/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 165, in run
+    matchColNumX, epoch_num * 2, 5.0, 1))
+  File "/TFE_zqz/tf-encrypted/tf_encrypted/protocol/pond/pond.py", line 624, in define_local_computation
+    outputs = computation_fn(*inputs)
+  File "/TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py", line 107, in get_data_x
+    batch_data = batch_data_iter.get_next()
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/data/ops/iterator_ops.py", line 426, in get_next
+    output_shapes=self._structure._flat_shapes, name=name)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/ops/gen_dataset_ops.py", line 1947, in iterator_get_next
+    output_shapes=output_shapes, name=name)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2005, in __init__
+    self._traceback = tf_stack.extract_stack()
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1356, in _do_call
+    return fn(*args)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1341, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1429, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.NotFoundError: 2 root error(s) found.
+  (0) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/10w1k5col.csv; No such file or directory
+	 [[{{node local-computation/IteratorGetNext}}]]
+  (1) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/10w1k5col.csv; No such file or directory
+	 [[{{node local-computation/IteratorGetNext}}]]
+	 [[fit-batch/backward/mul_3/truncate-i/ArithmeticOptimizer/AddOpsRewrite_add_1/_83]]
+1 successful operations.
+0 derived errors ignored.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 291, in run
+    model.fit(sess, x_train, y_train, train_batch_num, trian_progress_file)
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/common_private.py", line 137, in fit
+    sess.run(fit_batch_op, tag='fit-batch')
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tf_encrypted/session.py", line 93, in run
+    feed_dict=feed_dict
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 950, in run
+    run_metadata_ptr)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1173, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1350, in _do_run
+    run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1370, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.NotFoundError: 2 root error(s) found.
+  (0) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/10w1k5col.csv; No such file or directory
+	 [[node local-computation/IteratorGetNext (defined at /TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:107) ]]
+  (1) Not found: /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/10w1k5col.csv; No such file or directory
+	 [[node local-computation/IteratorGetNext (defined at /TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:107) ]]
+	 [[fit-batch/backward/mul_3/truncate-i/ArithmeticOptimizer/AddOpsRewrite_add_1/_83]]
+1 successful operations.
+0 derived errors ignored.
+
+Errors may have originated from an input operation.
+Input Source operations connected to node local-computation/IteratorGetNext:
+ local-computation/OneShotIterator (defined at /TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:105)
+
+Input Source operations connected to node local-computation/IteratorGetNext:
+ local-computation/OneShotIterator (defined at /TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py:105)
+
+Original stack trace for 'local-computation/IteratorGetNext':
+  File "/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 344, in <module>
+    modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model")
+  File "/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 165, in run
+    matchColNumX, epoch_num * 2, 5.0, 1))
+  File "/TFE_zqz/tf-encrypted/tf_encrypted/protocol/pond/pond.py", line 624, in define_local_computation
+    outputs = computation_fn(*inputs)
+  File "/TFE_zqz/tf-encrypted/tfe_keeper/read_data_tf.py", line 107, in get_data_x
+    batch_data = batch_data_iter.get_next()
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/data/ops/iterator_ops.py", line 426, in get_next
+    output_shapes=self._structure._flat_shapes, name=name)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/ops/gen_dataset_ops.py", line 1947, in iterator_get_next
+    output_shapes=output_shapes, name=name)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/op_def_library.py", line 788, in _apply_op_helper
+    op_def=op_def)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/util/deprecation.py", line 507, in new_func
+    return func(*args, **kwargs)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 3616, in create_op
+    op_def=op_def)
+  File "/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/framework/ops.py", line 2005, in __init__
+    self._traceback = tf_stack.extract_stack()
+
+2020-05-09 19:16:23,350 ERROR train_and_predict_lr.run:330 train_and_predict.run() error , exception msg:2 root error(s) found.
+  (0) Invalid argument: Expect 293 fields but have 1651 in record 0
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext]]
+  (1) Invalid argument: Expect 293 fields but have 1651 in record 0
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext]]
+	 [[fit-batch/backward/mul_3/truncate-i/ArithmeticOptimizer/AddOpsRewrite_add_1/_83]]
+1 successful operations.
+0 derived errors ignored.
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1356, in _do_call
+    return fn(*args)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1341, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1429, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: 2 root error(s) found.
+  (0) Invalid argument: Expect 293 fields but have 1651 in record 0
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext]]
+  (1) Invalid argument: Expect 293 fields but have 1651 in record 0
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext]]
+	 [[fit-batch/backward/mul_3/truncate-i/ArithmeticOptimizer/AddOpsRewrite_add_1/_83]]
+1 successful operations.
+0 derived errors ignored.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 291, in run
+    model.fit(sess, x_train, y_train, train_batch_num, trian_progress_file)
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/common_private.py", line 137, in fit
+    sess.run(fit_batch_op, tag='fit-batch')
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tf_encrypted/session.py", line 93, in run
+    feed_dict=feed_dict
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 950, in run
+    run_metadata_ptr)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1173, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1350, in _do_run
+    run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1370, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: 2 root error(s) found.
+  (0) Invalid argument: Expect 293 fields but have 1651 in record 0
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext]]
+  (1) Invalid argument: Expect 293 fields but have 1651 in record 0
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext]]
+	 [[fit-batch/backward/mul_3/truncate-i/ArithmeticOptimizer/AddOpsRewrite_add_1/_83]]
+1 successful operations.
+0 derived errors ignored.
+2020-05-09 20:41:12,063 ERROR train_and_predict_lr.run:330 train_and_predict.run() error , exception msg:2 root error(s) found.
+  (0) Invalid argument: Field 6 in record 0 is not a valid int32: 0.9999584777959836
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext_1]]
+  (1) Invalid argument: Field 6 in record 0 is not a valid int32: 0.9999584777959836
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext_1]]
+	 [[fit-batch/backward/mask/online/sub_1/_37]]
+1 successful operations.
+0 derived errors ignored.
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1356, in _do_call
+    return fn(*args)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1341, in _run_fn
+    options, feed_dict, fetch_list, target_list, run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1429, in _call_tf_sessionrun
+    run_metadata)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: 2 root error(s) found.
+  (0) Invalid argument: Field 6 in record 0 is not a valid int32: 0.9999584777959836
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext_1]]
+  (1) Invalid argument: Field 6 in record 0 is not a valid int32: 0.9999584777959836
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext_1]]
+	 [[fit-batch/backward/mask/online/sub_1/_37]]
+1 successful operations.
+0 derived errors ignored.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/train_and_predict_lr.py", line 291, in run
+    model.fit(sess, x_train, y_train, train_batch_num, trian_progress_file)
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/common_private.py", line 146, in fit
+    sess.run(fit_batch_op, tag='fit-batch')
+  File "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tf_encrypted/session.py", line 93, in run
+    feed_dict=feed_dict
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 950, in run
+    run_metadata_ptr)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1173, in _run
+    feed_dict_tensor, options, run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1350, in _do_run
+    run_metadata)
+  File "/Users/qizhi.zqz/projects/TFE/tf-encrypted/venv/lib/python3.6/site-packages/tensorflow/python/client/session.py", line 1370, in _do_call
+    raise type(e)(node_def, op, message)
+tensorflow.python.framework.errors_impl.InvalidArgumentError: 2 root error(s) found.
+  (0) Invalid argument: Field 6 in record 0 is not a valid int32: 0.9999584777959836
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext_1]]
+  (1) Invalid argument: Field 6 in record 0 is not a valid int32: 0.9999584777959836
+	 [[{{node DecodeCSV}}]]
+	 [[local-computation/IteratorGetNext_1]]
+	 [[fit-batch/backward/mask/online/sub_1/_37]]
+1 successful operations.
+0 derived errors ignored.

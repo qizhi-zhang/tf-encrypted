@@ -193,9 +193,21 @@ if __name__ == '__main__':
     conf = json.loads(conf)
     print(conf)
 
+    import time
+
+    start_time=time.time()
+    # run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
+    #     modelFilePath="./qqq/model",
+    #     modelFilePlainTextPath="./qqq/model/plaintext_model", tf_config_file="/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/qqq/config.json")
     run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
         modelFilePath="./qqq/model",
         modelFilePlainTextPath="./qqq/model/plaintext_model")
+
+    end_time=time.time()
+
+    print("time=", end_time-start_time)
+
+
     # run(taskId="qqq", conf=conf, modelFileMachine="YOwner",
     # modelFilePath="./qqq/model", modelFilePlainTextPath="./qqq/model/plaintext_model",
     # tf_config_file="/app/file/tfe/qqq/config.json")

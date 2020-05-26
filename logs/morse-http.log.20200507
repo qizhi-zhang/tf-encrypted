@@ -1,0 +1,304 @@
+2020-05-07 11:14:54,402 INFO train_and_predict_lr.run:41 init train_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/train_progress
+2020-05-07 11:14:54,402 INFO train_and_predict_lr.run:42 init  predict_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/predict_progress
+2020-05-07 11:14:54,402 INFO train_and_predict_lr.run:46 train_predict_lr/run:  train_predict_Params:{'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:57 dataSet:{'node_id1': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_x.csv', 'fileRecord': 50038, 'isContainY': False, 'matchColNum': 2, 'featureNum': 291}, 'node_id2': {'storagePath': 'file/qqq/data/embed_op_fea_5w_format_y.csv', 'fileRecord': 50038, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:74 node1_containY:True
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:99 path_x:file/qqq/data/embed_op_fea_5w_format_x.csv
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:100 path_y:file/qqq/data/embed_op_fea_5w_format_y.csv
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:108 path_x:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/embed_op_fea_5w_format_x.csv
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:109 path_y:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/embed_op_fea_5w_format_y.csv
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:110 train_batch_num:1564
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:111 feature_num:291
+2020-05-07 11:14:54,403 INFO train_and_predict_lr.run:125 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x128c366a0>
+2020-05-07 11:14:56,498 INFO train_and_predict_lr.run:181 x_train:PondPrivateTensor(shape=(64, 291))
+2020-05-07 11:14:56,498 INFO train_and_predict_lr.run:182 y_train:PondPrivateTensor(shape=(64, 1))
+2020-05-07 11:14:56,531 INFO train_and_predict_lr.run:186 modelFilePath:./qqq/model
+2020-05-07 11:14:56,531 INFO train_and_predict_lr.run:187 modelFileMachine:YOwner
+2020-05-07 11:14:56,531 INFO train_and_predict_lr.run:188 modelFilePlainTextPath:./qqq/model/plaintext_model
+2020-05-07 11:14:56,555 INFO train_and_predict_lr.run:194 save_op:name: "group_deps_4"
+op: "NoOp"
+input: "^output/group_deps"
+input: "^output_1/group_deps"
+device: "/job:localhost/replica:0/task:0/device:CPU:1"
+
+2020-05-07 11:14:56,555 INFO train_and_predict_lr.run:234 path_x_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/embed_op_fea_5w_format_x.csv
+2020-05-07 11:14:56,555 INFO train_and_predict_lr.run:235 path_y_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/embed_op_fea_5w_format_y.csv
+2020-05-07 11:14:57,165 INFO train_and_predict_lr.run:271 x_test:PondPrivateTensor(shape=(64, 291))
+2020-05-07 11:14:57,165 INFO train_and_predict_lr.run:272 y_test:PondPrivateTensor(shape=(64, 1))
+2020-05-07 11:14:57,320 INFO train_and_predict_lr.run:283 start_time:
+2020-05-07 11:14:57,322 INFO train_and_predict_lr.run:285 start_time:1588821297.322592
+2020-05-07 11:14:57,322 INFO train_and_predict_lr.run:287 train_and_predict_lr/run:  x_train:PondPrivateTensor(shape=(64, 291))
+2020-05-07 11:14:57,322 INFO train_and_predict_lr.run:288 train_and_predict_lr/run:  y_train:PondPrivateTensor(shape=(64, 1))
+2020-05-07 11:14:57,323 INFO train_and_predict_lr.run:289 train_and_predict_lr/run:  train_batch_num:1564
+2020-05-07 11:16:01,505 INFO train_and_predict_lr.run:295 train_time=64.18324613571167
+2020-05-07 11:16:01,506 INFO train_and_predict_lr.run:298 Saving model...
+2020-05-07 11:16:01,732 INFO train_and_predict_lr.run:302 Save OK.
+2020-05-07 11:16:01,732 INFO train_and_predict_lr.run:310 predict start_time:1588821361.732565
+2020-05-07 11:16:01,732 INFO common_private.predict:191 x:PondPrivateTensor(shape=(64, 291))
+2020-05-07 11:16:01,778 INFO common_private.predict:198 idx:Tensor("Reshape_2:0", shape=(64, 2), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 11:16:01,780 INFO common_private.predict:203 predict_batch:Tensor("ReduceJoin:0", shape=(64,), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:31:26,058 INFO train_and_predict_lr.run:41 init train_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/train_progress
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:42 init  predict_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/predict_progress
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:46 train_predict_lr/run:  train_predict_Params:{'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:57 dataSet:{'node_id1': {'storagePath': '/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/gaode_3w_x.csv', 'fileRecord': 30000, 'isContainY': False, 'matchColNum': 2, 'featureNum': 1198}, 'node_id2': {'storagePath': '/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/gaode_3w_y.csv', 'fileRecord': 30000, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:74 node1_containY:True
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:99 path_x:/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/gaode_3w_x.csv
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:100 path_y:/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/gaode_3w_y.csv
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:108 path_x:/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/gaode_3w_x.csv
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:109 path_y:/Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data/gaode_3w_y.csv
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:110 train_batch_num:938
+2020-05-07 19:31:26,059 INFO train_and_predict_lr.run:111 feature_num:1198
+2020-05-07 19:31:26,060 INFO train_and_predict_lr.run:125 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x12c67f6d8>
+2020-05-07 19:31:29,202 INFO train_and_predict_lr.run:181 x_train:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:31:29,202 INFO train_and_predict_lr.run:182 y_train:PondPrivateTensor(shape=(64, 1))
+2020-05-07 19:31:29,234 INFO train_and_predict_lr.run:186 modelFilePath:./qqq/model
+2020-05-07 19:31:29,234 INFO train_and_predict_lr.run:187 modelFileMachine:YOwner
+2020-05-07 19:31:29,234 INFO train_and_predict_lr.run:188 modelFilePlainTextPath:./qqq/model/plaintext_model
+2020-05-07 19:31:29,257 INFO train_and_predict_lr.run:194 save_op:name: "group_deps_4"
+op: "NoOp"
+input: "^output/group_deps"
+input: "^output_1/group_deps"
+device: "/job:localhost/replica:0/task:0/device:CPU:1"
+
+2020-05-07 19:35:52,747 INFO train_and_predict_lr.run:41 init train_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/train_progress
+2020-05-07 19:35:52,747 INFO train_and_predict_lr.run:42 init  predict_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/predict_progress
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:46 train_predict_lr/run:  train_predict_Params:{'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:57 dataSet:{'node_id1': {'storagePath': 'file/qqq/data/gaode_3w_x.csv', 'fileRecord': 30000, 'isContainY': False, 'matchColNum': 2, 'featureNum': 1198}, 'node_id2': {'storagePath': 'file/qqq/data/gaode_3w_y.csv', 'fileRecord': 3000, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:74 node1_containY:True
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:99 path_x:file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:100 path_y:file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:108 path_x:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:109 path_y:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:110 train_batch_num:938
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:111 feature_num:1198
+2020-05-07 19:35:52,748 INFO train_and_predict_lr.run:125 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x12eb9d400>
+2020-05-07 19:35:55,369 INFO train_and_predict_lr.run:181 x_train:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:35:55,369 INFO train_and_predict_lr.run:182 y_train:PondPrivateTensor(shape=(64, 1))
+2020-05-07 19:35:55,401 INFO train_and_predict_lr.run:186 modelFilePath:./qqq/model
+2020-05-07 19:35:55,401 INFO train_and_predict_lr.run:187 modelFileMachine:YOwner
+2020-05-07 19:35:55,401 INFO train_and_predict_lr.run:188 modelFilePlainTextPath:./qqq/model/plaintext_model
+2020-05-07 19:35:55,425 INFO train_and_predict_lr.run:194 save_op:name: "group_deps_4"
+op: "NoOp"
+input: "^output/group_deps"
+input: "^output_1/group_deps"
+device: "/job:localhost/replica:0/task:0/device:CPU:1"
+
+2020-05-07 19:35:55,426 INFO train_and_predict_lr.run:234 path_x_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/embed_op_fea_5w_format_x.csv
+2020-05-07 19:35:55,426 INFO train_and_predict_lr.run:235 path_y_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/embed_op_fea_5w_format_y.csv
+2020-05-07 19:35:57,390 INFO train_and_predict_lr.run:271 x_test:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:35:57,390 INFO train_and_predict_lr.run:272 y_test:PondPrivateTensor(shape=(64, 1))
+2020-05-07 19:35:57,763 INFO train_and_predict_lr.run:283 start_time:
+2020-05-07 19:35:57,764 INFO train_and_predict_lr.run:285 start_time:1588851357.764656
+2020-05-07 19:35:57,764 INFO train_and_predict_lr.run:287 train_and_predict_lr/run:  x_train:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:35:57,764 INFO train_and_predict_lr.run:288 train_and_predict_lr/run:  y_train:PondPrivateTensor(shape=(64, 1))
+2020-05-07 19:35:57,764 INFO train_and_predict_lr.run:289 train_and_predict_lr/run:  train_batch_num:938
+2020-05-07 19:37:58,159 INFO train_and_predict_lr.run:295 train_time=120.39482092857361
+2020-05-07 19:37:58,159 INFO train_and_predict_lr.run:298 Saving model...
+2020-05-07 19:37:58,709 INFO train_and_predict_lr.run:302 Save OK.
+2020-05-07 19:37:58,709 INFO train_and_predict_lr.run:310 predict start_time:1588851478.7094998
+2020-05-07 19:37:58,709 INFO common_private.predict:191 x:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:37:58,738 INFO common_private.predict:198 idx:Tensor("Reshape_2:0", shape=(64, 2), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:37:58,740 INFO common_private.predict:203 predict_batch:Tensor("ReduceJoin:0", shape=(64,), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:39:18,644 INFO train_and_predict_lr.run:41 init train_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/train_progress
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:42 init  predict_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/predict_progress
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:46 train_predict_lr/run:  train_predict_Params:{'learningRate': 0.01, 'maxIter': 2, 'batchSize': 64, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:57 dataSet:{'node_id1': {'storagePath': 'file/qqq/data/gaode_3w_x.csv', 'fileRecord': 30000, 'isContainY': False, 'matchColNum': 2, 'featureNum': 1198}, 'node_id2': {'storagePath': 'file/qqq/data/gaode_3w_y.csv', 'fileRecord': 30000, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:74 node1_containY:True
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:99 path_x:file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:100 path_y:file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:108 path_x:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:109 path_y:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:110 train_batch_num:938
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:111 feature_num:1198
+2020-05-07 19:39:18,645 INFO train_and_predict_lr.run:125 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x1323eb400>
+2020-05-07 19:39:21,268 INFO train_and_predict_lr.run:181 x_train:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:39:21,269 INFO train_and_predict_lr.run:182 y_train:PondPrivateTensor(shape=(64, 1))
+2020-05-07 19:39:21,300 INFO train_and_predict_lr.run:186 modelFilePath:./qqq/model
+2020-05-07 19:39:21,300 INFO train_and_predict_lr.run:187 modelFileMachine:YOwner
+2020-05-07 19:39:21,300 INFO train_and_predict_lr.run:188 modelFilePlainTextPath:./qqq/model/plaintext_model
+2020-05-07 19:39:21,323 INFO train_and_predict_lr.run:194 save_op:name: "group_deps_4"
+op: "NoOp"
+input: "^output/group_deps"
+input: "^output_1/group_deps"
+device: "/job:localhost/replica:0/task:0/device:CPU:1"
+
+2020-05-07 19:39:21,324 INFO train_and_predict_lr.run:234 path_x_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/embed_op_fea_5w_format_x.csv
+2020-05-07 19:39:21,324 INFO train_and_predict_lr.run:235 path_y_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/embed_op_fea_5w_format_y.csv
+2020-05-07 19:39:23,283 INFO train_and_predict_lr.run:271 x_test:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:39:23,283 INFO train_and_predict_lr.run:272 y_test:PondPrivateTensor(shape=(64, 1))
+2020-05-07 19:39:23,630 INFO train_and_predict_lr.run:283 start_time:
+2020-05-07 19:39:23,631 INFO train_and_predict_lr.run:285 start_time:1588851563.631038
+2020-05-07 19:39:23,631 INFO train_and_predict_lr.run:287 train_and_predict_lr/run:  x_train:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:39:23,631 INFO train_and_predict_lr.run:288 train_and_predict_lr/run:  y_train:PondPrivateTensor(shape=(64, 1))
+2020-05-07 19:39:23,631 INFO train_and_predict_lr.run:289 train_and_predict_lr/run:  train_batch_num:938
+2020-05-07 19:41:23,700 INFO train_and_predict_lr.run:295 train_time=120.06932926177979
+2020-05-07 19:41:23,700 INFO train_and_predict_lr.run:298 Saving model...
+2020-05-07 19:41:24,242 INFO train_and_predict_lr.run:302 Save OK.
+2020-05-07 19:41:24,242 INFO train_and_predict_lr.run:310 predict start_time:1588851684.242928
+2020-05-07 19:41:24,243 INFO common_private.predict:191 x:PondPrivateTensor(shape=(64, 1198))
+2020-05-07 19:41:24,271 INFO common_private.predict:198 idx:Tensor("Reshape_2:0", shape=(64, 2), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:41:24,273 INFO common_private.predict:203 predict_batch:Tensor("ReduceJoin:0", shape=(64,), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:45:55,392 INFO train_and_predict_lr.run:41 init train_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/train_progress
+2020-05-07 19:45:55,392 INFO train_and_predict_lr.run:42 init  predict_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/predict_progress
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:46 train_predict_lr/run:  train_predict_Params:{'learningRate': 0.01, 'maxIter': 2, 'batchSize': 100, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:57 dataSet:{'node_id1': {'storagePath': 'file/qqq/data/gaode_3w_x.csv', 'fileRecord': 30000, 'isContainY': False, 'matchColNum': 2, 'featureNum': 1198}, 'node_id2': {'storagePath': 'file/qqq/data/gaode_3w_y.csv', 'fileRecord': 30000, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:74 node1_containY:True
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:99 path_x:file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:100 path_y:file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:108 path_x:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:109 path_y:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:110 train_batch_num:601
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:111 feature_num:1198
+2020-05-07 19:45:55,393 INFO train_and_predict_lr.run:125 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x12f0a1400>
+2020-05-07 19:45:58,029 INFO train_and_predict_lr.run:181 x_train:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:45:58,029 INFO train_and_predict_lr.run:182 y_train:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:45:58,061 INFO train_and_predict_lr.run:186 modelFilePath:./qqq/model
+2020-05-07 19:45:58,062 INFO train_and_predict_lr.run:187 modelFileMachine:YOwner
+2020-05-07 19:45:58,062 INFO train_and_predict_lr.run:188 modelFilePlainTextPath:./qqq/model/plaintext_model
+2020-05-07 19:45:58,085 INFO train_and_predict_lr.run:194 save_op:name: "group_deps_4"
+op: "NoOp"
+input: "^output/group_deps"
+input: "^output_1/group_deps"
+device: "/job:localhost/replica:0/task:0/device:CPU:1"
+
+2020-05-07 19:45:58,085 INFO train_and_predict_lr.run:234 path_x_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:45:58,085 INFO train_and_predict_lr.run:235 path_y_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:46:00,062 INFO train_and_predict_lr.run:271 x_test:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:46:00,062 INFO train_and_predict_lr.run:272 y_test:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:46:00,412 INFO train_and_predict_lr.run:283 start_time:
+2020-05-07 19:46:00,412 INFO train_and_predict_lr.run:285 start_time:1588851960.4125519
+2020-05-07 19:46:00,412 INFO train_and_predict_lr.run:287 train_and_predict_lr/run:  x_train:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:46:00,412 INFO train_and_predict_lr.run:288 train_and_predict_lr/run:  y_train:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:46:00,412 INFO train_and_predict_lr.run:289 train_and_predict_lr/run:  train_batch_num:601
+2020-05-07 19:47:59,386 INFO train_and_predict_lr.run:295 train_time=118.9735050201416
+2020-05-07 19:47:59,386 INFO train_and_predict_lr.run:298 Saving model...
+2020-05-07 19:47:59,940 INFO train_and_predict_lr.run:302 Save OK.
+2020-05-07 19:47:59,941 INFO train_and_predict_lr.run:310 predict start_time:1588852079.941322
+2020-05-07 19:47:59,941 INFO common_private.predict:191 x:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:47:59,971 INFO common_private.predict:198 idx:Tensor("Reshape_2:0", shape=(100, 2), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:47:59,972 INFO common_private.predict:203 predict_batch:Tensor("ReduceJoin:0", shape=(100,), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:48:59,662 INFO common_private.predict:227 predict OK
+2020-05-07 19:48:59,662 INFO train_and_predict_lr.run:321 predict_time=:59.721060037612915
+2020-05-07 19:49:37,491 INFO train_and_predict_lr.run:41 init train_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/train_progress
+2020-05-07 19:49:37,491 INFO train_and_predict_lr.run:42 init  predict_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/predict_progress
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:46 train_predict_lr/run:  train_predict_Params:{'learningRate': 0.01, 'maxIter': 2, 'batchSize': 100, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:57 dataSet:{'node_id1': {'storagePath': 'file/qqq/data/gaode_3w_x.csv', 'fileRecord': 30000, 'isContainY': False, 'matchColNum': 2, 'featureNum': 1198}, 'node_id2': {'storagePath': 'file/qqq/data/gaode_3w_y.csv', 'fileRecord': 30000, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:74 node1_containY:True
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:99 path_x:file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:100 path_y:file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:108 path_x:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:109 path_y:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:110 train_batch_num:601
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:111 feature_num:1198
+2020-05-07 19:49:37,492 INFO train_and_predict_lr.run:125 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x133fb5400>
+2020-05-07 19:49:40,124 INFO train_and_predict_lr.run:181 x_train:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:49:40,124 INFO train_and_predict_lr.run:182 y_train:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:49:40,156 INFO train_and_predict_lr.run:186 modelFilePath:./qqq/model
+2020-05-07 19:49:40,156 INFO train_and_predict_lr.run:187 modelFileMachine:YOwner
+2020-05-07 19:49:40,156 INFO train_and_predict_lr.run:188 modelFilePlainTextPath:./qqq/model/plaintext_model
+2020-05-07 19:49:40,179 INFO train_and_predict_lr.run:194 save_op:name: "group_deps_4"
+op: "NoOp"
+input: "^output/group_deps"
+input: "^output_1/group_deps"
+device: "/job:localhost/replica:0/task:0/device:CPU:1"
+
+2020-05-07 19:49:40,179 INFO train_and_predict_lr.run:234 path_x_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:49:40,179 INFO train_and_predict_lr.run:235 path_y_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:49:42,141 INFO train_and_predict_lr.run:271 x_test:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:49:42,141 INFO train_and_predict_lr.run:272 y_test:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:49:42,489 INFO train_and_predict_lr.run:283 start_time:
+2020-05-07 19:49:42,489 INFO train_and_predict_lr.run:285 start_time:1588852182.4899719
+2020-05-07 19:49:42,490 INFO train_and_predict_lr.run:287 train_and_predict_lr/run:  x_train:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:49:42,490 INFO train_and_predict_lr.run:288 train_and_predict_lr/run:  y_train:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:49:42,490 INFO train_and_predict_lr.run:289 train_and_predict_lr/run:  train_batch_num:601
+2020-05-07 19:51:41,745 INFO train_and_predict_lr.run:295 train_time=119.25528502464294
+2020-05-07 19:51:41,745 INFO train_and_predict_lr.run:298 Saving model...
+2020-05-07 19:51:42,298 INFO train_and_predict_lr.run:302 Save OK.
+2020-05-07 19:51:42,299 INFO train_and_predict_lr.run:310 predict start_time:1588852302.299155
+2020-05-07 19:51:42,299 INFO common_private.predict:191 x:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:51:42,327 INFO common_private.predict:198 idx:Tensor("Reshape_2:0", shape=(100, 2), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:51:42,329 INFO common_private.predict:203 predict_batch:Tensor("ReduceJoin:0", shape=(100,), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:52:44,567 INFO common_private.predict:227 predict OK
+2020-05-07 19:52:44,567 INFO train_and_predict_lr.run:321 predict_time=:62.268173933029175
+2020-05-07 19:56:58,887 INFO train_and_predict_lr.run:41 init train_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/train_progress
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:42 init  predict_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/predict_progress
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:46 train_predict_lr/run:  train_predict_Params:{'learningRate': 0.01, 'maxIter': 2, 'batchSize': 100, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:57 dataSet:{'node_id1': {'storagePath': 'file/qqq/data/gaode_3w_x.csv', 'fileRecord': 30000, 'isContainY': False, 'matchColNum': 2, 'featureNum': 1198}, 'node_id2': {'storagePath': 'file/qqq/data/gaode_3w_y.csv', 'fileRecord': 30000, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:74 node1_containY:True
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:99 path_x:file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:100 path_y:file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:108 path_x:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:109 path_y:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:110 train_batch_num:601
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:111 feature_num:1198
+2020-05-07 19:56:58,888 INFO train_and_predict_lr.run:125 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x12fba7438>
+2020-05-07 19:57:01,539 INFO train_and_predict_lr.run:181 x_train:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:57:01,539 INFO train_and_predict_lr.run:182 y_train:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:57:01,572 INFO train_and_predict_lr.run:186 modelFilePath:./qqq/model
+2020-05-07 19:57:01,572 INFO train_and_predict_lr.run:187 modelFileMachine:YOwner
+2020-05-07 19:57:01,572 INFO train_and_predict_lr.run:188 modelFilePlainTextPath:./qqq/model/plaintext_model
+2020-05-07 19:57:01,596 INFO train_and_predict_lr.run:194 save_op:name: "group_deps_4"
+op: "NoOp"
+input: "^output/group_deps"
+input: "^output_1/group_deps"
+device: "/job:localhost/replica:0/task:0/device:CPU:1"
+
+2020-05-07 19:57:01,597 INFO train_and_predict_lr.run:234 path_x_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 19:57:01,597 INFO train_and_predict_lr.run:235 path_y_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 19:57:03,582 INFO train_and_predict_lr.run:271 x_test:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:57:03,582 INFO train_and_predict_lr.run:272 y_test:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:57:03,938 INFO train_and_predict_lr.run:283 start_time:
+2020-05-07 19:57:03,938 INFO train_and_predict_lr.run:285 start_time:1588852623.938934
+2020-05-07 19:57:03,939 INFO train_and_predict_lr.run:287 train_and_predict_lr/run:  x_train:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:57:03,939 INFO train_and_predict_lr.run:288 train_and_predict_lr/run:  y_train:PondPrivateTensor(shape=(100, 1))
+2020-05-07 19:57:03,939 INFO train_and_predict_lr.run:289 train_and_predict_lr/run:  train_batch_num:601
+2020-05-07 19:59:07,267 INFO train_and_predict_lr.run:295 train_time=123.32821297645569
+2020-05-07 19:59:07,267 INFO train_and_predict_lr.run:298 Saving model...
+2020-05-07 19:59:07,828 INFO train_and_predict_lr.run:302 Save OK.
+2020-05-07 19:59:07,828 INFO train_and_predict_lr.run:310 predict start_time:1588852747.828609
+2020-05-07 19:59:07,828 INFO common_private.predict:191 x:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 19:59:07,858 INFO common_private.predict:198 idx:Tensor("Reshape_2:0", shape=(100, 2), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 19:59:07,860 INFO common_private.predict:203 predict_batch:Tensor("ReduceJoin:0", shape=(100,), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 20:00:10,121 INFO common_private.predict:227 predict OK
+2020-05-07 20:00:10,121 INFO train_and_predict_lr.run:321 predict_time=:62.292622804641724
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:41 init train_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/train_progress
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:42 init  predict_progress_file:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe/qqq/predict_progress
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:46 train_predict_lr/run:  train_predict_Params:{'learningRate': 0.01, 'maxIter': 2, 'batchSize': 100, 'epsilon': 0.0001, 'regularizationL1': 0, 'regularizationL2': 1.0, 'solver': 'tfe'}
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:57 dataSet:{'node_id1': {'storagePath': 'file/qqq/data/gaode_3w_x.csv', 'fileRecord': 30000, 'isContainY': False, 'matchColNum': 2, 'featureNum': 1198}, 'node_id2': {'storagePath': 'file/qqq/data/gaode_3w_y.csv', 'fileRecord': 30000, 'isContainY': True, 'matchColNum': 2, 'featureNum': 0}}
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:74 node1_containY:True
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:99 path_x:file/qqq/data/gaode_3w_x.csv
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:100 path_y:file/qqq/data/gaode_3w_y.csv
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:108 path_x:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:109 path_y:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:110 train_batch_num:601
+2020-05-07 20:05:23,349 INFO train_and_predict_lr.run:111 feature_num:1198
+2020-05-07 20:05:23,350 INFO train_and_predict_lr.run:125 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x12b0b97b8>
+2020-05-07 20:05:25,962 INFO train_and_predict_lr.run:181 x_train:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 20:05:25,963 INFO train_and_predict_lr.run:182 y_train:PondPrivateTensor(shape=(100, 1))
+2020-05-07 20:05:25,995 INFO train_and_predict_lr.run:186 modelFilePath:./qqq/model
+2020-05-07 20:05:25,995 INFO train_and_predict_lr.run:187 modelFileMachine:YOwner
+2020-05-07 20:05:25,995 INFO train_and_predict_lr.run:188 modelFilePlainTextPath:./qqq/model/plaintext_model
+2020-05-07 20:05:26,018 INFO train_and_predict_lr.run:194 save_op:name: "group_deps_4"
+op: "NoOp"
+input: "^output/group_deps"
+input: "^output_1/group_deps"
+device: "/job:localhost/replica:0/task:0/device:CPU:1"
+
+2020-05-07 20:05:26,018 INFO train_and_predict_lr.run:234 path_x_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_x.csv
+2020-05-07 20:05:26,018 INFO train_and_predict_lr.run:235 path_y_predict:/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/file/qqq/data/gaode_3w_y.csv
+2020-05-07 20:05:28,016 INFO train_and_predict_lr.run:271 x_test:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 20:05:28,016 INFO train_and_predict_lr.run:272 y_test:PondPrivateTensor(shape=(100, 1))
+2020-05-07 20:05:28,368 INFO train_and_predict_lr.run:283 start_time:
+2020-05-07 20:05:28,368 INFO train_and_predict_lr.run:285 start_time:1588853128.368451
+2020-05-07 20:05:28,368 INFO train_and_predict_lr.run:287 train_and_predict_lr/run:  x_train:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 20:05:28,368 INFO train_and_predict_lr.run:288 train_and_predict_lr/run:  y_train:PondPrivateTensor(shape=(100, 1))
+2020-05-07 20:05:28,368 INFO train_and_predict_lr.run:289 train_and_predict_lr/run:  train_batch_num:601
+2020-05-07 20:07:27,278 INFO train_and_predict_lr.run:295 train_time=118.90975904464722
+2020-05-07 20:07:27,278 INFO train_and_predict_lr.run:298 Saving model...
+2020-05-07 20:07:27,842 INFO train_and_predict_lr.run:302 Save OK.
+2020-05-07 20:07:27,842 INFO train_and_predict_lr.run:310 predict start_time:1588853247.842798
+2020-05-07 20:07:27,842 INFO common_private.predict:221 x:PondPrivateTensor(shape=(100, 1198))
+2020-05-07 20:07:27,872 INFO common_private.predict:228 idx:Tensor("Reshape_2:0", shape=(100, 2), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 20:07:27,874 INFO common_private.predict:233 predict_batch:Tensor("ReduceJoin:0", shape=(100,), dtype=string, device=/job:localhost/replica:0/task:0/device:CPU:1)
+2020-05-07 20:08:32,293 INFO common_private.predict:257 predict OK
+2020-05-07 20:08:32,293 INFO train_and_predict_lr.run:321 predict_time=:64.45089387893677

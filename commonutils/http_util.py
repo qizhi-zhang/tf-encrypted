@@ -161,14 +161,15 @@ if __name__=='__main__':
 
 
     # get grpc_port
-    x = httpUtil.post(url="http://172.19.1.218:8080/tfe_keeper/grpc_port", json_data={})
-    print(x)
-
-    # test start_server
-    data={"taskId":  "qqq", "XOwner" : "127.0.0.1:5677", "YOwner" : "127.0.0.1:5678", "RS" : "127.0.0.1:5679", "Player": "XOwner"}
-
-    x=httpUtil.post(url="http://127.0.0.1:8080/tfe_keeper/start_server",json_data=json.dumps(data))
-    print(x)
+    # x = httpUtil.post(url="http://172.19.1.218:8080/tfe_keeper/grpc_port", json_data={})
+    # print(x)
+    #
+    # # test start_server
+    # data={"taskId":  "qqq", "XOwner" : "127.0.0.1:5677", "YOwner" : "127.0.0.1:5678", "RS" : "127.0.0.1:5679", "Player": "YOwner"}
+    #
+    #
+    # x=httpUtil.post(url="http://127.0.0.1:8090/tfe_keeper/start_server",json_data=json.dumps(data))
+    # print(x)
 
     #内网 devU, devV, manager
     #data={"taskId":  "qqq", "xOwner" : "172.19.1.216:5678", "yOwner" : "172.19.1.217:5678", "thirdOwner" : "172.19.1.213:5678", "player": "x_owner"}
@@ -178,28 +179,28 @@ if __name__=='__main__':
 
 
     #公网 devU, devV, researchJ
-    data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "x_owner"}
-
-    x=httpUtil.post(url="http://172.19.1.217:8080/tfe_keeper/start_server",json_data=json.dumps(data))
-    print(x)
-
-
-    data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "y_owner"}
-
-    x=httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/start_server",json_data=json.dumps(data))
-    print(x)
-
-
-    data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "third_owner"}
-
-    x=httpUtil.post(url="http://172.19.1.218:8080/tfe_keeper/start_server",json_data=json.dumps(data))
-    print(x)
+    # data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "x_owner"}
+    #
+    # x=httpUtil.post(url="http://172.19.1.217:8080/tfe_keeper/start_server",json_data=json.dumps(data))
+    # print(x)
+    #
+    #
+    # data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "y_owner"}
+    #
+    # x=httpUtil.post(url="http://172.19.1.216:8080/tfe_keeper/start_server",json_data=json.dumps(data))
+    # print(x)
+    #
+    #
+    # data={"taskId":  "qqq", "xOwner" : "47.102.15.80:8217", "yOwner" : "47.102.15.80:8216", "thirdOwner" : "47.102.15.80:8218", "player": "third_owner"}
+    #
+    # x=httpUtil.post(url="http://172.19.1.218:8080/tfe_keeper/start_server",json_data=json.dumps(data))
+    # print(x)
 
 
 
     # test train
 
-    # with open('./qqq/conf', 'r') as f:
+    # with open('/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/tfe_keeper/qqq/conf', 'r') as f:
     #     conf=f.read()
     #     print(conf)
     # conf=conf.replace("True","true").replace("False","false")
@@ -207,9 +208,9 @@ if __name__=='__main__':
     # conf=json.loads(conf)
     # print(conf)
     #
-    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "./qqq/model", "test_flag": True }
+    # data={"taskId": "qqq", "conf": conf, "modelFileMachine": "YOwner", "modelFilePath": "file/qqq/model", "modelName": "model1" ,"test_flag": False }
     #
-    # x=httpUtil.post(url="http://127.0.0.1:5000/tfe_keeper/train",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://127.0.0.1:8090/tfe_keeper/train",json_data=json.dumps(data))
     # print(x)
 
 
@@ -265,9 +266,9 @@ if __name__=='__main__':
     # print(x)
 
 
-    # test kill server
+    #test kill server
     # data={"taskId":  "qqq"}
-    # x=httpUtil.post(url="http://127.0.0.1:8080/tfe_keeper/kill_server",json_data=json.dumps(data))
+    # x=httpUtil.post(url="http://127.0.0.1:8090/tfe_keeper/kill_server",json_data=json.dumps(data))
     # print(x)
 
 

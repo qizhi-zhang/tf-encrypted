@@ -162,7 +162,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
 
             x_train = prot.define_local_computation(player='XOwner', computation_fn=get_data_x, 
                                                     arguments=(batch_size, path_x, featureNumX, 
-                                                               matchColNumX, epoch_num * 2, 3.0, 1))
+                                                               matchColNumX, epoch_num * 2, 5.0, 1))
             y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_y, 
                                                     arguments=(batch_size, path_y, 
                                                                matchColNumY, epoch_num * 2, 1))
@@ -170,10 +170,10 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         else:
             x_train1, y_train = prot.define_local_computation(player='YOwner', computation_fn=get_data_xy, 
                                                               arguments=(batch_size, path_y, featureNumY, 
-                                                                         matchColNumY, epoch_num * 2, 3.0, 1))
+                                                                         matchColNumY, epoch_num * 2, 5.0, 1))
             x_train0 = prot.define_local_computation(player='XOwner', computation_fn=get_data_x, 
                                                      arguments=(batch_size, path_x, featureNumX, 
-                                                                matchColNumX, epoch_num * 2, 3.0, 1))
+                                                                matchColNumX, epoch_num * 2, 5.0, 1))
             x_train = prot.concat([x_train0, x_train1], axis=1)
 
         # print("x_train:", x_train)
@@ -237,7 +237,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         @tfe.local_computation("XOwner")
         def provide_test_data_x(path):
             x = get_data_x(batch_size, path, featureNum=featureNumX, matchColNum=matchColNumX, epoch=2,
-                           clip_by_value=3.0, skip_row_num=1)
+                           clip_by_value=5.0, skip_row_num=1)
             return x
 
         # @tfe.local_computation("YOwner")
@@ -248,7 +248,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
         # @tfe.local_computation("YOwner")
         def provide_test_data_xy(path):
             idx, x, y = get_data_id_with_xy(batch_size, path, featureNum=featureNumY, matchColNum=matchColNumX, epoch=2,
-                                            clip_by_value=3.0, skip_row_num=1)
+                                            clip_by_value=5.0, skip_row_num=1)
             return idx, x, y
 
         YOwner = config.get_player("YOwner")
@@ -332,7 +332,7 @@ def run(taskId, conf, modelFileMachine, modelFilePath, modelFilePlainTextPath, t
 
 if __name__ == '__main__':
 
-    with open('./qqq/conf', 'r') as f:
+    with open('./qqq/conf_xd', 'r') as f:
         conf = f.read()
         print(conf)
     conf = conf.replace("True", "true").replace("False", "false")
