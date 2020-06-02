@@ -99,7 +99,7 @@ class LogisticRegression:
         """
         batch_size = x.shape.as_list()[0]
         with tf.name_scope("backward"):
-            dw = tfe.matmul(tfe.transpose(x), dy) / batch_size - self.l2_regularzation*self.w
+            dw = tfe.matmul(tfe.transpose(x), dy) / batch_size + self.l2_regularzation*self.w
             db = tfe.reduce_sum(dy, axis=0) / batch_size
             assign_ops = [
                 tfe.assign(self.w, self.w - dw * learning_rate),
