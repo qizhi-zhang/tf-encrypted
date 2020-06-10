@@ -189,7 +189,7 @@ class Testgeq0():
 
             time_SercurNN=0
             time_morse=0
-            for i in range(10):
+            for i in range(100):
                 print("x>=0 SercurNN")
                 time0=datetime.datetime.now()
                 xgeq0=sess.run(xgeq0_sercurNN.unwrapped)
