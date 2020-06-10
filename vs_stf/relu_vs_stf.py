@@ -44,12 +44,12 @@ config = tfe.RemoteConfig.load(config_file)
 #       'YOwner'
 #   ])
 tfe.set_config(config)
-players = ['server0', 'server1', 'server2']
+players = ['workerL', 'workerR', 'RS']
 
 prot = tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
 tfe.set_protocol(prot)
 #session_target = sys.argv[2] if len(sys.argv) > 2 else None
-session_target = "server0"
+#session_target = "server0"
 
 #securnn=tfe.protocol.SecureNN(*tfe.get_config().get_players(players))
 
@@ -62,8 +62,8 @@ class MyTestCase(unittest.TestCase):
         x=tfe.define_constant(value=a)
         y = tfe.relu(x)
         print("y=", y)
-        #sess=tfe.Session(target="grpc://30.50.62.29:8888")
-        with tfe.Session(target="grpc://0.0.0.0:8888") as sess:
+        #sess=tfe.Session(target="grpc://0.0.0.0:8888")
+        with tfe.Session() as sess:
             result=sess.run(y)
             print(result)
             print(result - (a > 0).astype(float)*a)
