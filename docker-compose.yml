@@ -1,79 +1,66 @@
-version: '3'
-
+version: '2.0'
 services:
-  server0:
+  workerL:
+    #image: morse-stf:v0.3
     image: tfencrypted/tf-encrypted:latest
+    #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
     ports:
-      - 4440:4440
-    environment:
-      TFE_NODE_NAME: server0
-      TFE_SERVER0_ADDRESS: 0.0.0.0:4440
-      TFE_SERVER1_ADDRESS: server1:4440
-      TFE_CRYPTO_PRODUCER_ADDRESS: producer:4440
-      TFE_WEIGHTS_PROVIDER_ADDRESS: provider:4440
-      TFE_MASTER_ADDRESS: master:4440
+      - 4447:4447
+#    - 8888:8888
+#    - 8889:8889
+    cap_add:
+      - ALL
+    tty: true
 
-  server1:
+    #stdin_open: true
+    volumes:
+    #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/morse-stf/data
+    command:
+        python /morse-stf/stensorflow/engine/start_server.py workerL
+        #wondershaper eth0 10240 10240
+  workerR:
+    #image: morse-stf:v0.3
     image: tfencrypted/tf-encrypted:latest
+    #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
     ports:
-      - 4441:4440
-    environment:
-      TFE_NODE_NAME: server1
-      TFE_SERVER0_ADDRESS: server0:4440
-      TFE_SERVER1_ADDRESS: 0.0.0.0:4440
-      TFE_CRYPTO_PRODUCER_ADDRESS: producer:4440
-      TFE_WEIGHTS_PROVIDER_ADDRESS: provider:4440
-      TFE_MASTER_ADDRESS: master:4440
+    #- 8887:8887
+      - 4448:4448
+#    - 8889:8889
+    cap_add:
+      - ALL
+    tty: true
+    #stdin_open: true
+    volumes:
+    #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/morse-stf/data
+    command:
+#      - /bin/bash
+#      - -c
+#      - |
+        python /morse-stf/stensorflow/engine/start_server.py workerR
+        #wondershaper eth0 10240 10240
+  RS:
+    #image: morse-stf:v0.3
+    image: tfencrypted/tf-encrypted:latest
+    #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
+    ports:
+    #  - 8887:8887
+    #    - 8888:8888
+      - 4449:4449
+    cap_add:
+      - ALL
+    tty: true
+    #stdin_open: true
+    #volumes:
+    #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    #- /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/morse-stf/data
+    command: python /morse-stf/stensorflow/engine/start_server.py RS
 
-  producer:
-    image: tfencrypted/tf-encrypted:latest
-    ports:
-      - 4442:4440
-    environment:
-      TFE_NODE_NAME: crypto-producer
-      TFE_SERVER0_ADDRESS: server0:4440
-      TFE_SERVER1_ADDRESS: server1:4440
-      TFE_CRYPTO_PRODUCER_ADDRESS: 0.0.0.0:4440
-      TFE_WEIGHTS_PROVIDER_ADDRESS: provider:4440
-      TFE_MASTER_ADDRESS: master:4440
+#networks:
+#  counter-net:
+#
+#volumes:
+#  counter-vol:
 
-  provider:
-    image: tfencrypted/tf-encrypted:latest
-    ports:
-      - 4443:4440
-    environment:
-      TFE_NODE_NAME: weights-provider
-      TFE_SERVER0_ADDRESS: server0:4440
-      TFE_SERVER1_ADDRESS: server1:4440
-      TFE_CRYPTO_PRODUCER_ADDRESS: producer:4440
-      TFE_WEIGHTS_PROVIDER_ADDRESS: 0.0.0.0:4440
-      TFE_MASTER_ADDRESS: master:4440
-
-  master:
-    image: tfencrypted/tf-encrypted:latest
-    ports:
-      - 4444:4440
-      - 5000:5000
-      - 8080:8080
-    environment:
-      TFE_NODE_NAME: master
-      TFE_SERVER0_ADDRESS: server0:4440
-      TFE_SERVER1_ADDRESS: server1:4440
-      TFE_CRYPTO_PRODUCER_ADDRESS: producer:4440
-      TFE_WEIGHTS_PROVIDER_ADDRESS: provider:4440
-      TFE_MASTER_ADDRESS: 0.0.0.0:4440
-      TFE_API_PORT: 8080
-      TFE_MONITOR_STATS: null
-    depends_on:
-      - server0
-      - server1
-      - producer
-      - provider
-    entrypoint:
-      - "python"
-      - "-u"
-      - "bin/serve"
-      - "--model_name"
-      - "2lfc"
-    # volumes:
-    #   - /tmp/tensorboard:/tmp/tensorboard
+#docker exec -it  xxx  wondershaper eth0 10240 10240

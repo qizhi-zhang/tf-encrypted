@@ -27,7 +27,7 @@ from tf_encrypted.tensor import fixed100, fixed100_ni
 #from morse_compress import Morse,cycle_rshift, cycle_lshift, bits_to_int
 from tf_encrypted.tensor.native import AbstractTensor
 import sys
-
+import tf_encrypted.keras.backend as KE
 
 
 #if len(sys.argv) >= 2:
@@ -63,10 +63,11 @@ class MyTestCase(unittest.TestCase):
         y = tfe.relu(x)
         print("y=", y)
         #sess=tfe.Session(target="grpc://0.0.0.0:8888")
-        with tfe.Session() as sess:
-            result=sess.run(y)
-            print(result)
-            print(result - (a > 0).astype(float)*a)
+        #with tfe.Session() as sess:
+        sess=KE.get_session()
+        result=sess.run(y)
+        print(result)
+        print(result - (a > 0).astype(float)*a)
   # def test_relu(self):
   #
   #   with tf.Graph().as_default():
