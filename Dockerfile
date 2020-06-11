@@ -1,16 +1,21 @@
-FROM python:3.5-jessie
+#FROM python:3.4-alpine                 # << 基础镜像
+#FROM continuumio/miniconda3
+FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:2.22.0.20200427_release
+ADD .  /TFE
+# << 将当前目录复制到镜像中的/code/
 
-ARG TF_WHL_URL="https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.9.0-cp35-cp35m-linux_x86_64.whl"
+WORKDIR /TFE
+# << 设置工作目录
 
-RUN mkdir -p /usr/src/tf-encrypted \
-    && pip install --upgrade pip \
-    && pip install --upgrade $TF_WHL_URL
+#RUN pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/
+#RUN pip install sympy -i https://mirrors.aliyun.com/pypi/simple/
+#RUN apt-get install wondershaper -y
+#RUN wondershaper eth0 4096 4096
+#RUN export PYTHONPATH=$PYTHONPATH:/morse-stf
+ENV PYTHONPATH /TFE
+#安装依赖
 
-WORKDIR /usr/src/tf-encrypted
-
-COPY . .
-RUN make bootstrap
-
-EXPOSE 4440
-
-ENTRYPOINT ["python", "-u", "bin/serve"]
+#EXPOSE 8887 8888 8889
+# CMD ["python", "app.py"]
+#ENTRYPOINT ["/bin/bash"]
+#<< 设置默认启动命令

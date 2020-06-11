@@ -2,12 +2,14 @@ version: '2.0'
 services:
   workerL:
     #image: morse-stf:v0.3
-    image: tfencrypted/tf-encrypted:latest
+    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:vs_stf
     #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
     ports:
       - 4447:4447
 #    - 8888:8888
 #    - 8889:8889
+    environment:
+      TFE_NODE_NAME: workerL
     cap_add:
       - ALL
     tty: true
@@ -17,16 +19,18 @@ services:
     #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/morse-stf/data
     command:
-        python /morse-stf/stensorflow/engine/start_server.py workerL
+        python /TFE/vs_stf/start_server.py workerL
         #wondershaper eth0 10240 10240
   workerR:
     #image: morse-stf:v0.3
-    image: tfencrypted/tf-encrypted:latest
+    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:vs_stf
     #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
     ports:
     #- 8887:8887
       - 4448:4448
 #    - 8889:8889
+    environment:
+      TFE_NODE_NAME: workerR
     cap_add:
       - ALL
     tty: true
@@ -38,16 +42,18 @@ services:
 #      - /bin/bash
 #      - -c
 #      - |
-        python /morse-stf/stensorflow/engine/start_server.py workerR
+        python /TFE/vs_stf/start_server.py workerR
         #wondershaper eth0 10240 10240
   RS:
     #image: morse-stf:v0.3
-    image: tfencrypted/tf-encrypted:latest
+    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:vs_stf
     #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
     ports:
     #  - 8887:8887
     #    - 8888:8888
       - 4449:4449
+    environment:
+      TFE_NODE_NAME: RS
     cap_add:
       - ALL
     tty: true
@@ -55,7 +61,7 @@ services:
     #volumes:
     #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
     #- /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/morse-stf/data
-    command: python /morse-stf/stensorflow/engine/start_server.py RS
+    command: python /TFE/vs_stf/start_server.py RS
 
 #networks:
 #  counter-net:
