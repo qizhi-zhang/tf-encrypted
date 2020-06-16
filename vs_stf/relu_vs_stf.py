@@ -57,17 +57,26 @@ tfe.set_protocol(prot)
 class MyTestCase(unittest.TestCase):
 
     def test_relu(self):
-        a = np.random.uniform(low=-1.0, high=1.0, size=[10, 5])
-        print("a=", a)
-        x=tfe.define_constant(value=a)
-        y = tfe.relu(x)
+        #a = np.random.uniform(low=-1.0, high=1.0, size=[128, 64])
+        a = tf.random.uniform(shape=[128,64], minval=0.0, maxval=1.0)
+        #print("a=", a)
+        #x=tfe.define_constant(value=a)
+        x = prot.define_private_input(player="workerL", inputter_fn=lambda: a)
+        y = prot.relu(x)
         print("y=", y)
         #sess=tfe.Session(target="grpc://0.0.0.0:8888")
         #with tfe.Session() as sess:
         sess=KE.get_session()
-        result=sess.run(y)
-        print(result)
-        print(result - (a > 0).astype(float)*a)
+
+        start_time=datetime.datetime.now()
+        for i in range(100):
+            result=sess.run(y.reveal().to_native())
+
+        end_time=datetime.datetime.now()
+        print("time=", end_time-start_time)
+
+        #print(result)
+        #print(result - (a > 0).astype(float)*a)
   # def test_relu(self):
   #
   #   with tf.Graph().as_default():

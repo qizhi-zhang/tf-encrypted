@@ -1,6 +1,6 @@
 #FROM python:3.4-alpine                 # << 基础镜像
 #FROM continuumio/miniconda3
-FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:2.22.0.20200427_release
+FROM registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:vs_stf
 ADD .  /TFE
 # << 将当前目录复制到镜像中的/code/
 

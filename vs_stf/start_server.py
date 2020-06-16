@@ -19,7 +19,7 @@ import sys
 
 def _start_server(Player):
 
-    config_file = "/Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/vs_stf/config.json"
+    config_file = "/TFE/vs_stf/config.json"
 
     config = tfe.RemoteConfig.load(config_file)
     server = config.server(Player, start=True)
