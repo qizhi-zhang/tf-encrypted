@@ -58,10 +58,13 @@ class MyTestCase(unittest.TestCase):
 
     def test_relu(self):
         #a = np.random.uniform(low=-1.0, high=1.0, size=[128, 64])
-        a = tf.random.uniform(shape=[128,64], minval=0.0, maxval=1.0)
+        a = tf.random.uniform(shape=[64,64], minval=0, maxval=65536, dtype='int64')
+        #a = np.random.random_integers(low=0, high=65536, size=[64, 64])
+        #a= tf.constant(a)
         #print("a=", a)
         #x=tfe.define_constant(value=a)
         x = prot.define_private_input(player="workerL", inputter_fn=lambda: a)
+        print("x=",x)
         y = prot.relu(x)
         print("y=", y)
         #sess=tfe.Session(target="grpc://0.0.0.0:8888")
@@ -69,7 +72,7 @@ class MyTestCase(unittest.TestCase):
         sess=KE.get_session()
 
         start_time=datetime.datetime.now()
-        for i in range(100):
+        for i in range(10):
             result=sess.run(y.reveal().to_native())
 
         end_time=datetime.datetime.now()
@@ -77,6 +80,54 @@ class MyTestCase(unittest.TestCase):
 
         #print(result)
         #print(result - (a > 0).astype(float)*a)
+
+
+
+    def test_nonegative(self):
+        #a = np.random.uniform(low=-1.0, high=1.0, size=[128, 64])
+        a = tf.random.uniform(shape=[64,64], minval=0, maxval=65536, dtype='int64')
+        #a = np.random.random_integers(low=0, high=65536, size=[64, 64])
+        #a= tf.constant(a)
+        #print("a=", a)
+        #x=tfe.define_constant(value=a)
+        x = prot.define_private_input(player="workerL", inputter_fn=lambda: a)
+        print("x=",x)
+        y = prot.non_negative(x)
+        print("y=", y)
+        #sess=tfe.Session(target="grpc://0.0.0.0:8888")
+        #with tfe.Session() as sess:
+        sess=KE.get_session()
+
+        start_time=datetime.datetime.now()
+        for i in range(10):
+            result=sess.run(y.reveal().to_native())
+
+        end_time=datetime.datetime.now()
+        print("time=", end_time-start_time)
+
+        #print(result)
+        #print(result - (a > 0).astype(float)*a)
+
+
+    def test_select(self):
+
+        x = tf.random.uniform(shape=[64,1024], minval=0, maxval=1, dtype='float32')
+        x = prot.define_private_input(player="workerL", inputter_fn=lambda: x)
+
+        y = tf.random.uniform(shape=[64, 1024], minval=0, maxval=1, dtype='float32')
+        y = prot.define_private_input(player="workerR", inputter_fn=lambda: y)
+
+        a = tf.random.uniform(shape=[64, 1024], minval=0, maxval=2, dtype='int32')
+        a = prot.define_private_input(player="workerR", inputter_fn=lambda: a)
+
+        z=prot.select(choice_bit=a, x=x, y=y)
+        sess = KE.get_session()
+        start_time = datetime.datetime.now()
+        for i in range(10):
+            result = sess.run(z.reveal().to_native())
+        end_time = datetime.datetime.now()
+        print("time=", end_time - start_time)
+
   # def test_relu(self):
   #
   #   with tf.Graph().as_default():
