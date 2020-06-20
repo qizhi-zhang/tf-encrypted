@@ -20,6 +20,7 @@ services:
     - ./logs/tfe:/app/logs
     - ./file:/app/file
     - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/app/data
+    - /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/vs_stf:/TFE/vs_stf
     #command:
     #    python /TFE/vs_stf/start_server.py workerL
         #wondershaper eth0 10240 10240
@@ -44,6 +45,7 @@ services:
     - ./logs/tfe:/app/logs
     - ./file:/app/file
     - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/app/data
+    - /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/vs_stf:/TFE/vs_stf
     entrypoint:
       python /TFE/vs_stf/start_server.py workerR
     #command:
@@ -71,6 +73,7 @@ services:
     - ./logs/tfe:/app/logs
     - ./file:/app/file
     - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/app/data
+    - /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/vs_stf:/TFE/vs_stf
     entrypoint:
       python /TFE/vs_stf/start_server.py RS
     #command: python /TFE/vs_stf/start_server.py RS
