@@ -1,0 +1,84 @@
+version: '2.0'
+services:
+  workerL:
+    #image: morse-stf:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:vs_stf0.1
+    #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
+    ports:
+      - 4447:4447
+#    - 8888:8888
+#    - 8889:8889
+    cap_add:
+      - ALL
+    tty: true
+
+    #stdin_open: true
+    volumes:
+    #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    - ./conf:/app/conf/parser
+    #- ./logs/model:/app/logs
+    - ./logs/tfe:/app/logs
+    - ./file:/app/file
+    - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/app/data
+    #command:
+    #    python /TFE/vs_stf/start_server.py workerL
+        #wondershaper eth0 10240 10240
+    entrypoint:
+      python /TFE/vs_stf/start_server.py workerL
+  workerR:
+    #image: morse-stf:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:vs_stf0.1
+    #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
+    ports:
+    #- 8887:8887
+      - 4448:4448
+#    - 8889:8889
+    cap_add:
+      - ALL
+    tty: true
+    #stdin_open: true
+    volumes:
+    #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    - ./conf:/app/conf/parser
+    #- ./logs/model:/app/logs
+    - ./logs/tfe:/app/logs
+    - ./file:/app/file
+    - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/app/data
+    entrypoint:
+      python /TFE/vs_stf/start_server.py workerR
+    #command:
+#      - /bin/bash
+#      - -c
+#      - |
+    #    python /TFE/vs_stf/start_server.py workerR
+        #wondershaper eth0 10240 10240
+  RS:
+    #image: morse-stf:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:vs_stf0.1
+    #image: registry.cn-hangzhou.aliyuncs.com/dtunion/morseredis:v24
+    ports:
+    #  - 8887:8887
+    #    - 8888:8888
+      - 4449:4449
+    cap_add:
+      - ALL
+    tty: true
+    #stdin_open: true
+    volumes:
+    #- /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime
+    - ./conf:/app/conf/parser
+    #- ./logs/model:/app/logs
+    - ./logs/tfe:/app/logs
+    - ./file:/app/file
+    - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/app/data
+    entrypoint:
+      python /TFE/vs_stf/start_server.py RS
+    #command: python /TFE/vs_stf/start_server.py RS
+
+#networks:
+#  counter-net:
+#
+#volumes:
+#  counter-vol:
+
+#docker exec -it  xxx  wondershaper eth0 10240 10240
