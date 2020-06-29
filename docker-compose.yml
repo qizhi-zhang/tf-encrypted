@@ -25,7 +25,7 @@ services:
     #    python /TFE/vs_stf/start_server.py workerL
         #wondershaper eth0 10240 10240
     entrypoint:
-      python /TFE/vs_stf/start_server.py workerL
+      python /TFE/vs_stf/start_server.py XOwner
   workerR:
     #image: morse-stf:v0.3
     image: registry.cn-hangzhou.aliyuncs.com/dtunion/morsetfe:vs_stf0.1
@@ -47,7 +47,7 @@ services:
     - /Users/qizhi.zqz/projects/TFE/tf-encrypted/examples/test_on_morse_datas/data:/app/data
     - /Users/qizhi.zqz/projects/TFE_zqz/tf-encrypted/vs_stf:/TFE/vs_stf
     entrypoint:
-      python /TFE/vs_stf/start_server.py workerR
+      python /TFE/vs_stf/start_server.py YOwner
     #command:
 #      - /bin/bash
 #      - -c

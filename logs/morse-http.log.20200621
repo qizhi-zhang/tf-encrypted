@@ -1,0 +1,95 @@
+2020-06-21 00:54:25,384 INFO train_lr_vs_stf.run:64 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x10fae8978>
+2020-06-21 00:54:27,456 INFO train_lr_vs_stf.run:111 start_time:
+2020-06-21 00:54:27,456 INFO train_lr_vs_stf.run:113 start_time:1592672067.4562821
+2020-06-21 00:54:27,456 INFO train_lr_vs_stf.run:115 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 00:54:27,456 INFO train_lr_vs_stf.run:116 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 00:54:27,456 INFO train_lr_vs_stf.run:117 train_lr/run: train_batch_num:177
+2020-06-21 10:15:54,690 INFO train_lr_vs_stf.run:64 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x104def978>
+2020-06-21 10:15:56,440 INFO train_lr_vs_stf.run:111 start_time:
+2020-06-21 10:15:56,440 INFO train_lr_vs_stf.run:113 start_time:1592705756.440593
+2020-06-21 10:15:56,440 INFO train_lr_vs_stf.run:115 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:15:56,440 INFO train_lr_vs_stf.run:116 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:15:56,440 INFO train_lr_vs_stf.run:117 train_lr/run: train_batch_num:177
+2020-06-21 10:18:16,510 INFO train_lr_vs_stf.run:64 train_lr/run:  config:<tf_encrypted.config.LocalConfig object at 0x10f455978>
+2020-06-21 10:18:17,504 INFO train_lr_vs_stf.run:111 start_time:
+2020-06-21 10:18:17,504 INFO train_lr_vs_stf.run:113 start_time:1592705897.5042071
+2020-06-21 10:18:17,504 INFO train_lr_vs_stf.run:115 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:18:17,504 INFO train_lr_vs_stf.run:116 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:18:17,504 INFO train_lr_vs_stf.run:117 train_lr/run: train_batch_num:177
+2020-06-21 10:20:47,765 INFO train_lr_vs_stf.run:64 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x13445ca58>
+2020-06-21 10:23:18,678 INFO train_lr_vs_stf.run:64 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x12a520a58>
+2020-06-21 10:25:43,157 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x128afca20>
+2020-06-21 10:27:21,830 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x1339dea90>
+2020-06-21 10:32:03,457 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x13332ca90>
+2020-06-21 10:33:17,556 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x129a00ac8>
+2020-06-21 10:33:19,111 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 10:33:19,111 INFO train_lr_vs_stf.run:116 start_time:1592706799.111261
+2020-06-21 10:33:19,111 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:33:19,111 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:33:19,111 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 10:36:00,432 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x12a2b4a90>
+2020-06-21 10:36:01,686 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 10:36:01,686 INFO train_lr_vs_stf.run:116 start_time:1592706961.686513
+2020-06-21 10:36:01,686 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:36:01,687 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:36:01,687 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 10:37:20,408 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x12aae0a90>
+2020-06-21 10:37:21,595 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 10:37:21,595 INFO train_lr_vs_stf.run:116 start_time:1592707041.5959291
+2020-06-21 10:37:21,596 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:37:21,596 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:37:21,596 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 10:40:20,642 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x128c7da90>
+2020-06-21 10:40:22,518 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 10:40:22,518 INFO train_lr_vs_stf.run:116 start_time:1592707222.5184078
+2020-06-21 10:40:22,518 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:40:22,518 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:40:22,519 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 10:44:56,258 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x12dae9c50>
+2020-06-21 10:44:58,037 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 10:44:58,037 INFO train_lr_vs_stf.run:116 start_time:1592707498.037695
+2020-06-21 10:44:58,038 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:44:58,038 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:44:58,038 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 10:52:45,373 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x12d200a90>
+2020-06-21 10:52:46,629 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 10:52:46,629 INFO train_lr_vs_stf.run:116 start_time:1592707966.629514
+2020-06-21 10:52:46,629 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:52:46,629 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:52:46,629 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 10:56:02,278 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x12f5c0a90>
+2020-06-21 10:56:03,487 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 10:56:03,487 INFO train_lr_vs_stf.run:116 start_time:1592708163.487205
+2020-06-21 10:56:03,487 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 10:56:03,487 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 10:56:03,487 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 11:00:29,168 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x12fe8fa90>
+2020-06-21 11:00:31,235 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 11:00:31,235 INFO train_lr_vs_stf.run:116 start_time:1592708431.235713
+2020-06-21 11:00:31,236 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 11:00:31,236 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 11:00:31,236 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 16:29:08,103 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x130ad7a20>
+2020-06-21 16:29:10,844 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 16:29:10,844 INFO train_lr_vs_stf.run:116 start_time:1592728150.8445172
+2020-06-21 16:29:10,844 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 16:29:10,845 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 16:29:10,845 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 16:39:42,642 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x136111a90>
+2020-06-21 16:39:44,561 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 16:39:44,561 INFO train_lr_vs_stf.run:116 start_time:1592728784.561836
+2020-06-21 16:39:44,562 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 16:39:44,562 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 16:39:44,562 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 17:03:18,259 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x12b3f6a90>
+2020-06-21 17:03:21,521 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 17:03:21,522 INFO train_lr_vs_stf.run:116 start_time:1592730201.5220082
+2020-06-21 17:03:21,522 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 17:03:21,522 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 17:03:21,522 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
+2020-06-21 20:13:50,700 INFO train_lr_vs_stf.run:65 train_lr/run:  config:<tf_encrypted.config.RemoteConfig object at 0x133aada90>
+2020-06-21 20:13:53,735 INFO train_lr_vs_stf.run:114 start_time:
+2020-06-21 20:13:53,736 INFO train_lr_vs_stf.run:116 start_time:1592741633.7362812
+2020-06-21 20:13:53,736 INFO train_lr_vs_stf.run:118 train_lr/run: x_train:PondPrivateTensor(shape=(256, 51))
+2020-06-21 20:13:53,736 INFO train_lr_vs_stf.run:119 train_lr/run: y_train:PondPrivateTensor(shape=(256, 1))
+2020-06-21 20:13:53,737 INFO train_lr_vs_stf.run:120 train_lr/run: train_batch_num:177
