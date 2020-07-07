@@ -83,11 +83,12 @@ class LogisticRegression:
             out = tfe.matmul(x, self.w_masked) + self.b_masked
             if with_sigmoid:
                 #y = tfe.sigmoid(out)
-                #y = fake_sigmoid(out,M=256)
-                y = true_sigmoid(out)
+                y = fake_sigmoid(out,M=16)
+                #y = true_sigmoid(out)
             else:
                 y = out
             return y
+
 
     def backward(self, x, dy, learning_rate=0.01):
         """

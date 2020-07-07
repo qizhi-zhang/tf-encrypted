@@ -119,6 +119,7 @@ def compute_KS_ym5w():
 
     #y_hat = pd.read_csv(predict_path + "tfe/qqq/predict", index_col=["id", "ent_date"])
     y_hat = pd.read_csv(predict_path+"tfe/qqq/predict", header=None, names=["id","loan_date","predict"], index_col=["id","loan_date"])
+
     df = y.join(y_hat)
     # df=pd.concat([x, y], axis=1)
     print(df)
@@ -200,4 +201,4 @@ def compute_KS_xd():
 
 
 if __name__=='__main__':
-    compute_KS_xd()
+    compute_KS_ym5w()
